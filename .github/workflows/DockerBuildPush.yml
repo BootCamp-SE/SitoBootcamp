@@ -29,4 +29,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: metiu19/sito-bootcamp:${{ env.tag }}
+          tags:
+            - metiu19/sito-bootcamp:${{ env.tag }}
+            - metiu19/sito-bootcamp:latest
