@@ -1,0 +1,21 @@
+name: Docker Build and Push to DockerHub
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - run: |
+          tag = $(date '+%y/%m/%d')
+          docker build -t metiu19/sito-bootcamp:$tag
+          docker login -u ${{ secrets.Docker_Username }} -p ${{ secrets.Docker_Token }}
+          docker push metiu19/sito-bootcamp:$tag
