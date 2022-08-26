@@ -7,6 +7,8 @@ const AccademyRoutes = require('./routes/accademyRoutes');
 const path = require("path"); // Require local path
 
 const LogRequests = (req, res, next) => {
+app.use('/', express.static(path.join(__dirname + '/public')));
+app.use('/', express.static(path.join(__dirname + '/public')));
     console.log(req.method, req.url);
     next();
 };
@@ -27,12 +29,7 @@ app.use('/arruolati', NewEntriesRoutes);
 app.use('/news', NewsRoutes);
 app.use('/accademia', AccademyRoutes);
 
-// Generate absolute path to static file
-app.use('/', express.static(path.join(__dirname + '/public')));
-app.use('/arruolati', express.static(path.join(__dirname + '/public')));
-app.use('/news', express.static(path.join(__dirname + '/public')));
-app.use('/accademia', express.static(path.join(__dirname + '/public')));
-
+// Handling requests to not existing pages (aka error 404)
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
 });
