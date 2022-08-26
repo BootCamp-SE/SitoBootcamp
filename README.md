@@ -10,15 +10,6 @@ Il sito del bootcamp è sviluppato in Node js (18.7.0) e Espress.js (4.18.1), è
 
 ## How to run
 
-With Docker:
-
-```bash
-$ docker pull metiu19/sito-bootcamp:latest
-$ docker run -dp 3000:3000 --name App metiu19/sito-bootcamp:latest
-```
-
-Without Docker (NodeJS):
-
 ```bash
 $ npm i
 $ node app.js
