@@ -4,13 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
     "url": "github.com/MaXeN9818/Sito-Bootcamp.git"
   },
-  "author": "CI",
+  "author": "MaXeN9818",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.1",
