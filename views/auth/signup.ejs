@@ -6,34 +6,42 @@
 <body>
   <%- include('../partials/navbar.ejs') %>
   <h1><%= title %></h1>
-  <form action="/userapi">
+  <form action="/api/auth/signup">
     <div class="container fields">
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" required>
+      <label for="username"><b>Utente</b></label>
+      <input type="text" placeholder="Inserire Nome Utente" name="username" required>
       
       <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" required>
+      <input type="password" placeholder="Inserire Password" name="password" required>
       
-      <label>
-        <label><b>Policy:</b></label>
-        <input type="checkbox" checked="checked" name="administrator"> Administrator
+      <dim>
+        <label><b>Policy:<br></b></label>
+        <input type="checkbox" name="administrator"> Amministratore
         <a> | </a>
-        <input type="checkbox" checked="checked" name="user"> User
+        <input type="checkbox" name="createuser"> Creazione Utenti
         <a> | </a>
-        <input type="checkbox" checked="checked" name="readreportsecret"> Read Report Secret
+        <input type="checkbox" name="manageruser"> Gestione Utenti
         <a> | </a>
-        <input type="checkbox" checked="checked" name="readreport"> Read Report
+        <input type="checkbox" checked="checked" name="user"> Utente
         <a> | </a>
-        <input type="checkbox" checked="checked" name="writereport"> Write Report
+        <input type="checkbox" name="readreportsecret"> Lettura Rapporti Secretati
         <a> | </a>
-        <input type="checkbox" checked="checked" name="createuser"> Create User
+        <input type="checkbox" name="readreport"> Lettura Rapporti
         <a> | </a>
-        <input type="checkbox" checked="checked" name="menageruser"> Menager User
+        <input type="checkbox" name="writereport"> Scrittura Rapporti
         <a> | </a>
-      </label>
-      <button type="submit">Register</button>
+        <input type="checkbox" name="writearticles"> Scrittura Articoli 
+        <a> | </a>
+        <input type="checkbox" name="writesafenet"> Scrittura SafeNet
+        <a> | <br></a>
+        <input type="checkbox" name="teacher"> Insegnante Accademia 
+        <a> | </a> 
+        <input type="checkbox" name="student"> Studente Accademia 
+        <a> | </a>
+      </dim>
+      <button type="submit">Registra</button>
 
-      <div class="feedback"></div> 
+      <div id="signup-feedback"></div> 
     </div>
 
   </form>

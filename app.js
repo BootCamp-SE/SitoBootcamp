@@ -4,12 +4,14 @@ require('dotenv').config({ path: './Config/.env' }); // Import and config of env
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 // Global Constants
 const Port = process.env.PORT | 3000;
 
 // Express Init
 const app = express();
+const checkAuth = require('./Middleware/checkAuth');
 const NewEntriesRoutes = require('./routes/newEntriesRoutes');
 const NewsRoutes = require('./routes/newsRoutes');
 const AccademyRoutes = require('./routes/accademyRoutes');
@@ -18,14 +20,17 @@ const ApiRoutes = require('./routes/apiRoutes');
 
 // Middleware
 const LogRequests = (req, res, next) => {
-	console.log(req.method, req.url, req.body);
+	console.log(req.method, req.url, '\n', req.cookies, req.body);
 	next();
 };
 
 app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(LogRequests);
-app.use('/', express.static(path.join(__dirname + '/public')));
+app.use(checkAuth.checkUser);
 
 // Connecting to db and starting web server
 var server;

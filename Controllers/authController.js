@@ -1,9 +1,9 @@
 const User = require('../Models/user');
 const JWT = require('jsonwebtoken');
 
-const maxAge = 3 * 24 * 60 * 60;
+const maxAge = 24 * 60 * 60;
 const createToken = (id) => {
-	return JWT.sign({ id }, 'net ninja secret', {
+	return JWT.sign({ id }, process.env.JWT_SECRET, {
 		expiresIn: maxAge,
 	});
 };
@@ -14,26 +14,22 @@ const login = async (req, res) => {
 		const user = await User.login(username, password);
 		const token = createToken(user._id);
 		res.cookie('JWT', token, { httpOnly: true, maxAge: maxAge * 1000 });
-		res.status(200).json({ user: user._id });
-	} catch (error) {
-		const errors = { user: '', password: '' };
-		if (error.message.includes('Incorrect username!')) {
-			errors.user = 'Incorrect username!';
-		}
-		if (error.message.includes('Incorrect password!')) {
-			errors.password = 'Invalid password!';
-		}
-		res.status(500).json({ errors });
+		res.status(200).json({ res: { user: user._id, message: 'Accesso confermato!' } });
+	} catch (err) {
+		res.status(500).json({ err: 'Credenziali non valide!' });
 	}
 };
 
 const signup = async (req, res) => {
 	const { username, password } = req.body;
 	try {
-		await User.create({username, password});
-		res.status(200).json({res: 'User created!'});
-	} catch (error) {
-		res.status(500).json({err: error.message});
+		await User.create({ username, password });
+		res.status(200).json({ res: 'Utente creato' });
+	} catch (errs) {
+		var err = '';
+		err += errs.errors.username ? errs.errors.username.message : '';
+		err += errs.errors.password ? '\n' + errs.errors.password.message : '';
+		res.status(500).json({ err });
 	}
 };
 

@@ -1,39 +1,62 @@
 <link rel="stylesheet" href="/css/navbar.css">
 <ul>
-    <li><a href="/">Home</a></li>
+  <li><a href="/">Home</a></li>
+   <!--Start-->
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">Informazioni sul progetto</a>
+    <div class="dropdown-content">
+      <a href="/arruolati">Arruolati</a>
+      <a href="/arruolati/faq">FAQ</a>
+      <a href="/arruolati/regolamento">Regolamento</a>
+      <a href="/arruolati/progetto">Il Progetto</a>
+    </div>
+  </li>
+  <!--News-->
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">Articoli</a>
+    <div class="dropdown-content">
+      <a href="/news">Notizie</a>
+      <a href="/news/eventi">Storico Eventi</a>
+      <% if (true) { %>
+        <a href="/news/rapporti">Rapporti</a>
+      <% } %>
+      <a href="/news/safenet">SafeNet Radio</a>
+      <a href="/news/navi">Forum Navi</a>
+    </div>
+  </li>
+  <!--Accademia-->
+  <% if (true) { %>
     <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Informazioni sul progetto</a>
-        <div class="dropdown-content">
-            <a href="/arruolati">Arruolati</a>
-            <a href="/arruolati/faq">FAQ</a>
-            <a href="/arruolati/regolamento">Regolamento</a>
-            <a href="/arruolati/progetto">Il Progetto</a>
-        </div>
+      <a href="javascript:void(0)" class="dropbtn">Accademia</a>
+      <div class="dropdown-content">
+        <a href="/accademia/ingegneria">Ingegneria</a>
+        <a href="/accademia/militare">Militare</a>
+        <a href="/accademia/tattica">Tattica</a>
+        <a href="/accademia/scripts">Programmazione</a>
+        <a href="/accademia/varie">Varie</a>
+      </div>
     </li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Articoli</a>
-        <div class="dropdown-content">
-            <a href="/news">Notizie</a>
-            <a href="/news/eventi">Storico Eventi</a>
-            <a href="/news/rapporti">Rapporti</a>
-            <a href="/news/safenet">SafeNet Radio</a>
-            <a href="/news/navi">Forum Navi</a>
-        </div>
-    </li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Accademia</a>
-        <div class="dropdown-content">
-            <a href="/accademia/ingegneria">Ingegneria</a>
-            <a href="/accademia/militare">Militare</a>
-            <a href="/accademia/tattica">Tattica</a>
-            <a href="/accademia/scripts">Programmazione</a>
-            <a href="/accademia/varie">Varie</a>
-        </div>
-    </li>
-    <li style="float:right">
-        <a href="/auth/login" class="button">Login</a>
-    </li>
-    <li style="float:right">
+  <% } %>
+  <!--Signup-->
+  <% if (true) { %>
+      <li style="float:right">
         <a href="/auth/signup" class="button">Temp Signup</a>
+      </li>
+  <% } %>
+  <!--Login or User-->
+  <% if (auth) { %>
+    <li style="float:right" class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn"><%= user %> </a>
+      <div class="dropdown-content">
+        <a href="/auth/impostazioni">Impostazioni</a>
+        <a href="javascript:void(0)">Esci</a>
+      </div>
     </li>
+  <% } else { %>
+      <li style="float:right">
+        <a href="/auth/login" class="button">Login</a>
+      </li>
+  <% } %>
+
+
 </ul>

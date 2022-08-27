@@ -1,12 +1,10 @@
 const form = document.querySelector('form');
-const userError = document.querySelector('.username-error');
-const passwordError = document.querySelector('.password-error');
+const loginFeedback = document.getElementById('login-feedback');
 
 form.addEventListener('submit', async (e) => {
 	e.preventDefault();
 	// reset errors
-	userError.textContent = '';
-	passwordError.textContent = '';
+	loginFeedback.textContent = '';
 	// get values
 	const user = form.username.value;
 	const password = form.password.value;
@@ -18,10 +16,8 @@ form.addEventListener('submit', async (e) => {
 		});
 		const data = await res.json();
 		console.log(data);
-		if (data.errors) {
-			userError.textContent = data.errors.user;
-			passwordError.textContent = data.errors.password;
-		}
+		loginFeedback.textContent = data.res ? data.res.message : data.err;
+		if (data.res) loginFeedback.style.color = 'green';
 	}
 	catch (err) {
 		console.log(err);

@@ -67,14 +67,14 @@ span.psw {
 	}
 }
 
-.username-error {
+#login-feedback {
 	color: red;
-	text-transform: capitalize;
 	font-style: bold;
 }
 
-.password-error {
+
+#signup-feedback {
 	color: red;
-	text-transform: capitalize;
 	font-style: bold;
+	white-space: pre-line;
 }

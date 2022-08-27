@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		required: true,
+		unique: true,
 	},
 
 	password: {
 		type: String,
 		required: true,
+		minLength: [6, 'Password non valida: Lunghezza minima 6 caratteri'],
+		maxLength: [20, 'Password non valida: Lunghezza massima 20 caratteri'],
+		match: [/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/, 'Password non valida:\n- Almeno una lettera maiuscola\n- Almeno una lettera minuscola\n- Almeno un numero'],
 	},
 
 	roles: {
@@ -17,6 +22,8 @@ const userSchema = new mongoose.Schema({
 		required: false,
 	},
 });
+
+userSchema.plugin(uniqueValidator, { message: 'Utente già esistente!'})
 
 userSchema.pre('save', async function(next) {
 	const salt = await bcrypt.genSalt();
@@ -31,9 +38,9 @@ userSchema.statics.login = async function (username, password) {
 		if (auth) {
 			return user;
 		}
-		throw Error('Incorrect password!');
+		throw Error('Credenziali non valide!');
 	}
-	throw Error('Incorrect username!');
+	throw Error('Credenziali non valide!');
 };
 
 const User = new mongoose.model('user', userSchema);

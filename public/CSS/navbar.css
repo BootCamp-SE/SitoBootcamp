@@ -43,7 +43,10 @@
     text-align: left;
   }
   
-  .dropdown-content a:hover {background-color: #6591b6;}
+  .dropdown-content a:hover {
+    background-color: #db3131;
+    text-decoration: white;
+  }
   
   .dropdown:hover .dropdown-content {
     display: block;
