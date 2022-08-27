@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it">
+<%- include('../partials/header.ejs') %>
+<link rel="stylesheet" href="/css/login.css">
+
+<body>
+  <%- include('../partials/navbar.ejs') %>
+  <h1><%= title %></h1>
+  <form action="/userapi">
+    <div class="container fields">
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+      <div class="username-error"></div>  
+      
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+      <div class="password-error"></div> 
+      
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+      <button type="submit">Login</button>
+    </div>
+
+  </form>
+</body>
+<script src="/JS/login.js"></script>
+<%- include('../partials/footer.ejs') %>
+</html>
