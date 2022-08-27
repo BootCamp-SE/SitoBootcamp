@@ -23,10 +23,21 @@ const login = async (req, res) => {
 		if (error.message.includes('Incorrect password!')) {
 			errors.password = 'Invalid password!';
 		}
-		res.status(400).json({ errors });
+		res.status(500).json({ errors });
+	}
+};
+
+const signup = async (req, res) => {
+	const { username, password } = req.body;
+	try {
+		await User.create({username, password});
+		res.status(200).json({res: 'User created!'});
+	} catch (error) {
+		res.status(500).json({err: error.message});
 	}
 };
 
 module.exports = {
 	login,
+	signup,
 };

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+<%- include('../partials/header.ejs') %>
+<link rel="stylesheet" href="/css/login.css">
+
+<body>
+  <%- include('../partials/navbar.ejs') %>
+  <h1><%= title %></h1>
+  <form action="/userapi">
+    <div class="container fields">
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+      
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+      
+      <label>
+        <label><b>Policy:</b></label>
+        <input type="checkbox" checked="checked" name="administrator"> Administrator
+        <a> | </a>
+        <input type="checkbox" checked="checked" name="user"> User
+        <a> | </a>
+        <input type="checkbox" checked="checked" name="readreportsecret"> Read Report Secret
+        <a> | </a>
+        <input type="checkbox" checked="checked" name="readreport"> Read Report
+        <a> | </a>
+        <input type="checkbox" checked="checked" name="writereport"> Write Report
+        <a> | </a>
+        <input type="checkbox" checked="checked" name="createuser"> Create User
+        <a> | </a>
+        <input type="checkbox" checked="checked" name="menageruser"> Menager User
+        <a> | </a>
+      </label>
+      <button type="submit">Register</button>
+
+      <div class="feedback"></div> 
+    </div>
+
+  </form>
+</body>
+<script src="/JS/signup.js"></script>
+<%- include('../partials/footer.ejs') %>
+</html>

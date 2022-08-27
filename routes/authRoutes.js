@@ -9,4 +9,8 @@ router.get('/login', (req, res) => {
 	res.render('auth/login', {title: 'Login'});
 });
 
+router.get('/signup', (req, res) => {
+	res.render('auth/signup', {title: 'Signup'});
+});
+
 module.exports = router;
