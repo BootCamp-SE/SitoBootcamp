@@ -14,12 +14,13 @@ if (DEV) console.log('Using developement mode!');
 // Express Init
 const app = express();
 const utils = require('./Middleware/utils');
-const checkAuth = require('./Middleware/auth');
+const auth = require('./Middleware/auth');
+const AccademyRoutes = require('./routes/accademyRoutes');
+const AdminRoutes = require('./routes/adminRoutes');
+const ApiRoutes = require('./routes/apiRoutes');
+const AuthRoutes = require('./routes/authRoutes');
 const NewEntriesRoutes = require('./routes/newEntriesRoutes');
 const NewsRoutes = require('./routes/newsRoutes');
-const AccademyRoutes = require('./routes/accademyRoutes');
-const AuthRoutes = require('./routes/authRoutes');
-const ApiRoutes = require('./routes/apiRoutes');
 
 // Middleware
 app.set('view engine', 'ejs');
@@ -28,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(DEV ? utils.LogRequestsDev : utils.LogRequests);
-app.use(checkAuth.checkToken);
+app.use(auth.checkToken);
 
 // Connecting to db and starting web server
 var server;
@@ -44,15 +45,16 @@ app.get('/', (req, res) => {
 	res.render('index', { title: 'Home' });
 });
 
-app.use('/arruolati', NewEntriesRoutes);
-app.use('/news', NewsRoutes);
-app.use('/accademia', checkAuth.requireAuth, AccademyRoutes);
-app.use('/auth', AuthRoutes);
+app.use('/accademia', auth.requireAuth, auth.requirePolicy, AccademyRoutes);
+app.use('/admin', auth.requireAuth, AdminRoutes);
 app.use('/api', ApiRoutes);
+app.use('/arruolati', NewEntriesRoutes);
+app.use('/auth', AuthRoutes);
+app.use('/news', NewsRoutes);
 
 // Handling requests to not existing pages (aka error 404)
 app.use((req, res) => {
-	res.status(404).render('404', { title: '404' });
+	res.status(404).render('error', { title: '404', error: 'Page not found!' });
 });
 
 // Stopping web server gracefully

@@ -9,36 +9,46 @@
   <form action="/api/auth/signup">
     <div class="container fields">
       <label for="username"><b>Utente</b></label>
+      <br>
       <input type="text" placeholder="Inserire Nome Utente" name="username" required>
+      <br>
       
       <label for="password"><b>Password</b></label>
+      <br>
       <input type="password" placeholder="Inserire Password" name="password" required>
+      <br>
       
       <dim>
         <label><b>Policy:<br></b></label>
-        <input type="checkbox" name="administrator"> Amministratore
+        <input class="chb_policy" type="checkbox" name="administrator"> Amministratore
         <a> | </a>
-        <input type="checkbox" name="createuser"> Creazione Utenti
+        <input class="chb_policy" type="checkbox" name="createuser"> Creazione Utenti
         <a> | </a>
-        <input type="checkbox" name="manageruser"> Gestione Utenti
-        <a> | </a>
-        <input type="checkbox" checked="checked" name="user"> Utente
-        <a> | </a>
-        <input type="checkbox" name="readreportsecret"> Lettura Rapporti Secretati
-        <a> | </a>
-        <input type="checkbox" name="readreport"> Lettura Rapporti
-        <a> | </a>
-        <input type="checkbox" name="writereport"> Scrittura Rapporti
-        <a> | </a>
-        <input type="checkbox" name="writearticles"> Scrittura Articoli 
-        <a> | </a>
-        <input type="checkbox" name="writesafenet"> Scrittura SafeNet
+        <input class="chb_policy" type="checkbox" name="manageruser"> Gestione Utenti
         <a> | <br></a>
-        <input type="checkbox" name="teacher"> Insegnante Accademia 
+        <input class="chb_policy" type="checkbox" name="readreportsecret"> Lettura Rapporti Secretati
+        <a> | </a>
+        <input class="chb_policy" type="checkbox" name="readreport"> Lettura Rapporti
+        <a> | </a>
+        <input class="chb_policy" type="checkbox" name="writereport"> Scrittura Rapporti
+        <a> | </a>
+        <input class="chb_policy" type="checkbox" name="writearticles"> Scrittura Articoli 
+        <a> | <br></a>
+        <input class="chb_policy" type="checkbox" name="writesafenet"> Scrittura SafeNet
+        <a> | </a>
+        <input class="chb_policy" type="checkbox" name="teacher"> Insegnante Accademia 
         <a> | </a> 
-        <input type="checkbox" name="student"> Studente Accademia 
+        <input class="chb_policy" type="checkbox" name="student"> Studente Accademia 
         <a> | </a>
       </dim>
+      <br>
+      <br>
+
+      <label>
+        <input type="checkbox" name="createPlayer" checked>Crea giocatore
+      </label>
+      <br>
+
       <button type="submit">Registra</button>
 
       <div id="signup-feedback"></div> 

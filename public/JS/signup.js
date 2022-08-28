@@ -1,6 +1,6 @@
-/* eslint-disable no-undef */
 const form = document.querySelector('form');
 const signupFeedback = document.getElementById('signup-feedback');
+const chbPolicyList = document.getElementsByClassName('chb_policy');
 
 form.addEventListener('submit', async (e) => {
 	e.preventDefault();
@@ -9,10 +9,20 @@ form.addEventListener('submit', async (e) => {
 	// get values
 	const user = form.username.value;
 	const password = form.password.value;
+	const policy = new Array();
+	const createPlayer = form.createPlayer.checked;
+
+	// get policy 
+	for(var x=0; x < chbPolicyList.length; x++) {
+		if(chbPolicyList[x].checked) {
+			policy.push(chbPolicyList[x].name);		
+		}
+	}
+
 	try {
 		const res = await fetch('/api/auth/signup', {
 			method: 'POST',
-			body: JSON.stringify({ username: user, password }),
+			body: JSON.stringify({ username: user, password , policy, createPlayer}),
 			headers: { 'Content-Type': 'application/json' },
 		});
 		const data = await res.json();

@@ -1,5 +1,6 @@
-const User = require('../Models/user');
 const JWT = require('jsonwebtoken');
+const User = require('../Models/user');
+const Player = require('../Models/player');
 
 const createToken = (id, remember) => {
 	const maxAge = remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
@@ -22,9 +23,17 @@ const login = async (req, res) => {
 };
 
 const signup = async (req, res) => {
-	const { username, password } = req.body;
+	const { username, password, policy, createPlayer } = req.body;
+	console.log(createPlayer);
 	try {
-		await User.create({ username, password });
+		console.log('Creating user');
+		const user = await User.create({ username, password, policy });
+		console.log(user);
+		if (createPlayer) {
+			console.log('Creating player');
+			const player = await Player.create({ user_id: user._id });
+			console.log('Player created\n', player);
+		}
 		res.status(200).json({ res: 'Utente creato' });
 	} catch (errs) {
 		var err = '';

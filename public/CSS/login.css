@@ -1,17 +1,47 @@
 /* Bordered form */
+body {
+	text-align: center;
+}
+
 form {
-	border: 3px solid #f1f1f1;
+	width: 50%;
+	border: 10px solid #f1f1f1;
+	align-content: center;
+	display: inline-block;
 }
 
 /* Full-width inputs */
 input[type='text'],
 input[type='password'] {
-	width: 100%;
+	width: 50%;
 	padding: 12px 20px;
 	margin: 8px 0;
 	display: inline-block;
 	border: 1px solid #ccc;
 	box-sizing: border-box;
+	font-size: 18px;
+}
+
+select {
+	width: 50%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+option {
+	display: inline-block;
+	background-color: #f9f9f9;
+	padding: 12px 20px;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 0;
+}
+
+label {
+	font-size: 18px;
 }
 
 /* Set a style for all buttons */
@@ -24,7 +54,7 @@ button {
 	cursor: pointer;
 	text-align: center;
 	text-size-adjust: auto;
-	width: 100%;
+	width: 50%;
 }
 
 /* Add a hover effect for buttons */

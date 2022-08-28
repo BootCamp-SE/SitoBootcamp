@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const form = document.querySelector('form');
 const loginFeedback = document.getElementById('login-feedback');
 
