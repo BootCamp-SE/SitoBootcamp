@@ -13,8 +13,17 @@ router.get('/signup', (req, res) => {
 	res.render('auth/signup', {title: 'Registrazione'});
 });
 
-router.get('/setting', (req, res) => {
-	res.render('auth/setting', {title: 'Impostazioni'});
+router.get('/logout', (req, res) => {
+	res.cookie('JWT', '', {maxAge: 0});
+	res.status(200).redirect('/');
+});
+
+router.get('/settings', (req, res) => {
+	res.render('auth/settings', {title: 'Impostazioni'});
+});
+
+router.get('/401', (req, res) => {
+	res.render('auth/401', {title: '401'});
 });
 
 module.exports = router;

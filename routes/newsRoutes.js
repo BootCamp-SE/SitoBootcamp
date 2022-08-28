@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const router = Router();
+const {requireAuth} = require('../Middleware/auth');
 
 router.get('/', (req, res) => {
 	res.render('news/posts', {title: 'Articoli'});
@@ -9,7 +10,7 @@ router.get('/eventi', (req, res) => {
 	res.render('news/events', {title: 'Storico Eventi'});
 });
 
-router.get('/rapporti', (req, res) => {
+router.get('/rapporti', requireAuth, (req, res) => {
 	res.render('news/reports', {title: 'Rapporti'});
 });
 

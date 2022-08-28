@@ -2,16 +2,19 @@ require('dotenv').config({ path: './Config/.env' }); // Import and config of env
 
 // Importing modules
 const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
+const path = require('path');
 
 // Global Constants
 const Port = process.env.PORT | 3000;
+const DEV = process.env.DEV | false;
+if (DEV) console.log('Using developement mode!');
 
 // Express Init
 const app = express();
-const checkAuth = require('./Middleware/checkAuth');
+const utils = require('./Middleware/utils');
+const checkAuth = require('./Middleware/auth');
 const NewEntriesRoutes = require('./routes/newEntriesRoutes');
 const NewsRoutes = require('./routes/newsRoutes');
 const AccademyRoutes = require('./routes/accademyRoutes');
@@ -19,18 +22,13 @@ const AuthRoutes = require('./routes/authRoutes');
 const ApiRoutes = require('./routes/apiRoutes');
 
 // Middleware
-const LogRequests = (req, res, next) => {
-	console.log(req.method, req.url, '\n', req.cookies, req.body);
-	next();
-};
-
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(LogRequests);
-app.use(checkAuth.checkUser);
+app.use(DEV ? utils.LogRequestsDev : utils.LogRequests);
+app.use(checkAuth.checkToken);
 
 // Connecting to db and starting web server
 var server;
@@ -48,7 +46,7 @@ app.get('/', (req, res) => {
 
 app.use('/arruolati', NewEntriesRoutes);
 app.use('/news', NewsRoutes);
-app.use('/accademia', AccademyRoutes);
+app.use('/accademia', checkAuth.requireAuth, AccademyRoutes);
 app.use('/auth', AuthRoutes);
 app.use('/api', ApiRoutes);
 
