@@ -1,0 +1,16 @@
+{
+	"env": {
+		"node": true,
+		"es2022": true,
+		"mongo": true
+	},
+	"extends": "eslint:recommended",
+	"rules": {
+		"arrow-body-style": ["error", "always"],
+		"no-unused-vars": ["warn"],
+		"indent": ["warn", "tab"],
+		"linebreak-style": ["warn", "windows"],
+		"quotes": ["warn", "single"],
+		"semi": ["error", "always"]
+	}
+}
