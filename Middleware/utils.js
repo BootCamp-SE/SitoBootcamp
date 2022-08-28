@@ -24,7 +24,7 @@ const getSpecialization = (req, res, next) => {
 	res.locals.specialization = [
 		'Componentistica Navale',
 		'Tattico',
-		'ingegnere',
+		'Ingegnere',
 	];
 	next();
 };

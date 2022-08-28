@@ -12,7 +12,6 @@ router.post('/auth/signup', requireAuth, authController.signup);
 
 router.get('/user', requireAuth, async (req, res) => {
 	const ID = req.query.ID;
-	console.log(ID);
 	const userData = await User.findById(ID).exec();
 	userData ?	res.status(200).json(userData) : res.status(404).json({err: 'Utente non trovato!'});
 });

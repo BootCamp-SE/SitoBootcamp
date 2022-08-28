@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const { requirePolicy, requireAuth } = require('../Middleware/auth');
 const { getRanks, getSpecialization } = require('../Middleware/utils');
+const { getUserData, getPlayerData } = require('../Controllers/authController');
 
 router.get('/', (req, res) => {
 	res.redirect('/auth/login');
@@ -20,7 +21,10 @@ router.get('/logout', requireAuth, (req, res) => {
 	res.status(200).redirect('/');
 });
 
-router.get('/settings/:id', requireAuth, getRanks, getSpecialization, (req, res) => {
+router.get('/settings/:id', requireAuth, getRanks, getSpecialization, async (req, res) => {
+	const id = req.params.id;
+	res.locals.userData = await getUserData(id);
+	res.locals.playerData = await getPlayerData(id);
 	res.render('auth/settings', {title: 'Impostazioni'});
 });
 

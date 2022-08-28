@@ -43,7 +43,21 @@ const signup = async (req, res) => {
 	}
 };
 
+const getUserData = async (id) => {
+	const data = await User.findById(id).exec();
+	if (!data) return { err: 'User not found!' };
+	return data;
+};
+
+const getPlayerData = async (id) => {
+	const data = await Player.findOne({user_id: id}).exec();
+	if (!data) return { err: 'User not found!' };
+	return data;
+};
+
 module.exports = {
 	login,
 	signup,
+	getUserData,
+	getPlayerData,
 };
