@@ -17,13 +17,20 @@ const userSchema = new mongoose.Schema({
 		match: [/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/, 'Password non valida:\n- Almeno una lettera maiuscola\n- Almeno una lettera minuscola\n- Almeno un numero'],
 	},
 
+	hasPlayer: {
+		type: mongoose.Schema.Types.Boolean,
+		required: true,
+		default: false,
+	},
+
 	policy: {
 		type: Array,
-		required: false,
+		required: true,
+		defualt: [],
 	},
 });
 
-userSchema.plugin(uniqueValidator, { message: 'Utente già esistente!'});
+userSchema.plugin(uniqueValidator, { message: '{PATH} già esistente!'});
 
 userSchema.pre('save', async function(next) {
 	const salt = await bcrypt.genSalt();

@@ -7,7 +7,7 @@
 	"extends": "eslint:recommended",
 	"rules": {
 		"arrow-body-style": ["error", "always"],
-		"no-unused-vars": ["warn"],
+		"no-unused-vars": ["warn", {"varsIgnorePattern": "^_", "argsIgnorePattern": "^_"}],
 		"indent": ["warn", "tab"],
 		"linebreak-style": ["warn", "windows"],
 		"quotes": ["warn", "single"],

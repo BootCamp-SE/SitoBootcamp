@@ -24,22 +24,24 @@ const login = async (req, res) => {
 
 const signup = async (req, res) => {
 	const { username, password, policy, createPlayer } = req.body;
-	console.log(createPlayer);
 	try {
-		console.log('Creating user');
-		const user = await User.create({ username, password, policy });
-		console.log(user);
-		if (createPlayer) {
-			console.log('Creating player');
-			const player = await Player.create({ user_id: user._id });
-			console.log('Player created\n', player);
-		}
+		User.create({ username, password, policy }, (err, user) => {
+			if (err) res.status(500).json({ err: 'Utente non creato!'});
+			if (createPlayer) {
+				Player.create({ _id: user.id }, (err, _doc) => {
+					if (err) res.status(500).json({ err: 'Profilo giocatore non creato!'});
+				});
+				User.updateOne({_id: user._id}, {hasPlayer: true}, (err, _doc) => {
+					if (err) res.status(500).json({ err: 'Utente non aggiornato!'});
+				});
+			}
+		});
 		res.status(200).json({ res: 'Utente creato' });
-	} catch (errs) {
-		var err = '';
-		err += errs.errors.username ? errs.errors.username.message : '';
-		err += errs.errors.password ? '\n' + errs.errors.password.message : '';
-		res.status(500).json({ err });
+	} catch (err) {
+		var errString = '';
+		errString = err.errors.username ? err.errors.username.properties.message : '';
+		errString += err.errors.password ? err.errors.password.properties.message : '';
+		res.status(500).json({ err: errString });
 	}
 };
 

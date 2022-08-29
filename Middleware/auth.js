@@ -12,6 +12,8 @@ const pagesPolicy = [
 	{ path: '/admin', policy: ['manageruser', 'createuser'] },
 	{ path: '/auth/signup', policy: ['createuser'] },
 	{ path: '/admin/users', policy: ['manageruser'] },
+	{ path: '/api/users', policy: ['manageruser'] },
+	{ path: '/api/players', policy: ['manageruser'] },
 ];
 
 const checkToken = (req, res, next) => {
@@ -23,16 +25,16 @@ const checkToken = (req, res, next) => {
 				next();
 			}
 
-			User.findById(decodeToken.id, (err, doc) => {
-				if (err || doc._id == null) {
+			User.findById(decodeToken.id, (err, user) => {
+				if (err || !user) {
 					res.locals.auth = false;
 					next();
 				} else {
 					res.locals.auth = true;
-					res.locals.userID = doc._id;
-					res.locals.user = doc.username;
-					res.locals.isAdmin = doc.policy.includes('administrator');
-					res.locals.userPolicy = doc.policy;
+					res.locals.userID = user._id;
+					res.locals.user = user.username;
+					res.locals.isAdmin = user.policy.includes('administrator');
+					res.locals.userPolicy = user.policy;
 					next();
 				}
 			});
@@ -49,33 +51,26 @@ const checkToken = (req, res, next) => {
 
 const requirePolicy = (req, res, next) => {
 	const { userID, isAdmin, userPolicy } = res.locals;
-	User.findById(userID, (err, doc) => {
-		if (err)
-			res
-				.status(401)
-				.render('error', { title: '401', error: 'Unauthorized access!' });
+	if (isAdmin) {
+		next();
+	} else {
+		User.findById(userID, (err, user) => {
+			if (err || !user)
+				res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
 
-		if (isAdmin) {
-			next();
-		} else {
 			const pagePolicy = pagesPolicy.find((p) => {
-				// console.log(req.originalUrl, p.path, req.originalUrl == p.path);
 				return req.originalUrl == p.path;
 			});
 
-			if (
-				pagePolicy.policy.some((p) => {
-					return userPolicy.includes(p);
-				})
-			) {
+			if (pagePolicy.policy.some((p) => {
+				return userPolicy.includes(p);
+			})) {
 				next();
 			} else {
-				res
-					.status(401)
-					.render('error', { title: '401', error: 'Unauthorized access!' });
+				res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
 			}
-		}
-	});
+		});
+	}
 	// next();
 };
 
@@ -84,9 +79,7 @@ const requireAuth = (req, res, next) => {
 	if (auth) {
 		next();
 	} else {
-		res
-			.status(401)
-			.render('error', { title: '401', error: 'Unauthorized access!' });
+		res.status(401).render('error', { title: '401', error: 'Unauthorized access!' });
 	}
 };
 
@@ -95,9 +88,7 @@ const requireAdmin = (req, res, next) => {
 	if (auth && isAdmin) {
 		next();
 	} else {
-		res
-			.status(401)
-			.render('error', { title: '401', error: 'Unauthorized access!' });
+		res.status(401).render('error', { title: '401', error: 'Unauthorized access! Admin required!' });
 	}
 };
 

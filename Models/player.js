@@ -5,7 +5,6 @@ const uniqueValidator = require('mongoose-unique-validator');
 const playerSchema = new mongoose.Schema({
 	user_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'user',
 		required: true,
 	},
 	grado: {
@@ -68,7 +67,7 @@ const playerSchema = new mongoose.Schema({
 	}
 });
 
-playerSchema.plugin(uniqueValidator, {message: '{PATH} esiste già!'});
+playerSchema.plugin(uniqueValidator, {message: '{PATH} già esistente!'});
 
 const Player = new mongoose.model('player', playerSchema);
 module.exports = Player;
