@@ -77,9 +77,12 @@ const updateUserSettings = async (req, res) => {
 		const checkPassword = await User.checkPassword(ID, oldPassword);
 		if (checkPassword) {
 			User.updateOne({ _id: ID }, userData).then((userRes) => {
-				userRes.acknowledged
-					? res.status(204).json({ res: 'Utente aggiornato!' })
-					: res.status(500).json({ err: 'Utente non aggiornato!' });
+				console.log(userRes);
+				if (userRes.acknowledged) {
+					res.json({ res: 'Utente aggiornato!' });
+				} else {
+					res.status(500).json({ err: 'Utente non aggiornato!' });
+				}
 			});
 		}
 	} catch (err) {

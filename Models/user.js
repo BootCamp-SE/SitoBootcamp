@@ -38,9 +38,8 @@ const userSchema = new mongoose.Schema(
 
 userSchema.plugin(uniqueValidator, { message: '{PATH} già esistente!' });
 
-userSchema.pre(['save', 'updateOne'], async function (next) {
+userSchema.pre('save', async function (next) {
 	const salt = await bcrypt.genSalt();
-	console.log(this.password, salt);
 	this.password = await bcrypt.hash(this.password, salt);
 	next();
 });
@@ -59,7 +58,6 @@ userSchema.statics.login = async function (username, password) {
 
 userSchema.statics.checkPassword = async function (id, password) {
 	const user = await this.findOne({ _id: id });
-	console.log(id, password, user.password);
 	if (user) {
 		const auth = bcrypt.compare(password, user.password);
 		if (auth)
@@ -68,6 +66,14 @@ userSchema.statics.checkPassword = async function (id, password) {
 	}
 	throw Error('ID non valido!');
 };
+
+userSchema.pre('updateOne', async function (next) {
+	if (this._update.password) {
+		const salt = await bcrypt.genSalt();
+		this._update.password = await bcrypt.hash(this._update.password, salt);
+	}
+	next();
+});
 
 const User = new mongoose.model('user', userSchema);
 module.exports = User;
