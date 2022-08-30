@@ -13,16 +13,18 @@
 		<div class="d-block d-md-none ms-auto pe-1">
 			<% if (auth) { %>
 				<button class="btn btn-outline-dark active" data-bs-toggle="dropdown">
-					<i class="bi bi-person"></i>
+					<i class="bi bi-person-circle"></i>
 				</button>
 
 				<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
 					<li><h6 class="dropdown-header"><%= username %></h6></li>
-					<li><a class="dropdown-item" href="/auth/settings/<%= userID %>">Impostazioni</a></li>
+					<li><a class="dropdown-item" href="/auth/settings/<%= userID %>"><i class="bi bi-gear"></i> Impostazioni</a></li>
 					<li><a class="dropdown-item" href="/auth/logout">Esci</a></li>
 				</ul>
 			<% } else { %>
-
+				<a class="btn btn-outline-dark active" href="/auth/login" role="button">
+					<i class="bi bi-door-open"></i>
+				</a>
 			<% } %>
 		</div>
 
@@ -86,19 +88,19 @@
 				<% } %>
 			</ul>
 			<!--Login or User-->
-			<div class="d-none d-md-block">
-				<ul class="navbar-nav ms-auto">
+			<div class="d-none d-md-block ms-auto">
+				<ul class="navbar-nav">
 					<% if (auth) { %>
 						<li class="nav-item dropdown ms-auto">
-							<a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown"><%= username %></a>
+							<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i> <%= username %></button>
 							<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-								<li><a class="dropdown-item" href="/auth/settings/<%= userID %>">Impostazioni</a></li>
+								<li><a class="dropdown-item" href="/auth/settings/<%= userID %>"><i class="bi bi-gear"></i> Impostazioni</a></li>
 								<li><a class="dropdown-item" href="/auth/logout">Esci</a></li>
 							</ul>
 						</li>
 					<% } else { %>
 						<li class="nav-item ms-auto">
-							<a class="nav-link" href="/auth/login">Login</a>
+							<a class="nav-link" href="/auth/login"><i class="bi bi-door-open"></i> Login</a>
 						</li>
 					<% } %>
 				</ul>
