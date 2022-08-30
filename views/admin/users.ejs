@@ -5,7 +5,29 @@
 	<body>
 		<%- include('../partials/navbar.ejs') %>
 		<h1><%= title %></h1>
+
+		<div>
+			<% if (usersData) { %>
+				<ul>
+					<% usersData.forEach((userData) => { %>
+						<li>
+							<a href="/auth/settings/<%= userData._id %>"><%= userData.username %></a>
+							<span>
+								User ID: <%= userData._id %> <br>
+								Policy: <%= userData.policy %> <br>
+								<% if (userData.hasPlayer) { %>
+									<a href="#">Go to player</a><br>
+								<% }%> 
+							</span>
+						</li>
+					<% }); %>
+				</ul>
+			<% } else { %>
+
+			<% } %>
+		</div>
 	</body>
 
 	<%- include('../partials/footer.ejs') %>
+
 </html>
