@@ -6,17 +6,21 @@
 <body>
   <%- include('../partials/navbar.ejs') %>
   <h1><%= title %></h1>
-  <form action="/api/auth/signup">
+  <form>
     <div class="container fields">
-      <label for="username"><b>Utente</b></label>
-      <br>
-      <input type="text" placeholder="Inserire Nome Utente" name="username" required>
-      <br>
-      
-      <label for="password"><b>Password</b></label>
-      <br>
-      <input type="password" placeholder="Inserire Password" name="password" required>
-      <br>
+      <p>
+        <label for="username"><b>Utente</b></label>
+        <br>
+        <input type="text" placeholder="Inserire Nome Utente" name="username" required>
+        <br>
+      </p>
+      <p>
+        <label for="password"><b>Password</b></label>
+        <br>
+        <input type="password" placeholder="Inserire Password" name="password" required>
+        <i class="bi bi-eye-slash" id="togglePassword"></i>
+        <br>
+      </p>
       
       <dim>
         <label><b>Policy:<br></b></label>

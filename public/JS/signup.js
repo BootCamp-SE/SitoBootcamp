@@ -1,6 +1,7 @@
 const form = document.querySelector('form');
-const signupFeedback = document.getElementById('signup-feedback');
+const togglePassword = document.querySelector('#togglePassword');
 const chbPolicyList = document.getElementsByClassName('chb_policy');
+const signupFeedback = document.getElementById('signup-feedback');
 
 form.addEventListener('submit', async (e) => {
 	e.preventDefault();
@@ -31,4 +32,10 @@ form.addEventListener('submit', async (e) => {
 	} catch (err) {
 		console.log(err);
 	}
+});
+
+togglePassword.addEventListener('click', () => {
+	const inputType = form.password.getAttribute('type') == 'password' ? 'text' : 'password';
+	form.password.setAttribute('type', inputType);
+	togglePassword.classList.toggle('bi-eye');
 });

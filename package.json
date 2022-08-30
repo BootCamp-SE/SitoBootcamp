@@ -11,7 +11,7 @@
     "type": "git",
     "url": "github.com/MaXeN9818/Sito-Bootcamp.git"
   },
-  "author": "MaXeN9818",
+  "author": ["MaXeN9818", "Metiu19", "Keyc"],
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",

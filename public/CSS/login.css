@@ -108,3 +108,8 @@ span.psw {
 	font-style: bold;
 	white-space: pre-line;
 }
+
+form i {
+	margin-left: -30px;
+	cursor: pointer;
+}

@@ -8,16 +8,19 @@
   <h1><%= title %></h1>
   <form action="/userapi">
     <div class="container fields">
-      <label for="username"><b>Utente</b></label>
-      <br>
-      <input type="text" placeholder="Inserire Nome Utente" name="username" required>
-      <br>
-      
-      <label for="password"><b>Password</b></label>
-      <br>
-      <input type="password" placeholder="Inserire Password" name="password" required>
-      <br>
-      
+      <p>
+        <label for="username"><b>Utente</b></label>
+        <br>
+        <input type="text" placeholder="Inserire Nome Utente" name="username" required>
+        <br>
+      </p>
+      <p>
+        <label for="password"><b>Password</b></label>
+        <br>
+        <input type="password" placeholder="Inserire Password" name="password" required>
+        <i class="bi bi-eye-slash" id="togglePassword"></i>
+        <br>
+      </p>
       <button type="submit" style="width: 40%;">Accedi</button>
       
       <label  style="display: flex;">

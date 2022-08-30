@@ -26,8 +26,8 @@
 		<div class="dropdown-content">
 			<a href="/news">Notizie</a>
 			<a href="/news/eventi">Storico Eventi</a>
-			<% if (true) { %>
-			<a href="/news/rapporti">Rapporti</a>
+			<% if (auth && (isAdmin || checkPolicy(["readreport", "readreportsecret"]))) { %>
+				<a href="/news/rapporti">Rapporti</a>
 			<% } %>
 			<a href="/news/safenet">SafeNet Radio</a>
 			<a href="/news/navi">Forum Navi</a>
@@ -35,44 +35,45 @@
 	</li>
 	<!--Accademia-->
 	<% if (auth && (isAdmin || checkPolicy(["teacher", "student"]))) { %>
-	<li class="dropdown">
-		<a href="javascript:void(0)" class="dropbtn">Accademia</a>
-		<div class="dropdown-content">
-			<a href="/accademia">Home accademia</a>
-			<a href="/accademia/ingegneria">Ingegneria</a>
-			<a href="/accademia/militare">Militare</a>
-			<a href="/accademia/tattica">Tattica</a>
-			<a href="/accademia/scripts">Programmazione</a>
-			<a href="/accademia/varie">Varie</a>
-		</div>
-	</li>
+		<li class="dropdown">
+			<a href="javascript:void(0)" class="dropbtn">Accademia</a>
+			<div class="dropdown-content">
+				<a href="/accademia">Home accademia</a>
+				<a href="/accademia/ingegneria">Ingegneria</a>
+				<a href="/accademia/militare">Militare</a>
+				<a href="/accademia/tattica">Tattica</a>
+				<a href="/accademia/scripts">Programmazione</a>
+				<a href="/accademia/varie">Varie</a>
+			</div>
+		</li>
 	<% } %>
 	<!--Admin Panel-->
 	<% if (auth && (isAdmin || checkPolicy(['manageruser', 'createuser']))) { %>
-	<li class="dropdown">
-		<a href="javascript:void(0)">Pannello admin</a>
-		<div class="dropdown-content">
-			<a href="/admin">Home admin</a>
-			<% if (isAdmin || checkPolicy(['manageruser'])) { %>
-				<a href="/admin/users">Gestione utenti</a>
-			<% } %> <% if (isAdmin || checkPolicy(['createuser'])) { %>
-				<a href="/auth/signup">Creazione utenti</a>
-			<% } %>
-		</div>
-	</li>
+		<li class="dropdown">
+			<a href="javascript:void(0)">Pannello admin</a>
+			<div class="dropdown-content">
+				<a href="/admin">Home admin</a>
+				<% if (isAdmin || checkPolicy(['manageruser'])) { %>
+					<a href="/admin/users">Gestione utenti</a>
+				<% }
+				if (isAdmin || checkPolicy(['createuser'])) { %>
+					<a href="/auth/signup">Creazione utenti</a>
+				<% } %>
+			</div>
+		</li>
 	<% } %>
 	<!--Login or User-->
 	<% if (auth) { %>
-	<li style="float: right" class="dropdown">
-		<a href="javascript:void(0)" class="dropbtn"><%= user %> </a>
-		<div class="dropdown-content" style="right: 8px">
-			<a href="/auth/settings/<%= userID %>" style="text-align: right">Impostazioni</a>
-			<a href="/auth/logout" style="text-align: right">Esci</a>
-		</div>
-	</li>
+		<li style="float: right" class="dropdown">
+			<a href="javascript:void(0)" class="dropbtn"><%= username %> </a>
+			<div class="dropdown-content" style="right: 8px">
+				<a href="/auth/settings/<%= userID %>" style="text-align: right">Impostazioni</a>
+				<a href="/auth/logout" style="text-align: right">Esci</a>
+			</div>
+		</li>
 	<% } else { %>
-	<li style="float: right">
-		<a href="/auth/login" class="button">Login</a>
-	</li>
+		<li style="float: right">
+			<a href="/auth/login" class="button">Login</a>
+		</li>
 	<% } %>
 </ul>

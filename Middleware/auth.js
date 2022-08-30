@@ -31,8 +31,8 @@ const checkToken = (req, res, next) => {
 					next();
 				} else {
 					res.locals.auth = true;
+					res.locals.username = user.username;
 					res.locals.userID = user._id;
-					res.locals.user = user.username;
 					res.locals.isAdmin = user.policy.includes('administrator');
 					res.locals.userPolicy = user.policy;
 					next();
@@ -43,10 +43,6 @@ const checkToken = (req, res, next) => {
 		res.locals.auth = false;
 		next();
 	}
-	// res.locals.auth = true;
-	// res.locals.isAdmin = true;
-	// res.locals.user = 'temp';
-	// next();
 };
 
 const requirePolicy = (req, res, next) => {
@@ -71,7 +67,6 @@ const requirePolicy = (req, res, next) => {
 			}
 		});
 	}
-	// next();
 };
 
 const requireAuth = (req, res, next) => {

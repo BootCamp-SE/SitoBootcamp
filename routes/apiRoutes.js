@@ -9,6 +9,20 @@ const Player = require('../Models/player');
 
 router.post('/auth/login', authController.login);
 router.post('/auth/signup', requireAuth, authController.signup);
+router.post('/auth/settings/user', requireAuth, (req, res, next) => {
+	if ((res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) || (res.locals.userID == req.query.ID)) {
+		next();
+	} else {
+		res.status(403).json({ err: 'Forbidden access!'});
+	}
+}, authController.updateUserSettings);
+router.post('/auth/settings/player', requireAuth, (req, res, next) => {
+	if ((res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) || (res.locals.userID == req.query.ID)) {
+		next();
+	} else {
+		res.status(403).json({ err: 'Forbidden access!'});
+	}
+}, authController.updatePlayerSettings);
 
 router.get('/users', requireAuth, requirePolicy, async (req, res) => {
 	User.find({}, { password: 0}, (err, usersData) => {

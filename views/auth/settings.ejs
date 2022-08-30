@@ -1,104 +1,147 @@
 <!DOCTYPE html>
 <html lang="it">
 
-<%- include('../partials/header.ejs') %>
+  <% const checkPolicy = (policy = []) => {
+    var check = false;
+    policy.forEach(p => {
+      if (userPolicy.includes(p)) check = true;
+    });
+    return check;
+  } %>
 
-<link rel="stylesheet" href="/css/login.css">
-<script src="/JS/setting.js" defer></script>
-
-<% const checkPolicy = (policy = []) => {
-	var check = false;
-	policy.forEach(p => {
-		if (userPolicy.includes(p)) check = true;
-	});
-	return check;
-} %>
+  <%- include('../partials/header.ejs') %>
+  
+  <script src="/JS/setting.js" defer></script>
+  <link rel="stylesheet" href="/css/login.css">
 
 <body>
   <%- include('../partials/navbar.ejs') %>
   <h1><%= title %></h1>
-  <form action="/userapi">
-    <div class="container fields">
-      <label for="rank"><b>Rango</b></label>
-      <br>
-      <select class="settingLock" type="text" name="rank" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
-        <% ranks.forEach((rank) => {
-					if (rank.name == playerData.grado) { %>
-						<option value="<%= rank.tag %>" selected><%= rank.name %></option>
-					<% } else { %>
-						<option value="<%= rank.tag %>"><%= rank.name %></option>  
-					<% } %>
-        <% }); %>
-      </select>
-      <br>
 
-      <label for="specialization"><b>Specializzazione</b></label>
-      <br>
-      <select class="settingLock" name="specialization" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
-        <% specialization.forEach((s) => { 
-						if (s == playerData.specializzazione) {%>
-            	<option value="<%= s %>" selected><%= s %></option>
-						<% } else { %>
-								<option value="<%= s %>"><%= s %></option>
-						<% } %>
-        <% }); %>
-      </select>
-      <br>
-
-      <label for="crew"><b>Equipaggio</b></label>
-      <br>
-      <select class="settingLock" name="crew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
-        <% for(let x = 0; x < 10; x++) { %>
-          <option value="<%= x %>"><%= x %></option>  
-        <% } %>
-      </select>
-      <br>
-
-      <label for="reservecrew"><b>Equipaggio di riserva</b></label>
-      <br>
-      <select class="settingLock" name="reservecrew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
-        <% for(let x = 0; x < 10; x++) { %>
-          <option value="<%= x %>"><%= x %></option>  
-        <% } %>
-      </select>
-      <br>
-
-      <label for="iddiscord"><b>ID Discord</b></label>
-      <br>
-      <input class="settingLock" type="text" placeholder="Inserire ID Discord" name="iddiscord" value="<%= playerData.discord.id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
-      <br>
-
-      <label for="namediscord"><b>Nome Discord</b></label>
-      <br>
-      <input class="setting" type="text" placeholder="Inserire Nome Discord" name="namediscord" value="<%= playerData.discord.name %>">
-      <br>
-
-      <label for="idsteam"><b>ID Steam</b></label>
-      <br>
-      <input class="settingLock" type="text" placeholder="Inserire ID Steam" name="idsteam" value="<%= playerData.steam.id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
-      <br>
-
-      <label for="namesteam"><b>Nome Steam</b></label>
-      <br>
-      <input class="setting" type="text" placeholder="Inserire Nome Steam" name="namesteam" value="<%= playerData.steam.name %>">
-      <br>
-
-      <label for="notepublic"><b>Note Pubbliche</b></label>
-      <br>
-      <input class="setting" type="text" placeholder="Parlami di te" maxlength="255" name="notepublic" value="<%= playerData.note_pubbliche %>">
-      <br>
-
-      <% if(isAdmin || checkPolicy(['manageruser'])) {%> 
-        <label for="noteprivate"><b>Note Private</b></label>
+  <% if (userData.hasPlayer) { %>
+    <form id="playerForm">
+      <div class="container fields">
+        <label for="rank"><b>Rango</b></label>
         <br>
-        <input class="settingInvisible" type="text" placeholder="Cosa hai da dire su di lui" maxlength="255" name="noteprivate" value="<%= playerData.note_private %>">
-      <% } %>  
-      <br>
+        <select class="settingLock" type="text" name="rank" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
+          <% ranks.forEach((rank)=> {
+            if (rank.tag == playerData.grado) { %>
+              <option value="<%= rank.tag %>" selected>
+                <%= rank.name %>
+              </option>
+            <% } else { %>
+              <option value="<%= rank.tag %>">
+                <%= rank.name %>
+              </option>
+            <% } %>
+          <% }); %>
+        </select>
+        <br>
 
-      <button type="submit">Salva</button>
-      <div id="save-feedback"></div>
-    </div>
-  </form>
+        <label for="specialization"><b>Specializzazione</b></label>
+        <br>
+        <select class="settingLock" name="specialization" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
+          <% specialization.forEach((s)=> {
+            if (s == playerData.specializzazione) {%>
+              <option value="<%= s %>" selected>
+                <%= s %>
+              </option>
+            <% } else { %>
+              <option value="<%= s %>">
+                <%= s %>
+              </option>
+            <% } %>
+          <% }); %>
+        </select>
+        <br>
+
+        <label for="crew"><b>Equipaggio</b></label>
+        <br>
+        <select class="settingLock" name="crew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
+          <% for(let x=0; x < 10; x++) { %>
+            <option value="<%= x %>">
+              <%= x %>
+            </option>
+          <% } %>
+        </select>
+        <br>
+
+        <label for="reservecrew"><b>Equipaggio di riserva</b></label>
+        <br>
+        <select class="settingLock" name="reservecrew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
+          <% for(let x=0; x < 10; x++) { %>
+            <option value="<%= x %>">
+              <%= x %>
+            </option>
+          <% } %>
+        </select>
+        <br>
+
+        <label for="iddiscord"><b>ID Discord</b></label>
+        <br>
+        <input class="settingLock" type="text" placeholder="Inserire ID Discord" name="iddiscord" value="<%= playerData.discord.id %>"
+          <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
+        <br>
+
+        <label for="namediscord"><b>Nome Discord</b></label>
+        <br>
+        <input class="setting" type="text" placeholder="Inserire Nome Discord" name="namediscord" value="<%= playerData.discord.name %>">
+        <br>
+
+        <label for="idsteam"><b>ID Steam</b></label>
+        <br>
+        <input class="settingLock" type="text" placeholder="Inserire ID Steam" name="idsteam" value="<%= playerData.steam.id %>"
+          <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
+        <br>
+
+        <label for="namesteam"><b>Nome Steam</b></label>
+        <br>
+        <input class="setting" type="text" placeholder="Inserire Nome Steam" name="namesteam" value="<%= playerData.steam.name %>">
+        <br>
+
+        <label for="notepublic"><b>Note Pubbliche</b></label>
+        <br>
+        <input class="setting" type="text" placeholder="Parlami di te" maxlength="255" name="notepublic" value="<%= playerData.note_pubbliche %>">
+        <br>
+
+        <% if(isAdmin || checkPolicy(['manageruser'])) {%>
+          <label for="noteprivate"><b>Note Private</b></label>
+          <br>
+          <input class="settingInvisible" type="text" placeholder="Cosa hai da dire su di lui" maxlength="255" name="noteprivate" value="<%= playerData.note_private %>" >
+          <br>
+        <% } %>
+
+        <button type="submit">Salva</button>
+        <br>
+        <div id="update-player-feedback"></div>
+      </div>
+    </form>
+  <% } %>
+
+    <form id="userForm">
+      <div class="container fields">
+        <label for="username"><b>Utente</b></label>
+        <br>
+        <input type="text" placeholder="Inserire Nome Utente" name="username" value="<%= userData.username %>" required>
+        <br>
+
+        <label for="oldpassword"><b>Vecchia Password</b></label>
+        <br>
+        <input id="oldpassword" type="password" placeholder="Inserire Password Vecchia" name="password" required>
+        <i class="bi bi-eye-slash" id="toggleOldPassword"></i>
+        <br>
+
+        <label for="newpassword"><b>Password</b></label>
+        <br>
+        <input id="newpassword" type="password" placeholder="Inserire Password Nuova" name="password" required>
+        <i class="bi bi-eye-slash" id="toggleNewPassword"></i>
+        <br>
+
+        <button type="submit">Salva</button>
+        <br>
+        <div id="update-user-feedback"></div>
+      </div>
+    </form>
 </body>
 <%- include('../partials/footer.ejs') %>
 </html>

@@ -1,4 +1,5 @@
 const form = document.querySelector('form');
+const togglePassword = document.querySelector('#togglePassword');
 const loginFeedback = document.getElementById('login-feedback');
 
 form.addEventListener('submit', async (e) => {
@@ -27,4 +28,10 @@ form.addEventListener('submit', async (e) => {
 	catch (err) {
 		console.log(err);
 	}
+});
+
+togglePassword.addEventListener('click', () => {
+	const inputType = form.password.getAttribute('type') == 'password' ? 'text' : 'password';
+	form.password.setAttribute('type', inputType);
+	togglePassword.classList.toggle('bi-eye');
 });
