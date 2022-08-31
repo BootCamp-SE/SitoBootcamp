@@ -91,7 +91,7 @@
 			<div class="d-none d-md-block ms-auto">
 				<ul class="navbar-nav">
 					<% if (auth) { %>
-						<li class="nav-item dropdown ms-auto">
+						<li class="nav-item dropdown">
 							<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i> <%= username %></button>
 							<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
 								<li><a class="dropdown-item" href="/auth/settings/<%= userID %>"><i class="bi bi-gear"></i> Impostazioni</a></li>
@@ -99,7 +99,7 @@
 							</ul>
 						</li>
 					<% } else { %>
-						<li class="nav-item ms-auto">
+						<li class="nav-item">
 							<a class="nav-link" href="/auth/login"><i class="bi bi-door-open"></i> Login</a>
 						</li>
 					<% } %>
