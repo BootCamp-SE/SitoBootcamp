@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/css/navbar.css" />
-
 <% const checkPolicy = (policy = []) => {
 	var check = false;
 	policy.forEach(p => {
@@ -8,72 +6,105 @@
 	return check;
 } %>
 
-<ul>
-	<li><a href="/">Home</a></li>
-	<!--Start-->
-	<li class="dropdown">
-		<a href="javascript:void(0)" class="dropbtn">Informazioni sul progetto</a>
-		<div class="dropdown-content">
-			<a href="/arruolati">Arruolati</a>
-			<a href="/arruolati/faq">FAQ</a>
-			<a href="/arruolati/regolamento">Regolamento</a>
-			<a href="/arruolati/progetto">Il Progetto</a>
-		</div>
-	</li>
-	<!--News-->
-	<li class="dropdown">
-		<a href="javascript:void(0)" class="dropbtn">Articoli</a>
-		<div class="dropdown-content">
-			<a href="/news">Notizie</a>
-			<a href="/news/eventi">Storico Eventi</a>
-			<% if (auth && (isAdmin || checkPolicy(["readreport", "readreportsecret"]))) { %>
-				<a href="/news/rapporti">Rapporti</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+	<div class="container-fluid">
+		<a href="/" class="navbar-brand"><img src="/IMAGE/LogoBootcamp.png" width="40px" height="40px"></a>
+
+		<div class="d-block d-md-none ms-auto pe-1">
+			<% if (auth) { %>
+				<button class="btn btn-outline-dark active" data-bs-toggle="dropdown">
+					<i class="bi bi-person-circle"></i>
+				</button>
+
+				<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+					<li><h6 class="dropdown-header"><%= username %></h6></li>
+					<li><a class="dropdown-item" href="/auth/settings/<%= userID %>"><i class="bi bi-gear"></i> Impostazioni</a></li>
+					<li><a class="dropdown-item" href="/auth/logout">Esci</a></li>
+				</ul>
+			<% } else { %>
+				<a class="btn btn-outline-dark active" href="/auth/login" role="button">
+					<i class="bi bi-door-open"></i>
+				</a>
 			<% } %>
-			<a href="/news/safenet">SafeNet Radio</a>
-			<a href="/news/navi">Forum Navi</a>
 		</div>
-	</li>
-	<!--Accademia-->
-	<% if (auth && (isAdmin || checkPolicy(["teacher", "student"]))) { %>
-		<li class="dropdown">
-			<a href="javascript:void(0)" class="dropbtn">Accademia</a>
-			<div class="dropdown-content">
-				<a href="/accademia">Home accademia</a>
-				<a href="/accademia/ingegneria">Ingegneria</a>
-				<a href="/accademia/militare">Militare</a>
-				<a href="/accademia/tattica">Tattica</a>
-				<a href="/accademia/scripts">Programmazione</a>
-				<a href="/accademia/varie">Varie</a>
-			</div>
-		</li>
-	<% } %>
-	<!--Admin Panel-->
-	<% if (auth && (isAdmin || checkPolicy(['manageruser', 'createuser']))) { %>
-		<li class="dropdown">
-			<a href="javascript:void(0)">Pannello admin</a>
-			<div class="dropdown-content">
-				<a href="/admin">Home admin</a>
-				<% if (isAdmin || checkPolicy(['manageruser'])) { %>
-					<a href="/admin/users">Gestione utenti</a>
-				<% }
-				if (isAdmin || checkPolicy(['createuser'])) { %>
-					<a href="/auth/signup">Creazione utenti</a>
+
+		<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav">
+			<div class="navbar-toggler-icon"></div>
+		</button>
+
+		<div class="collapse navbar-collapse" id="nav">
+			<ul class="navbar-nav">
+				<!--Start-->
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">Informazioni sul progetto</a>
+					<ul class="dropdown-menu dropdown-menu-dark">
+						<li><a class="dropdown-item" href="/arruolati">Arruolati</a></li>
+						<li><a class="dropdown-item" href="/arruolati/faq">FAQ</a></li>
+						<li><a class="dropdown-item" href="/arruolati/regolamento">Regolamento</a></li>
+						<li><a class="dropdown-item" href="/arruolati/progetto">Il Progetto</a></li>
+					</ul>
+				</li>
+				<!--News-->
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">Articoli</a>
+					<ul class="dropdown-menu dropdown-menu-dark">
+						<li><a class="dropdown-item" href="/news">Notizie</a></li>
+						<li><a class="dropdown-item" href="/news/eventi">Storico Eventi</a></li>
+						<% if (auth && (isAdmin || checkPolicy(["readreport", "readreportsecret"]))) { %>
+						<li><a class="dropdown-item" href="/news/rapporti">Rapporti</a></li>
+						<% } %>
+						<li><a class="dropdown-item" href="/news/safenet">SafeNet Radio</a></li>
+						<li><a class="dropdown-item" href="/news/navi">Forum Navi</a></li>
+					</ul>
+				</li>
+				<!--Accademia-->
+				<% if (auth && (isAdmin || checkPolicy(["teacher", "student"]))) { %>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">Accademia</a>
+					<ul class="dropdown-menu dropdown-menu-dark">
+						<li><a class="dropdown-item" href="/accademia">Home accademia</a></li>
+						<li><a class="dropdown-item" href="/accademia/ingegneria">Ingegneria</a></li>
+						<li><a class="dropdown-item" href="/accademia/militare">Militare</a></li>
+						<li><a class="dropdown-item" href="/accademia/tattica">Tattica</a></li>
+						<li><a class="dropdown-item" href="/accademia/scripts">Programmazione</a></li>
+						<li><a class="dropdown-item" href="/accademia/varie">Varie</a></li>
+					</ul>
+				</li>
 				<% } %>
+				<!--Admin Panel-->
+				<% if (auth && (isAdmin || checkPolicy(['manageruser', 'createuser']))) { %>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">Pannello admin</a>
+					<ul class="dropdown-menu dropdown-menu-dark">
+						<li><a class="dropdown-item" href="/admin">Home admin</a></li>
+						<% if (isAdmin || checkPolicy(['manageruser'])) { %>
+						<li><a class="dropdown-item" href="/admin/users">Gestione utenti</a></li>
+						<% }
+							if (isAdmin || checkPolicy(['createuser'])) { %>
+						<li><a class="dropdown-item" href="/auth/signup">Creazione utenti</a></li>
+						<% } %>
+					</ul>
+				</li>
+				<% } %>
+			</ul>
+			<!--Login or User-->
+			<div class="d-none d-md-block ms-auto">
+				<ul class="navbar-nav">
+					<% if (auth) { %>
+						<li class="nav-item dropdown">
+							<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i> <%= username %></button>
+							<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+								<li><a class="dropdown-item" href="/auth/settings/<%= userID %>"><i class="bi bi-gear"></i> Impostazioni</a></li>
+								<li><a class="dropdown-item" href="/auth/logout">Esci</a></li>
+							</ul>
+						</li>
+					<% } else { %>
+						<li class="nav-item">
+							<a class="nav-link" href="/auth/login"><i class="bi bi-door-open"></i> Login</a>
+						</li>
+					<% } %>
+				</ul>
 			</div>
-		</li>
-	<% } %>
-	<!--Login or User-->
-	<% if (auth) { %>
-		<li style="float: right" class="dropdown">
-			<a href="javascript:void(0)" class="dropbtn"><%= username %> </a>
-			<div class="dropdown-content" style="right: 8px">
-				<a href="/auth/settings/<%= userID %>" style="text-align: right">Impostazioni</a>
-				<a href="/auth/logout" style="text-align: right">Esci</a>
-			</div>
-		</li>
-	<% } else { %>
-		<li style="float: right">
-			<a href="/auth/login" class="button">Login</a>
-		</li>
-	<% } %>
-</ul>
+		</div>
+	</div>
+</nav>

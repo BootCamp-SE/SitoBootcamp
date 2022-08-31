@@ -2,29 +2,37 @@
 <html lang="it">
 	<%- include('../partials/header.ejs') %>
 
-	<body>
+	<body class="bg-secondary">
 		<%- include('../partials/navbar.ejs') %>
 		<h1><%= title %></h1>
-
-		<div>
-			<% if (usersData) { %>
-				<ul>
-					<% usersData.forEach((userData) => { %>
-						<li>
-							<a href="/auth/settings/<%= userData._id %>"><%= userData.username %></a>
-							<span>
-								User ID: <%= userData._id %> <br>
-								Policy: <%= userData.policy %> <br>
-								<% if (userData.hasPlayer) { %>
-									<a href="#">Go to player</a><br>
-								<% }%> 
-							</span>
-						</li>
-					<% }); %>
-				</ul>
-			<% } else { %>
-
-			<% } %>
+		<div class="container-fluid">
+			<div class="row row-cols-1 row-cols-md-2 row-cols-xxl-4">
+				<% usersData.forEach((userData) => { %>
+				<div class="col mt-4">
+					<div class="card h-100 bg-dark">
+						<div class="card-header hstack">
+							<span class="h5 text-bg-dark"><%= userData.username %></span>
+							<div class="btn-group ms-auto">
+								<a class="btn btn-outline-secondary" href="/auth/settings/<%= userData._id %>">Impostazioni</a>
+								<a class="btn btn-outline-secondary" href="#">Profilo Giocatore</a>
+							</div>
+						</div>
+						<div class="card-body">
+							<ul class="list-group">
+								<li class="list-group-item text-bg-dark">ID: <%= userData._id %></li>
+								<li class="list-group-item text-bg-dark">
+									Policy: <ul>
+										<% userData.policy.forEach((p) => { %>
+											<li><%= p %></li>
+										<% }) %>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<% }) %>
+			</div>
 		</div>
 	</body>
 
