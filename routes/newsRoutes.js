@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { requireAuth, requirePolicy } = require('../Middleware/auth');
+const { requireAuth, requirePolicy, requireAdmin } = require('../Middleware/auth');
 
 router.get('/', (req, res) => {
 	res.render('news/posts', { title: 'Articoli' });
@@ -20,6 +20,10 @@ router.get('/safenet', (req, res) => {
 
 router.get('/navi', (req, res) => {
 	res.render('news/shipsForum', { title: 'Forum Navi' });
+});
+
+router.get('/editorMD', requireAuth, requireAdmin, (req, res) => {
+	res.render('news/editorMD', { title: 'editorMD' });
 });
 
 module.exports = router;

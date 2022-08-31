@@ -1,0 +1,15 @@
+{
+	"env": {
+		"browser": true,
+		"jquery": true
+	},
+	"extends": "eslint:recommended",
+	"rules": {
+		"arrow-body-style": ["error", "always"],
+		"no-unused-vars": ["warn", {"varsIgnorePattern": "^_", "argsIgnorePattern": "^_"}],
+		"indent": ["warn", "tab"],
+		"linebreak-style": ["warn", "windows"],
+		"quotes": ["warn", "dobule"],
+		"semi": ["error", "always"]
+	}
+}
