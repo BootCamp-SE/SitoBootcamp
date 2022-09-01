@@ -5,6 +5,7 @@
 ### Bootstrap:
 
 [Bootstrap 5.2](https://getbootstrap.com/docs/5.2/getting-started/introduction/)
+
 Plugins:
 
 - [Tags Input Plugin](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput)
@@ -12,12 +13,13 @@ Plugins:
 
 ### Markdown Editor:
 
-- [Repository](https://github.com/kartik-v/krajee-markdown-editor)
-- [Docs](https://plugins.krajee.com/markdown-editor)
+[Repository](https://github.com/kartik-v/krajee-markdown-editor)
+[Docs](https://plugins.krajee.com/markdown-editor)
 
 ### Markdown parser:
 
 [Repository](https://github.com/markdown-it/markdown-it)
+
 Plugins:
 
 - [Subscript](https://github.com/markdown-it/markdown-it-sub)
@@ -30,8 +32,8 @@ Plugins:
 
 # File input:
 
-- [Repository](https://github.com/kartik-v/file-input)
-- [Docs](https://plugins.krajee.com/file-input)
+[Repository](https://github.com/kartik-v/file-input)
+[Docs](https://plugins.krajee.com/file-input)
 
 # Express:
 
