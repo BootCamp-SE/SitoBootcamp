@@ -10,6 +10,7 @@
   "license": "MIT",
   "homepage": "https://github.com/MaXeN9818/SitoBootcamp",
   "dependencies": {
-    "krajee-markdown-editor": "^1.0.0"
+    "krajee-markdown-editor": "^1.0.0",
+		"bootstrap-tagsinput": "^0.8.0"
   }
 }

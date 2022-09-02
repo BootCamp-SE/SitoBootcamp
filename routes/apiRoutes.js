@@ -4,13 +4,13 @@ const router = Router();
 const authController = require('../Controllers/authController');
 const { requireAuth, requireAdmin } = require('../Middleware/auth');
 
-const { renderMD } = require('../utils');
+const docsController = require('../Controllers/docsController');
 
-const _User = require('../Models/user');
-const _Player = require('../Models/player');
-
+// Login && Logout
 router.post('/auth/login', authController.login);
 router.post('/auth/signup', requireAuth, authController.signup);
+
+// Update User && Player Settings
 router.post('/auth/settings/user', requireAuth, (req, res, next) => {
 	if ((res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) || (res.locals.userID == req.query.ID)) {
 		next();
@@ -26,9 +26,7 @@ router.post('/auth/settings/player', requireAuth, (req, res, next) => {
 	}
 }, authController.updatePlayerSettings);
 
-router.post('/md-editor', requireAuth, requireAdmin, async (req, res) => {
-	console.log(renderMD(req.body.body));
-	res.status(201).json({res: 'Documento creato!'});
-});
+// Create New Article
+router.post('/md-editor', requireAuth, requireAdmin, docsController.createArticle);
 
 module.exports = router;

@@ -15,3 +15,24 @@ $('#md-editor').markdownEditor({
 	toolbarFooterR: [],
 	alertFadeDuration: 500,
 });
+
+
+
+$('#tags').tagsinput({
+	tagClass: 'badge bg-info',
+	trimValue: true
+});
+
+var $elt = $('#tags').tagsinput('input');
+const tags = ['ANNUNCI', 'COMUNICAZIONI', 'IMPORTANTE', 'REGOLAMENTO', 'MISSIONE', 'EVENTO', 'AVVISO'];
+
+$elt.attr('list', 'tagsList');
+$elt.attr('id', 'tagsInput');
+$elt.css({
+	width: "180px",
+});
+$('#tags').on('beforeItemAdd', function(event) {
+	if (!tags.includes(event.item)) {
+		event.cancel = true;
+	}
+});

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="it">
 	<%- include('../partials/header.ejs') %>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" />
 	<link rel="stylesheet" href="/bower_components/krajee-markdown-editor/css/markdown-editor.min.css" media="all" type="text/css" />
 	<link rel="stylesheet" href="/bower_components/krajee-markdown-editor/plugins/highlight/highlight.min.css" media="all" type="text/css" />
+	<link rel="stylesheet" src="/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" type="text/css" />
 	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
 	<script>
 		$.fn.markdownEditorBsVersion = '5.2';
+
 	</script>
 	<script src="/bower_components/krajee-markdown-editor/plugins/purify/purify.min.js" type="text/javascript"></script>
 	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it.min.js" type="text/javascript"></script>
@@ -18,6 +20,7 @@
 	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it-smartarrows.min.js" type="text/javascript"></script>
 	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it-checkbox.min.js" type="text/javascript"></script>
 	<script src="/bower_components/krajee-markdown-editor/js/markdown-editor.js" type="text/javascript"></script>
+	<script src="/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js" type="text/javascript" defer></script>
 	<script src="/JQ/md-editor.jq" type="text/javascript" defer></script>
 	<script src="/JS/md-editor.js" type="text/javascript" defer></script>
 
@@ -26,13 +29,37 @@
 		<h1><%= title %></h1>
 		<div class="container">
 			<form>
-				<label for="md-editor" class="form-label">Scrivici cose</label>
+				<div class="form-floating mb-2">
+					<input type="text" placeholder="Inserire un titolo" name="title" class="form-control" required>
+					<label for="title" class="form-lable">Inserisci un titolo</label>
+				</div>
+				<div class="form-floating mb-2">
+					<input type="text" placeholder="Inserire un sottotitolo" name="subtitle" class="form-control" required>
+					<label for="subtitle" class="form-lable">Inserisci un sottotitolo</label>
+				</div>
+				<div class="mb-2">
+					<label for="tags" class="form-label">Inserisci i tag</label>
+					<input type="text" name="tags" id="tags" class="form-control" list="tagsList" data-role="tagsinput" required>
+					<datalist id="tagsList">
+						<option value="ANNUNCI">
+						<option value="COMUNICAZIONI">
+						<option value="IMPORTANTE">
+						<option value="REGOLAMENTO">
+						<option value="MISSIONE">
+						<option value="EVENTO">
+						<option value="AVVISO">
+					</datalist>
+				</div>
+
+				<label for="md-editor" class="form-label">Inserisci il testo</label>
 				<textarea id="md-editor" style="min-height: 500px"></textarea>
-				<button type="submit" class="btn btn-primary">Pubblica</button>
-				<div class="feedback"></div>
+
+				<button type="submit" class="btn btn-primary" id="submit">Pubblica</button>
+				<div id="feedback"></div>
 			</form>
 		</div>
 	</body>
 
 	<%- include('../partials/footer.ejs') %>
+
 </html>

@@ -15,10 +15,14 @@ const md = require('markdown-it')({
 	.use(require('markdown-it-smartarrows'))
 	.use(require('markdown-it-checkbox'));
 
-const renderMD = (source) => {
-	return md.render(source);
+const createDomPurifire = require('dompurify');
+const { JSDOM } = require('jsdom');
+const domPurifier = createDomPurifire(new JSDOM().window);
+
+const parseMD = (source) => {
+	return domPurifier.sanitize(md.render(source));
 };
 
 module.exports = {
-	renderMD,
+	parseMD,
 };
