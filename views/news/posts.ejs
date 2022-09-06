@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="it">
-<%- include('../partials/header.ejs') %>
+	<%- include('../partials/header.ejs') %>
 
-<body>
-    <%- include('../partials/navbar.ejs') %>
-    <h1><%= title %></h1>
-</body>
-<%- include('../partials/footer.ejs') %>
+	<body>
+		<%- include('../partials/navbar.ejs') %>
+		<h1><%= title %></h1>
+		<div class="container">
+			<% /* if (articles.lenght > 0) { */%>
+			<ul class="list-group">
+				<% articles.forEach((article) => { %>
+					<li class="list-group-item">
+						<a href="/news/<%= article._id %>"><h4><%= article.title %></h4></a>
+						<h6 class="text-secondary"><%= article.subtitle %></h6>
+						<% article.tags.forEach(tag => { %>
+							<span class="badge bg-secondary" style="--bs-bg-opacity: .5"><%= tag %></span>
+						<% }) %>
+						<p class="text-secondary"><%= article.author %> <%= article.date %></p>
+					</li>
+				<% }); %>
+			</ul>
+			<% /*} else { %>
+			<!-- <p>Nessun articolo disponibile!</p> -->
+			<% } */ %>
+		</div>
+	</body>
+	<%- include('../partials/footer.ejs') %>
 
 </html>

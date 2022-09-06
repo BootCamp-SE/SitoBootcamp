@@ -16,9 +16,8 @@ const createArticle = (req, res) => {
 			author,
 			author_id,
 		},
-		(err, article) => {
+		(err, _article) => {
 			if (err) return res.status(500).json({ err: err.message });
-			console.log(article);
 			res.status(201).json({ res: 'Articolo creato!' });
 		}
 	);
