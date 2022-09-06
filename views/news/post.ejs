@@ -5,13 +5,13 @@
 	<body>
 		<%- include('../partials/navbar.ejs') %>
 
-		<div class="container mt-5 border border-secondary rounded">
+		<div class="container mt-5 border border-secondary rounded" style="--bs-border-opacity: .5">
 			<h4><%= article.title %></h4>
 			<h6 class="text-secondary"><%= article.subtitle %></h6>
 			<% article.tags.forEach(tag => { %>
 				<span class="badge bg-secondary"><%= tag %></span>
 			<% }) %>
-			<p class="text-secondary"><%= article.author %> <%= article.date %></p>
+			<p class="text-secondary"><%= article.author %>, <%= article.date.toLocaleDateString() %></p>
 			<hr>
 			<%- article.body %>
 		</div>

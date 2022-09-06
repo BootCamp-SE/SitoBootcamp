@@ -10,12 +10,12 @@
 			<ul class="list-group">
 				<% articles.forEach((article) => { %>
 					<li class="list-group-item">
-						<a href="/news/<%= article._id %>"><h4><%= article.title %></h4></a>
+						<a href="/news/<%= article._id %>" class="link-dark"><h4><%= article.title %></h4></a>
 						<h6 class="text-secondary"><%= article.subtitle %></h6>
 						<% article.tags.forEach(tag => { %>
 							<span class="badge bg-secondary" style="--bs-bg-opacity: .5"><%= tag %></span>
 						<% }) %>
-						<p class="text-secondary"><%= article.author %> <%= article.date %></p>
+						<p class="text-secondary"><%= article.author %>, <%= article.date.toLocaleDateString() %></p>
 					</li>
 				<% }); %>
 			</ul>
