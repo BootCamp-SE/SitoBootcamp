@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const { requirePolicy, requireAuth } = require('../Middleware/auth');
-const { getRanks, getSpecialization } = require('../Middleware/utils');
+const { getRanks, getSpecialization, getCrews } = require('../Middleware/utils');
 const { getUserData, getPlayerData } = require('../Controllers/authController');
 
 router.get('/', (req, res) => {
@@ -21,7 +21,7 @@ router.get('/logout', requireAuth, (req, res) => {
 	res.status(200).redirect('/');
 });
 
-router.get('/settings/:id', requireAuth, getRanks, getSpecialization, (req, res) => {
+router.get('/settings/:id', requireAuth, getRanks, getSpecialization, getCrews, (req, res) => {
 	const id = req.params.id;
 	if (!(res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) && id != res.locals.userID) {
 		res.status(403).render('error', { title: '403', error: 'Forbidden access!' });

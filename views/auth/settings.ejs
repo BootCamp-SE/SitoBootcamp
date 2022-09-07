@@ -58,22 +58,34 @@
         <label for="crew"><b>Equipaggio</b></label>
         <br>
         <select class="settingLock" name="crew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
-          <% for(let x=0; x < 10; x++) { %>
-            <option value="<%= x %>">
-              <%= x %>
-            </option>
-          <% } %>
+          <% crews.forEach((c)=> {
+            if (c == playerData.equipaggio) {%>
+              <option value="<%= c %>" selected>
+                <%= c %>
+              </option>
+            <% } else { %>
+              <option value="<%= c %>">
+                <%= c %>
+              </option>
+            <% } %>
+          <% }); %>
         </select>
         <br>
 
         <label for="reservecrew"><b>Equipaggio di riserva</b></label>
         <br>
         <select class="settingLock" name="reservecrew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %> >
-          <% for(let x=0; x < 10; x++) { %>
-            <option value="<%= x %>">
-              <%= x %>
-            </option>
-          <% } %>
+          <% crews.forEach((c)=> {
+            if (c == playerData.equipaggio_secondario) {%>
+              <option value="<%= c %>" selected>
+                <%= c %>
+              </option>
+            <% } else { %>
+              <option value="<%= c %>">
+                <%= c %>
+              </option>
+            <% } %>
+          <% }); %>
         </select>
         <br>
 
