@@ -3,51 +3,57 @@ const ID = window.location.href.slice(window.location.href.lastIndexOf('/') + 1 
 const playerForm = document.querySelector('#playerForm');
 const updatePlayerFeedback = document.querySelector('#update-player-feedback');
 
-playerForm.addEventListener('submit', async (e) => {
-	e.preventDefault();
+if(playerForm != null)
+{
+	playerForm.addEventListener('submit', async (e) => {
+		e.preventDefault();
+	
+		updatePlayerFeedback.textContent = '';
+	
+		
+		const grado = playerForm.rank.value;
+		const equipaggio = playerForm.crew.value;
+		const equipaggio_secondario = playerForm.reservecrew.value;
+		const specializzazione = playerForm.specialization.value;
+		const discord_id = playerForm.iddiscord.vlaue;
+		const discord_name = playerForm.namediscord.value;
+		const steam_id = playerForm.idsteam.value;
+		const steam_name = playerForm.namesteam.value;
+		const note_private = playerForm.noteprivate.value;
+		const note_pubbliche = playerForm.notepublic.value;
 
-	updatePlayerFeedback.textContent = '';
+	
+		try {
+			const res = await fetch(`/api/auth/settings/player?ID=${ID}`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					grado,
+					equipaggio,
+					equipaggio_secondario,
+					specializzazione,
+					discord: {
+						id: discord_id,
+						name: discord_name,
+					},
+					steam: {
+						id: steam_id,
+						name: steam_name,
+					},
+					note_private,
+					note_pubbliche
+				}),
+			});
+			const data = await res.json();
+			updatePlayerFeedback.textContent = data.res ? data.res : data.err;
+			updatePlayerFeedback.style.color = data.res ? 'green' : 'red';
+		} catch (err) {
+			console.log(err);
+		}
+	
+	});
+}
 
-	const grado = playerForm.rank.value;
-	const equipaggio = playerForm.crew.value;
-	const equipaggio_secondario = playerForm.reservecrew.value;
-	const specializzazione = playerForm.specialization.value;
-	const discord_id = playerForm.iddiscord.vlaue;
-	const discord_name = playerForm.namediscord.value;
-	const steam_id = playerForm.idsteam.value;
-	const steam_name = playerForm.namesteam.value;
-	const note_private = playerForm.noteprivate.value;
-	const note_pubbliche = playerForm.notepublic.value;
-
-	try {
-		const res = await fetch(`/api/auth/settings/player?ID=${ID}`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				grado,
-				equipaggio,
-				equipaggio_secondario,
-				specializzazione,
-				discord: {
-					id: discord_id,
-					name: discord_name,
-				},
-				steam: {
-					id: steam_id,
-					name: steam_name,
-				},
-				note_private,
-				note_pubbliche
-			}),
-		});
-		const data = await res.json();
-		updatePlayerFeedback.textContent = data.res ? data.res : data.err;
-		updatePlayerFeedback.style.color = data.res ? 'green' : 'red';
-	} catch (err) {
-		console.log(err);
-	}
-
-});
 
 const userForm = document.querySelector('#userForm');
 const toggleOldPassword = document.querySelector('#toggleOldPassword');

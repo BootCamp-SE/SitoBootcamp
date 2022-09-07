@@ -92,7 +92,6 @@ const updateUserSettings = async (req, res) => {
 const updatePlayerSettings = async (req, res) => {
 	const ID = req.query.ID;
 	const playerData = req.body;
-
 	Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
 		playerRes.acknowledged
 			? res.json({ res: 'Profilo giocatore aggiornato!' })
@@ -123,3 +122,4 @@ module.exports = {
 	getUserData,
 	getPlayerData,
 };
+

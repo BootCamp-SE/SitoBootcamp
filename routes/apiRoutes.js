@@ -18,6 +18,7 @@ router.post('/auth/settings/user', requireAuth, (req, res, next) => {
 		res.status(403).json({ err: 'Forbidden access!'});
 	}
 }, authController.updateUserSettings);
+
 router.post('/auth/settings/player', requireAuth, (req, res, next) => {
 	if ((res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) || (res.locals.userID == req.query.ID)) {
 		next();
