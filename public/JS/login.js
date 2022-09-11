@@ -30,6 +30,9 @@ form.addEventListener('submit', async (e) => {
 	}
 });
 
+
+
+
 togglePassword.addEventListener('click', () => {
 	const inputType = form.password.getAttribute('type') == 'password' ? 'text' : 'password';
 	form.password.setAttribute('type', inputType);

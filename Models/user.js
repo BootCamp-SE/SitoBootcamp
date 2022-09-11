@@ -59,7 +59,7 @@ userSchema.statics.login = async function (username, password) {
 userSchema.statics.checkPassword = async function (id, password) {
 	const user = await this.findOne({ _id: id });
 	if (user) {
-		const auth = bcrypt.compare(password, user.password);
+		const auth = await bcrypt.compare(password, user.password);
 		if (auth)
 			return true;
 		throw Error('Password non valida!');

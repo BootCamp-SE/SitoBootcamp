@@ -69,21 +69,25 @@ userForm.addEventListener('submit', async (e) => {
 	const oldPassword = userForm.oldpassword.value;
 	const newPassword = userForm.newpassword.value;
 
-	try {
-		const res = await fetch(`/api/auth/settings/user?ID=${ID}`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({username, oldPassword, newPassword}),
-		});
-		const data = await res.json();
-		updateUserFeedback.textContent = data.res ? data.res : data.err;
-		updateUserFeedback.style.color = data.res ? 'green' : 'red';
-	} catch (err) {
-		console.log(err);
+	// check password
+	updateUserFeedback.style.color = 'red';
+	updateUserFeedback.textContent = checkPassword();
+
+	if(updateUserFeedback.textContent == '') {
+		try {
+			const res = await fetch(`/api/auth/settings/user?ID=${ID}`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({username, oldPassword, newPassword}),
+			});
+			const data = await res.json();
+			updateUserFeedback.textContent = data.res ? data.res : data.err;
+			updateUserFeedback.style.color = data.res ? 'green' : 'red';
+		} catch (err) {
+			console.log(err);
+		}
 	}
-
 });
-
 toggleOldPassword.addEventListener('click', () => {
 	const inputType = userForm.password[0].getAttribute('type') == 'password' ? 'text' : 'password';
 	userForm.password[0].setAttribute('type', inputType);
@@ -95,3 +99,22 @@ toggleNewPassword.addEventListener('click', () => {
 	userForm.password[1].setAttribute('type', inputType);
 	toggleNewPassword.classList.toggle('bi-eye');
 });
+
+
+function checkPassword(){
+	var pw = userForm.newpassword.value;
+	var old_pw = userForm.oldpassword.value;
+	var chk_pw = userForm.confirm_password.value;
+
+	if(pw.length < 6)
+		return 'La password deve contenere più di 6 caratteri';
+	if(pw.length > 20)
+		return 'La password deve contenere meno di 20 caratteri';
+	if(!pw.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/))
+		return 'La Password deve contenere:\r\n- Almeno una lettera maiuscola\r\n- Almeno una lettera minuscola\r\n- Almeno un numero';		
+	if(chk_pw != pw)
+		return 'Le password inserite non corrispondono';
+	if(old_pw == pw)
+		return 'Le password deve essere diversa da quella vecchia';
+	return '';
+}
