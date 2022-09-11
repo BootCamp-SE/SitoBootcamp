@@ -20,7 +20,7 @@ form.addEventListener('submit', async (e) => {
 			policy.push(chbPolicyList[x].name);		
 		}
 	}
-	
+
 	// check password
 	signupFeedback.style.color = 'red';
 	signupFeedback.textContent = checkPassword();
@@ -34,8 +34,7 @@ form.addEventListener('submit', async (e) => {
 			});
 			const data = await res.json();
 			signupFeedback.textContent = data.res ? data.res : data.err;
-			if(data.res)
-				signupFeedback.style.color = 'green';
+			signupFeedback.style.color = data.res ? 'green' : 'red';
 
 		} catch (err) {
 			console.log(err);
