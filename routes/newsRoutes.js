@@ -23,10 +23,12 @@ router.get('/safenet', (req, res) => {
 	res.render('news/safeNet', { title: 'SafeNet Radio' });
 });
 
-router.get('/navi', (req, res) => {
+// NOTE: Require admin because still in dev
+router.get('/navi', requireAdmin, (req, res) => {
 	res.render('news/shipsForum', { title: 'Forum Navi' });
 });
 
+// TODO: Create custom route with correct name
 router.get('/editorMD', requireAuth, requireAdmin, (req, res) => {
 	res.render('news/editorMD', { title: 'editorMD' });
 });

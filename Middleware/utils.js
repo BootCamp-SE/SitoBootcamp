@@ -1,3 +1,4 @@
+// Log requests
 const LogRequestsDev = (req, res, next) => {
 	console.log(req.method, req.url, req.cookies, req.body);
 	next();
@@ -8,6 +9,7 @@ const LogRequests = (req, res, next) => {
 	next();
 };
 
+// Set parameters for ejs rendering
 const getRanks = (req, res, next) => {
 	res.locals.ranks = [
 		{tag: 'Rec', name: 'Recluta'},
@@ -30,8 +32,8 @@ const getRanks = (req, res, next) => {
 	next();
 };
 
-const getSpecialization = (req, res, next) => {
-	res.locals.specialization = [
+const getSpecializations = (req, res, next) => {
+	res.locals.specializations = [
 		'Componentistica Navale',
 		'Tattico',
 		'Ingegnere',
@@ -40,6 +42,7 @@ const getSpecialization = (req, res, next) => {
 	next();
 };
 
+// TODO: Move crews to DB
 const getCrews = (req, res, next) => {
 	res.locals.crews = [
 		'Carrier',
@@ -55,6 +58,6 @@ module.exports = {
 	LogRequestsDev,
 	LogRequests,
 	getRanks,
-	getSpecialization,
+	getSpecializations,
 	getCrews,
 };

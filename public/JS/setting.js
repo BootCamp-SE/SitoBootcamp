@@ -9,7 +9,7 @@ if(playerForm != null)
 		e.preventDefault();
 	
 		updatePlayerFeedback.textContent = '';
-	
+		updatePlayerFeedback.setAttribute('class', 'd-none');
 		
 		const grado = playerForm.rank.value;
 		const equipaggio = playerForm.crew.value;
@@ -19,13 +19,12 @@ if(playerForm != null)
 		const discord_name = playerForm.namediscord.value;
 		const steam_id = playerForm.idsteam.value;
 		const steam_name = playerForm.namesteam.value;
-		const note_private = playerForm.noteprivate.value;
+		const note_private = playerForm.noteprivate ? playerForm.noteprivate.value: '';
 		const note_pubbliche = playerForm.notepublic.value;
-
 	
 		try {
 			const res = await fetch(`/api/auth/settings/player?ID=${ID}`, {
-				method: 'POST',
+				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					grado,
@@ -45,12 +44,16 @@ if(playerForm != null)
 				}),
 			});
 			const data = await res.json();
+
 			updatePlayerFeedback.textContent = data.res ? data.res : data.err;
-			updatePlayerFeedback.style.color = data.res ? 'green' : 'red';
+			if (data.res) {
+				updatePlayerFeedback.setAttribute('class', 'text-success');
+			} else {
+				updatePlayerFeedback.setAttribute('class', 'text-danger');
+			}
 		} catch (err) {
 			console.log(err);
 		}
-	
 	});
 }
 
@@ -58,21 +61,24 @@ if(playerForm != null)
 const userForm = document.querySelector('#userForm');
 const toggleOldPassword = document.querySelector('#toggleOldPassword');
 const toggleNewPassword = document.querySelector('#toggleNewPassword');
+const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
 const updateUserFeedback = document.querySelector('#update-user-feedback');
 
 userForm.addEventListener('submit', async (e) => {
 	e.preventDefault();
-
+	
+	// Reset errors
 	updateUserFeedback.textContent = '';
+	updateUserFeedback.setAttribute('class', 'd-none');
 
 	const username = userForm.username.value;
 	const oldPassword = userForm.oldpassword.value;
 	const newPassword = userForm.newpassword.value;
 
-	// check password
-	updateUserFeedback.style.color = 'red';
+	// Check password
 	updateUserFeedback.textContent = checkPassword();
-
+	updateUserFeedback.setAttribute('class', 'text-danger');
+	
 	if(updateUserFeedback.textContent == '') {
 		try {
 			const res = await fetch(`/api/auth/settings/user?ID=${ID}`, {
@@ -81,30 +87,41 @@ userForm.addEventListener('submit', async (e) => {
 				body: JSON.stringify({username, oldPassword, newPassword}),
 			});
 			const data = await res.json();
+
 			updateUserFeedback.textContent = data.res ? data.res : data.err;
-			updateUserFeedback.style.color = data.res ? 'green' : 'red';
+			if (data.res) {
+				updateUserFeedback.setAttribute('class', 'text-success');
+			} else {
+				updateUserFeedback.setAttribute('class', 'text-danger');
+			}
 		} catch (err) {
 			console.log(err);
 		}
 	}
 });
+
 toggleOldPassword.addEventListener('click', () => {
-	const inputType = userForm.password[0].getAttribute('type') == 'password' ? 'text' : 'password';
-	userForm.password[0].setAttribute('type', inputType);
+	const inputType = userForm.oldPassword.getAttribute('type') == 'password' ? 'text' : 'password';
+	userForm.oldPassword.setAttribute('type', inputType);
 	toggleOldPassword.classList.toggle('bi-eye');
 });
 
 toggleNewPassword.addEventListener('click', () => {
-	const inputType = userForm.password[1].getAttribute('type') == 'password' ? 'text' : 'password';
-	userForm.password[1].setAttribute('type', inputType);
+	const inputType = userForm.newPassword.getAttribute('type') == 'password' ? 'text' : 'password';
+	userForm.newPassword.setAttribute('type', inputType);
 	toggleNewPassword.classList.toggle('bi-eye');
 });
 
+toggleConfirmPassword.addEventListener('click', () => {
+	const inputType = userForm.confirmPassword.getAttribute('type') == 'password' ? 'text' : 'password';
+	userForm.confirmPassword.setAttribute('type', inputType);
+	toggleConfirmPassword.classList.toggle('bi-eye');
+});
 
 function checkPassword(){
-	var pw = userForm.newpassword.value;
-	var old_pw = userForm.oldpassword.value;
-	var chk_pw = userForm.confirm_password.value;
+	var pw = userForm.newPassword.value;
+	var oldPw = userForm.oldPassword.value;
+	var chkPw = userForm.confirmPassword.value;
 
 	if(pw.length < 6)
 		return 'La password deve contenere più di 6 caratteri';
@@ -112,9 +129,9 @@ function checkPassword(){
 		return 'La password deve contenere meno di 20 caratteri';
 	if(!pw.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/))
 		return 'La Password deve contenere:\r\n- Almeno una lettera maiuscola\r\n- Almeno una lettera minuscola\r\n- Almeno un numero';		
-	if(chk_pw != pw)
+	if(chkPw != pw)
 		return 'Le password inserite non corrispondono';
-	if(old_pw == pw)
+	if(oldPw == pw)
 		return 'Le password deve essere diversa da quella vecchia';
 	return '';
 }

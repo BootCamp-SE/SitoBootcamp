@@ -16,9 +16,7 @@ const login = async (req, res) => {
 		const token = createToken(user._id, remember);
 		const maxAge = remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
 		res.cookie('JWT', token, { httpOnly: true, maxAge: maxAge * 1000 });
-		res
-			.status(200)
-			.json({ res: { user: user._id, message: 'Accesso confermato!' } });
+		res.status(200).json({ res: 'Accesso confermato!' });
 	} catch (err) {
 		res.status(500).json({ err: 'Credenziali non valide!' });
 	}
@@ -33,9 +31,8 @@ const signup = async (req, res) => {
 			} else {
 				if (createPlayer) {
 					Player.create({ _id: user.id }, (err, _doc) => {
-						if (err) {
-							res.status(500).json({ err: 'Profilo giocatore non creato!' });
-						}
+						if (err) 
+							return res.status(500).json({ err: 'Profilo giocatore non creato!' });
 					});
 					User.updateOne(
 						{ _id: user._id },
@@ -68,10 +65,12 @@ const signup = async (req, res) => {
 const updateUserSettings = async (req, res) => {
 	const ID = req.query.ID;
 	const oldPassword = req.body.oldPassword;
-	const userData = {
-		username: req.body.username,
-		password: req.body.newPassword,
-	};
+
+	var userData = {};
+	if (req.body.username != '')
+		userData.username = req.body.username; 
+	if (req.body.newPassword != '')
+		userData.password = req.body.newPassword; 
 
 	try {
 		const checkPassword = await User.checkPassword(ID, oldPassword);
@@ -91,7 +90,15 @@ const updateUserSettings = async (req, res) => {
 
 const updatePlayerSettings = async (req, res) => {
 	const ID = req.query.ID;
-	const playerData = req.body;
+	const body = req.body;
+
+	var playerData = {};
+	Object.keys(body).forEach((key) => {
+		if (body[key] != '') 
+			playerData.key = body[key];
+	});
+	console.log(playerData);
+
 	Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
 		playerRes.acknowledged
 			? res.json({ res: 'Profilo giocatore aggiornato!' })

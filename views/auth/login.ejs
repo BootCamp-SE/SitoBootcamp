@@ -1,37 +1,33 @@
 <!DOCTYPE html>
 <html lang="it">
-<%- include('../partials/header.ejs') %>
-<!-- <link rel="stylesheet" href="/css/login.css"> -->
+	<%- include('../partials/header.ejs') %>
+	<script src="/JS/login.js" defer></script>
 
-<body>
-  <%- include('../partials/navbar.ejs') %>
-  <h1><%= title %></h1>
-  <form action="/userapi">
-    <div class="container fields">
-      <p>
-        <label for="username"><b>Utente</b></label>
-        <br>
-        <input type="text" placeholder="Inserire Nome Utente" name="username" required>
-        <br>
-      </p>
-      <p>
-        <label for="password"><b>Password</b></label>
-        <br>
-        <input type="password" placeholder="Inserire Password" name="password" required>
-        <i class="bi bi-eye-slash" id="togglePassword"></i>
-        <br>
-      </p>
-      <button type="submit" style="width: 40%;">Accedi</button>
-      
-      <label  style="display: flex;">
-        <input type="checkbox" checked="checked" name="remember"> Ricordami
-      </label>
+	<body>
+		<%- include('../partials/navbar.ejs') %>
+		<h1><%= title %></h1>
+		<form action="/userapi">
+			<div class="container fields">
+				<label for="username"><b>Utente</b></label>
+				<br>
+				<input type="text" id="username" name="username" placeholder="Inserire Nome Utente" required>
+				<br>
+				<label for="password"><b>Password</b></label>
+				<br>
+				<input type="password" id="password" name="password" placeholder="Inserire Password" required>
+				<i class="bi bi-eye-slash" id="togglePassword"></i>
+				<br>
 
-      <div id="login-feedback"></div>
-    </div>
+				<button type="submit" style="width: 40%;">Accedi</button>
 
-  </form>
-</body>
-<script src="/JS/login.js"></script>
-<%- include('../partials/footer.ejs') %>
+				<label class="d-flex">
+					<input type="checkbox" id="rememberMe" name="rememberMe" checked="checked"> Ricordami
+				</label>
+
+				<div id="login-feedback"></div>
+			</div>
+		</form>
+	</body>
+	<%- include('../partials/footer.ejs') %>
+
 </html>

@@ -11,7 +11,7 @@ router.post('/auth/login', authController.login);
 router.post('/auth/signup', requireAuth, authController.signup);
 
 // Update User && Player Settings
-router.post('/auth/settings/user', requireAuth, (req, res, next) => {
+router.put('/auth/settings/user', requireAuth, (req, res, next) => {
 	if ((res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) || (res.locals.userID == req.query.ID)) {
 		next();
 	} else {
@@ -19,7 +19,7 @@ router.post('/auth/settings/user', requireAuth, (req, res, next) => {
 	}
 }, authController.updateUserSettings);
 
-router.post('/auth/settings/player', requireAuth, (req, res, next) => {
+router.put('/auth/settings/player', requireAuth, (req, res, next) => {
 	if ((res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) || (res.locals.userID == req.query.ID)) {
 		next();
 	} else {
@@ -28,6 +28,7 @@ router.post('/auth/settings/player', requireAuth, (req, res, next) => {
 }, authController.updatePlayerSettings);
 
 // Create New Article
+// TODO: Move articles logic and routes to correct routes
 router.post('/md-editor', requireAuth, requireAdmin, docsController.createArticle);
 
 module.exports = router;

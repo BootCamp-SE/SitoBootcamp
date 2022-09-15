@@ -1,73 +1,66 @@
 <!DOCTYPE html>
 <html lang="it">
-<%- include('../partials/header.ejs') %>
-<!-- <link rel="stylesheet" href="/css/login.css"> -->
+	<%- include('../partials/header.ejs') %>
+	<script src="/JS/signup.js" defer></script>
 
-<body>
-  <%- include('../partials/navbar.ejs') %>
-  <h1><%= title %></h1>
-  <form>
-    <div class="container fields">
-      <p>
-        <label for="username"><b>Utente</b></label>
-        <br>
-        <input type="text" placeholder="Inserire Nome Utente" name="username" required>
-        <br>
-      </p>
-      <p>
-        <label for="password"><b>Password</b></label>
-        <br>
-        <input type="password" placeholder="Inserire Password" name="password" required>
-        <i class="bi bi-eye-slash" id="togglePassword"></i>
-        <br>
-      </p>
-      <p>
-        <label for="confirm_password"><b>Conferma Password</b></label>
-        <br>
-        <input type="password" placeholder="Reinserire Password" name="confirm_password" required>
-        <i class="bi bi-eye-slash" id="togglePassword2"></i>
-        <br>
-      </p>
-      
-      <dim>
-        <label><b>Policy:<br></b></label>
-        <input class="chb_policy" type="checkbox" name="administrator"> Amministratore
-        <a> | </a>
-        <input class="chb_policy" type="checkbox" name="createuser"> Creazione Utenti
-        <a> | </a>
-        <input class="chb_policy" type="checkbox" name="manageruser"> Gestione Utenti
-        <a> | <br></a>
-        <input class="chb_policy" type="checkbox" name="readreportsecret"> Lettura Rapporti Secretati
-        <a> | </a>
-        <input class="chb_policy" type="checkbox" name="readreport"> Lettura Rapporti
-        <a> | </a>
-        <input class="chb_policy" type="checkbox" name="writereport"> Scrittura Rapporti
-        <a> | </a>
-        <input class="chb_policy" type="checkbox" name="writearticles"> Scrittura Articoli 
-        <a> | <br></a>
-        <input class="chb_policy" type="checkbox" name="writesafenet"> Scrittura SafeNet
-        <a> | </a>
-        <input class="chb_policy" type="checkbox" name="teacher"> Insegnante Accademia 
-        <a> | </a> 
-        <input class="chb_policy" type="checkbox" name="student"> Studente Accademia 
-        <a> | </a>
-      </dim>
-      <br>
-      <br>
+	<body>
+		<%- include('../partials/navbar.ejs') %>
+		<h1><%= title %></h1>
+		<form>
+			<div class="container fields">
+				<label for="username"><b>Utente</b></label>
+				<br>
+				<input type="text" id="username" name="username" placeholder="Inserire Nome Utente" required>
+				<br>
+				<label for="password"><b>Password</b></label>
+				<br>
+				<input type="password" id="password" name="password" placeholder="Inserire Password" required>
+				<i class="bi bi-eye-slash" id="togglePassword"></i>
+				<br>
+				<label for="confirmPassword"><b>Conferma Password</b></label>
+				<br>
+				<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Reinserire Password" required>
+				<i class="bi bi-eye-slash" id="toggleConfirmPassword"></i>
+				<br>
 
-      <label>
-        <input type="checkbox" name="createPlayer" checked>Crea giocatore
-      </label>
-      <br>
+				<dim>
+					<label><b>Policy:<br></b></label>
+					<input type="checkbox" class="policy" id="administrator" name="administrator"> Amministratore
+					<a> | </a>
+					<input type="checkbox" class="policy" id="createuser" name="createuser"> Creazione Utenti
+					<a> | </a>
+					<input type="checkbox" class="policy" id="manageruser" name="manageruser"> Gestione Utenti
+					<a> | <br></a>
+					<input type="checkbox" class="policy" id="readreportsecret" name="readreportsecret"> Lettura Rapporti Secretati
+					<a> | </a>
+					<input type="checkbox" class="policy" id="readreport" name="readreport"> Lettura Rapporti
+					<a> | </a>
+					<input type="checkbox" class="policy" id="writereport" name="writereport"> Scrittura Rapporti
+					<a> | </a>
+					<input type="checkbox" class="policy" id="writearticles" name="writearticles"> Scrittura Articoli
+					<a> | <br></a>
+					<input type="checkbox" class="policy" id="writesafenet" name="writesafenet"> Scrittura SafeNet
+					<a> | </a>
+					<input type="checkbox" class="policy" id="teacher" name="teacher"> Insegnante Accademia
+					<a> | </a>
+					<input type="checkbox" class="policy" id="student" name="student"> Studente Accademia
+					<a> | </a>
+				</dim>
+				<br>
 
-      <button type="submit">Registra</button>
-      <br>
+				<label>
+					<input type="checkbox" name="createPlayer" checked>Crea giocatore
+				</label>
+				<br>
 
-      <div id="signup-feedback" style="white-space: pre"></div> 
-    </div>
+				<button type="submit">Registra</button>
+				<br>
 
-  </form>
-</body>
-<script src="/JS/signup.js"></script>
-<%- include('../partials/footer.ejs') %>
+				<div id="signupFeedback"></div>
+			</div>
+
+		</form>
+	</body>
+	<%- include('../partials/footer.ejs') %>
+
 </html>

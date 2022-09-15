@@ -1,3 +1,5 @@
+// NOTE: Maybe move this to Middleware/utils.js
+
 const md = require('markdown-it')({
 	html: false,
 	xhtmlOut: false,

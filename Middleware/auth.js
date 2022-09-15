@@ -45,6 +45,16 @@ const checkToken = (req, res, next) => {
 	}
 };
 
+// Check user permission
+const requireAuth = (req, res, next) => {
+	const { auth } = res.locals;
+	if (auth) {
+		next();
+	} else {
+		res.status(401).render('error', { title: '401', error: 'Unauthorized access!' });
+	}
+};
+
 const requirePolicy = (req, res, next) => {
 	const { userID, isAdmin, userPolicy } = res.locals;
 	if (isAdmin) {
@@ -66,15 +76,6 @@ const requirePolicy = (req, res, next) => {
 				res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
 			}
 		});
-	}
-};
-
-const requireAuth = (req, res, next) => {
-	const { auth } = res.locals;
-	if (auth) {
-		next();
-	} else {
-		res.status(401).render('error', { title: '401', error: 'Unauthorized access!' });
 	}
 };
 

@@ -1,28 +1,31 @@
 const form = document.querySelector('form');
 const togglePassword = document.querySelector('#togglePassword');
-const togglePassword2 = document.querySelector('#togglePassword2');
-const chbPolicyList = document.getElementsByClassName('chb_policy');
-const signupFeedback = document.getElementById('signup-feedback');
+const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+const policyList = document.querySelectorAll('#policy');
+const signupFeedback = document.querySelector('#signupFeedback');
 
 form.addEventListener('submit', async (e) => {
 	e.preventDefault();
+
 	// reset errors
 	signupFeedback.textContent = '';
+	signupFeedback.setAttribute('class', 'd-none');
+
 	// get values
 	const user = form.username.value;
 	const password = form.password.value;
-	const policy = new Array();
 	const createPlayer = form.createPlayer.checked;
+	const policies = new Array();
 
 	// get policy 
-	for(var x=0; x < chbPolicyList.length; x++) {
-		if(chbPolicyList[x].checked) {
-			policy.push(chbPolicyList[x].name);		
+	for (var policy of policyList) {
+		if (policy.checked) {
+			policies.push(policy.name);		
 		}
 	}
 
 	// check password
-	signupFeedback.style.color = 'red';
+	signupFeedback.setAttribute('class', 'text-danger');
 	signupFeedback.textContent = checkPassword();
 
 	if(signupFeedback.textContent == '') {
@@ -33,19 +36,22 @@ form.addEventListener('submit', async (e) => {
 				headers: { 'Content-Type': 'application/json' },
 			});
 			const data = await res.json();
-			signupFeedback.textContent = data.res ? data.res : data.err;
-			signupFeedback.style.color = data.res ? 'green' : 'red';
 
+			signupFeedback.textContent = data.res ? data.res : data.err;
+			if (data.res) {
+				signupFeedback.setAttribute('class', 'text-succes');
+			} else {
+				signupFeedback.setAttribute('class', 'text-danger');
+			}
 		} catch (err) {
 			console.log(err);
 		}
 	}
 });
 
-
 function checkPassword(){
 	var pw = form.password.value;
-	var chk_pw = form.confirm_password.value;
+	var chk_pw = form.confirmPassword.value;
 	if(pw.length < 6)
 		return 'La password deve contenere più di 6 caratteri';
 	if(pw.length > 20)
@@ -63,8 +69,8 @@ togglePassword.addEventListener('click', () => {
 	togglePassword.classList.toggle('bi-eye');
 });
 
-togglePassword2.addEventListener('click', () => {
-	const inputType = form.confirm_password.getAttribute('type') == 'password' ? 'text' : 'password';
-	form.confirm_password.setAttribute('type', inputType);
-	togglePassword2.classList.toggle('bi-eye');
+toggleConfirmPassword.addEventListener('click', () => {
+	const inputType = form.confirmPassword.getAttribute('type') == 'password' ? 'text' : 'password';
+	form.confirmPassword.setAttribute('type', inputType);
+	toggleConfirmPassword.classList.toggle('bi-eye');
 });

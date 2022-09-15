@@ -3,6 +3,8 @@ const router = Router();
 const { requirePolicy } = require('../Middleware/auth');
 const User = require('../Models/user');
 
+// TODO: Create admin panel
+// NOTE: Not urgent
 router.get('/', requirePolicy, (req, res) => {
 	res.render('admin/admin', { title: 'Pannello admin' });
 });

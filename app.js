@@ -15,11 +15,11 @@ if (DEV) console.log('Using developement mode!');
 const app = express();
 const utils = require('./Middleware/utils');
 const auth = require('./Middleware/auth');
-const AccademyRoutes = require('./routes/accademyRoutes');
+const AccademyRoutes = require('./routes/accademyRoutes');	// NOTE: Not urgent
 const AdminRoutes = require('./routes/adminRoutes');
 const ApiRoutes = require('./routes/apiRoutes');
 const AuthRoutes = require('./routes/authRoutes');
-const NewEntriesRoutes = require('./routes/newEntriesRoutes');
+const NewEntriesRoutes = require('./routes/newEntriesRoutes');	// TODO: Add content to pages
 const NewsRoutes = require('./routes/newsRoutes');
 
 // Middleware
