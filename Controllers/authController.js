@@ -71,6 +71,8 @@ const updateUserSettings = async (req, res) => {
 		userData.username = req.body.username; 
 	if (req.body.newPassword != '')
 		userData.password = req.body.newPassword; 
+	if (req.body.policy != '')
+		userData.policy = req.body.policy;
 
 	try {
 		const checkPassword = await User.checkPassword(ID, oldPassword);
@@ -106,6 +108,7 @@ const updatePlayerSettings = async (req, res) => {
 	});
 };
 
+// BUG: Crashes if the ID doesn't exist
 const getUserData = (ID, cb) => {
 	User.findById(ID, (err, user) => {
 		if (err || user == {}) return cb({ err: 'Utente non trovato!' });
@@ -113,6 +116,7 @@ const getUserData = (ID, cb) => {
 	});
 };
 
+// BUG: Probalby this one to fails as the one above
 const getPlayerData = (ID, cb) => {
 	Player.findById(ID, (err, player) => {
 		if (err || player == {})

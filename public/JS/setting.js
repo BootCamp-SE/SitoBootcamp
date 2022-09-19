@@ -62,6 +62,7 @@ const userForm = document.querySelector('#userForm');
 const toggleOldPassword = document.querySelector('#toggleOldPassword');
 const toggleNewPassword = document.querySelector('#toggleNewPassword');
 const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+const policyList = document.querySelectorAll('.policy');
 const updateUserFeedback = document.querySelector('#update-user-feedback');
 
 userForm.addEventListener('submit', async (e) => {
@@ -72,8 +73,15 @@ userForm.addEventListener('submit', async (e) => {
 	updateUserFeedback.setAttribute('class', 'd-none');
 
 	const username = userForm.username.value;
-	const oldPassword = userForm.oldpassword.value;
-	const newPassword = userForm.newpassword.value;
+	const oldPassword = userForm.oldPassword.value;
+	const newPassword = userForm.newPassword.value;
+	const policies = policyList.length > 0 ? [] : '';
+
+	for (var policy of policyList) {
+		if (policy.checked) {
+			policies.push(policy.name);		
+		}
+	}
 
 	// Check password
 	updateUserFeedback.textContent = checkPassword();
@@ -82,9 +90,9 @@ userForm.addEventListener('submit', async (e) => {
 	if(updateUserFeedback.textContent == '') {
 		try {
 			const res = await fetch(`/api/auth/settings/user?ID=${ID}`, {
-				method: 'POST',
+				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({username, oldPassword, newPassword}),
+				body: JSON.stringify({username, oldPassword, newPassword, policy: policies}),
 			});
 			const data = await res.json();
 

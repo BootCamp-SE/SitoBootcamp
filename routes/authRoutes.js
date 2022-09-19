@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const { requirePolicy, requireAuth } = require('../Middleware/auth');
-const { getRanks, getSpecializations, getCrews } = require('../Middleware/utils');
+const { getRanks, getSpecializations, getCrews, getPolicies } = require('../Middleware/utils');
 const { getUserData, getPlayerData } = require('../Controllers/authController');
 
 // Login && Logout
@@ -19,12 +19,12 @@ router.get('/logout', requireAuth, (req, res) => {
 });
 
 // Signup
-router.get('/signup', requireAuth, requirePolicy, (req, res) => {
+router.get('/signup', requireAuth, requirePolicy, getPolicies, (req, res) => {
 	res.render('auth/signup', {title: 'Creazione utenti'});
 });
 
 // User and Player Settings
-router.get('/settings/:id', requireAuth, getRanks, getSpecializations, getCrews, (req, res) => {
+router.get('/settings/:id', requireAuth, getRanks, getSpecializations, getPolicies, getCrews, (req, res) => {
 	const id = req.params.id;
 	if (!(res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) && id != res.locals.userID) { // TODO: Check condintion
 		res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
@@ -36,7 +36,8 @@ router.get('/settings/:id', requireAuth, getRanks, getSpecializations, getCrews,
 			
 			if(res.locals.userData.hasPlayer) {
 				getPlayerData(id, (player) => {
-					if(player.err) res.status(500).render('error', {title: '500', error: user.err});
+					console.log(player);
+					if(player.err) res.status(500).render('error', {title: '500', error: player.err});
 
 					res.locals.playerData = player;
 					res.render('auth/settings', {title: 'Impostazioni'});

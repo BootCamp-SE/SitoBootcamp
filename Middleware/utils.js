@@ -42,6 +42,22 @@ const getSpecializations = (req, res, next) => {
 	next();
 };
 
+const getPolicies = (req, res, next) => {
+	res.locals.policies = [
+		{id: 'administrator', text: 'Amministratore', nl: false},
+		{id: 'createuser', text: 'Creazione Utenti', nl: false},
+		{id: 'manageruser', text: 'Gestione Utenti', nl: true},
+		{id: 'readreportsecret', text: 'Lettura Rapporti Secretati', nl: false},
+		{id: 'readreport', text: 'Lettura Rapporti', nl: false},
+		{id: 'writereport', text: 'Scrittura Rapporti', nl: false},
+		{id: 'writearticles', text: 'Scrittura Articoli', nl: true},
+		{id: 'writesafenet', text: 'Scrittura SafeNet', nl: false},
+		{id: 'teacher', text: 'Insegnante Accademia', nl: false},
+		{id: 'student', text: 'Studente Accademia', nl: false},
+	];
+	next();
+};
+
 // TODO: Move crews to DB
 const getCrews = (req, res, next) => {
 	res.locals.crews = [
@@ -59,5 +75,6 @@ module.exports = {
 	LogRequests,
 	getRanks,
 	getSpecializations,
+	getPolicies,
 	getCrews,
 };

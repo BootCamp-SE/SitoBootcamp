@@ -25,26 +25,13 @@
 
 				<dim>
 					<label><b>Policy:<br></b></label>
-					<input type="checkbox" class="policy" id="administrator" name="administrator"> Amministratore
-					<a> | </a>
-					<input type="checkbox" class="policy" id="createuser" name="createuser"> Creazione Utenti
-					<a> | </a>
-					<input type="checkbox" class="policy" id="manageruser" name="manageruser"> Gestione Utenti
-					<a> | <br></a>
-					<input type="checkbox" class="policy" id="readreportsecret" name="readreportsecret"> Lettura Rapporti Secretati
-					<a> | </a>
-					<input type="checkbox" class="policy" id="readreport" name="readreport"> Lettura Rapporti
-					<a> | </a>
-					<input type="checkbox" class="policy" id="writereport" name="writereport"> Scrittura Rapporti
-					<a> | </a>
-					<input type="checkbox" class="policy" id="writearticles" name="writearticles"> Scrittura Articoli
-					<a> | <br></a>
-					<input type="checkbox" class="policy" id="writesafenet" name="writesafenet"> Scrittura SafeNet
-					<a> | </a>
-					<input type="checkbox" class="policy" id="teacher" name="teacher"> Insegnante Accademia
-					<a> | </a>
-					<input type="checkbox" class="policy" id="student" name="student"> Studente Accademia
-					<a> | </a>
+					<% policies.forEach((policy) => { %>
+						<input type="checkbox" class="policy" id="<%= policy.id %>" name="<%= policy.id %>"> <%= policy.text %>
+						<a> | </a>
+						<% if (policy.nl) { %>
+						 <br>
+						<% } %>
+					<% }) %>
 				</dim>
 				<br>
 

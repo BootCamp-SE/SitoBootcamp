@@ -1,7 +1,7 @@
 const form = document.querySelector('form');
 const togglePassword = document.querySelector('#togglePassword');
 const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
-const policyList = document.querySelectorAll('#policy');
+const policyList = document.querySelectorAll('.policy');
 const signupFeedback = document.querySelector('#signupFeedback');
 
 form.addEventListener('submit', async (e) => {
@@ -32,14 +32,14 @@ form.addEventListener('submit', async (e) => {
 		try {
 			const res = await fetch('/api/auth/signup', {
 				method: 'POST',
-				body: JSON.stringify({ username: user, password , policy, createPlayer}),
+				body: JSON.stringify({ username: user, password , policy: policies, createPlayer}),
 				headers: { 'Content-Type': 'application/json' },
 			});
 			const data = await res.json();
 
 			signupFeedback.textContent = data.res ? data.res : data.err;
 			if (data.res) {
-				signupFeedback.setAttribute('class', 'text-succes');
+				signupFeedback.setAttribute('class', 'text-success');
 			} else {
 				signupFeedback.setAttribute('class', 'text-danger');
 			}
