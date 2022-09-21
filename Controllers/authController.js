@@ -108,15 +108,13 @@ const updatePlayerSettings = async (req, res) => {
 	});
 };
 
-// BUG: Crashes if the ID doesn't exist
 const getUserData = (ID, cb) => {
-	User.findById(ID, (err, user) => {
-		if (err || user == {}) return cb({ err: 'Utente non trovato!' });
+	User.findById(ID, {password: 0}, function (err, user) {
+		if (err || !user) return cb({ err: 'Utente non trovato!' });
 		return cb(user);
 	});
 };
 
-// BUG: Probalby this one to fails as the one above
 const getPlayerData = (ID, cb) => {
 	Player.findById(ID, (err, player) => {
 		if (err || player == {})

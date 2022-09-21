@@ -30,14 +30,14 @@ router.get('/settings/:id', requireAuth, getRanks, getSpecializations, getPolici
 		res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
 	} else {
 		getUserData(id, (user) => {
-			if (user.err) res.status(500).render('error', {title: '500', error: user.err});
+			if (user.err) return res.status(500).render('error', {title: '500', error: user.err});
 			
 			res.locals.userData = user;
 			
 			if(res.locals.userData.hasPlayer) {
 				getPlayerData(id, (player) => {
 					console.log(player);
-					if(player.err) res.status(500).render('error', {title: '500', error: player.err});
+					if(player.err) return res.status(500).render('error', {title: '500', error: player.err});
 
 					res.locals.playerData = player;
 					res.render('auth/settings', {title: 'Impostazioni'});
