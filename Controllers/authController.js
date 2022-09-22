@@ -67,12 +67,10 @@ const updateUserSettings = async (req, res) => {
 	const oldPassword = req.body.oldPassword;
 
 	var userData = {};
-	if (req.body.username != '')
+	if (req.body.username != ('' || null))
 		userData.username = req.body.username; 
-	if (req.body.newPassword != '')
-		userData.password = req.body.newPassword; 
-	if (req.body.policy != '')
-		userData.policy = req.body.policy;
+	if (req.body.newPassword != ('' || null))
+		userData.password = req.body.newPassword;
 
 	try {
 		const checkPassword = await User.checkPassword(ID, oldPassword);
@@ -90,6 +88,26 @@ const updateUserSettings = async (req, res) => {
 	}
 };
 
+const updateUserPolicies = async (req, res) => {
+	const ID = req.query.ID;
+
+	var userData = {};
+	if (req.body.policy != ('' || null))
+		userData.policy = req.body.policy;
+
+	try {
+		User.updateOne({ _id: ID }, userData).then((userRes) => {
+			if (userRes.acknowledged) {
+				res.json({ res: 'Utente aggiornato!' });
+			} else {
+				res.status(500).json({ err: 'Utente non aggiornato!' });
+			}
+		});
+	} catch (err) {
+		res.status(500).json({ err: err.message });
+	}
+};
+
 const updatePlayerSettings = async (req, res) => {
 	const ID = req.query.ID;
 	const body = req.body;
@@ -99,7 +117,6 @@ const updatePlayerSettings = async (req, res) => {
 		if (body[key] != '') 
 			playerData.key = body[key];
 	});
-	console.log(playerData);
 
 	Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
 		playerRes.acknowledged
@@ -127,6 +144,7 @@ module.exports = {
 	login,
 	signup,
 	updateUserSettings,
+	updateUserPolicies,
 	updatePlayerSettings,
 	getUserData,
 	getPlayerData,

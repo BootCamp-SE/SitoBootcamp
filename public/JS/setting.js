@@ -62,7 +62,6 @@ const userForm = document.querySelector('#userForm');
 const toggleOldPassword = document.querySelector('#toggleOldPassword');
 const toggleNewPassword = document.querySelector('#toggleNewPassword');
 const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
-const policyList = document.querySelectorAll('.policy');
 const updateUserFeedback = document.querySelector('#update-user-feedback');
 
 userForm.addEventListener('submit', async (e) => {
@@ -71,18 +70,11 @@ userForm.addEventListener('submit', async (e) => {
 	// Reset errors
 	updateUserFeedback.textContent = '';
 	updateUserFeedback.setAttribute('class', 'd-none');
-
+	
 	const username = userForm.username.value;
 	const oldPassword = userForm.oldPassword.value;
 	const newPassword = userForm.newPassword.value;
-	const policies = policyList.length > 0 ? [] : '';
-
-	for (var policy of policyList) {
-		if (policy.checked) {
-			policies.push(policy.name);		
-		}
-	}
-
+	
 	// Check password
 	updateUserFeedback.textContent = checkPassword();
 	updateUserFeedback.setAttribute('class', 'text-danger');
@@ -92,10 +84,10 @@ userForm.addEventListener('submit', async (e) => {
 			const res = await fetch(`/api/auth/settings/user?ID=${ID}`, {
 				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({username, oldPassword, newPassword, policy: policies}),
+				body: JSON.stringify({username, oldPassword, newPassword}),
 			});
 			const data = await res.json();
-
+			
 			updateUserFeedback.textContent = data.res ? data.res : data.err;
 			if (data.res) {
 				updateUserFeedback.setAttribute('class', 'text-success');
@@ -107,6 +99,47 @@ userForm.addEventListener('submit', async (e) => {
 		}
 	}
 });
+
+const policiesForm = document.querySelector('#policiesForm');
+const policyList = document.querySelectorAll('.policy');
+const updatePoliciesFeedback = document.querySelector('#update-policies-feedback');
+
+if (policiesForm != null) {
+	policiesForm.addEventListener('submit', async (e) => {
+		e.preventDefault();
+	
+		updatePoliciesFeedback.textContent = '';
+		updatePoliciesFeedback.setAttribute('class', 'd-none');
+
+		const policies = policyList.length > 0 ? [] : '';
+		
+		for (var policy of policyList) {
+			if (policy.checked) {
+				policies.push(policy.name);		
+			}
+		}
+		
+		
+		try {
+			const res = await fetch(`/api/auth/settings/policies?ID=${ID}`, {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({policy: policies}),
+			});
+			const data = await res.json();
+
+			updatePoliciesFeedback.textContent = data.res ? data.res : data.err;
+			if (data.res) {
+				updatePoliciesFeedback.setAttribute('class', 'text-success');
+			} else {
+				updatePoliciesFeedback.setAttribute('class', 'text-danger');
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	});
+}
+
 
 toggleOldPassword.addEventListener('click', () => {
 	const inputType = userForm.oldPassword.getAttribute('type') == 'password' ? 'text' : 'password';

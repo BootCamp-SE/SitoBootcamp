@@ -19,6 +19,14 @@ router.put('/auth/settings/user', requireAuth, (req, res, next) => {
 	}
 }, authController.updateUserSettings);
 
+router.put('/auth/settings/policies', requireAuth, (req, res, next) => {
+	if ((res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) || (res.locals.userID == req.query.ID)) {
+		next();
+	} else {
+		res.status(403).json({ err: 'Forbidden access!'});
+	}
+}, authController.updateUserPolicies);
+
 router.put('/auth/settings/player', requireAuth, (req, res, next) => {
 	if ((res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) || (res.locals.userID == req.query.ID)) {
 		next();

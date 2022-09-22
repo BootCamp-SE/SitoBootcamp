@@ -19,113 +19,113 @@
 
 		<!--Player settings-->
 		<% if (userData.hasPlayer) { %>
-		<form id="playerForm">
-			<div class="container fields">
-				<label for="rank"><b>Rango</b></label>
-				<br>
-				<select type="text" id="rank" name="rank" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
-					<% ranks.forEach((rank)=> {
+			<form id="playerForm">
+				<div class="container fields">
+					<label for="rank"><b>Rango</b></label>
+					<br>
+					<select type="text" id="rank" name="rank" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+						<% ranks.forEach((rank)=> {
 							if (rank.tag == playerData.grado) { %>
-							<option value="<%= rank.tag %>" selected>
-								<%= rank.name %>
-							</option>
-						<% } else { %>
-							<option value="<%= rank.tag %>">
-								<%= rank.name %>
-							</option>
-						<% } %>
-					<% }); %>
-				</select>
-				<br>
-
-				<label for="specialization"><b>Specializzazione</b></label>
-				<br>
-				<select id="specialization" name="specialization" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
-					<% specializations.forEach((specialization)=> {
-						if (specialization == playerData.specializzazione) {%>
-							<option value="<%= specialization %>" selected>
-								<%= specialization %>
-							</option>
-						<% } else { %>
-							<option value="<%= specialization %>">
-								<%= specialization %>
-							</option>
-						<% } %>
-					<% }); %>
-				</select>
-				<br>
-
-				<label for="crew"><b>Equipaggio</b></label>
-				<br>
-				<select name="crew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
-					<% crews.forEach((crew)=> {
-						if (crew == playerData.equipaggio) {%>
-							<option value="<%= crew %>" selected>
-								<%= crew %>
-							</option>
-						<% } else { %>
-							<option value="<%= crew %>">
-								<%= crew %>
-							</option>
-						<% } %>
-					<% }); %>
-				</select>
-				<br>
-
-				<label for="reservecrew"><b>Equipaggio di riserva</b></label>
-				<br>
-				<select name="reservecrew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
-					<% crews.forEach((crew)=> {
-						if (crew == playerData.equipaggio_secondario) {%>
-							<option value="<%= crew %>" selected>
-								<%= crew %>
-							</option>
-						<% } else { %>
-							<option value="<%= crew %>">
-								<%= crew %>
-							</option>
-						<% } %>
-					<% }); %>
-				</select>
-				<br>
-
-				<label for="discordId"><b>ID Discord</b></label>
-				<br>
-				<input type="text" id="discordId" name="discordId" placeholder="Inserire ID Discord" value="<%= playerData.discord.id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
-				<br>
-
-				<label for="discordName"><b>Nome Discord</b></label>
-				<br>
-				<input type="text" id="discordName" name="discordName" placeholder="Inserire Nome Discord" value="<%= playerData.discord.name %>">
-				<br>
-
-				<label for="steamId"><b>ID Steam</b></label>
-				<br>
-				<input type="text" id="steamId" name="steamId" placeholder="Inserire ID Steam" value="<%= playerData.steam.id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
-				<br>
-
-				<label for="steamName"><b>Nome Steam</b></label>
-				<br>
-				<input type="text" id="steamName" name="steamName" placeholder="Inserire Nome Steam" value="<%= playerData.steam.name %>">
-				<br>
-
-				<label for="publicNotes"><b>Note Pubbliche</b></label>
-				<br>
-				<input type="text" id="publicNotes" name="publicNotes" placeholder="Parlami di te" maxlength="255" value="<%= playerData.note_pubbliche %>">
-				<br>
-
-				<% if(isAdmin || checkPolicy(['manageruser'])) {%>
-					<label for="privateNotes"><b>Note Private</b></label>
+								<option value="<%= rank.tag %>" selected>
+									<%= rank.name %>
+								</option>
+							<% } else { %>
+								<option value="<%= rank.tag %>">
+									<%= rank.name %>
+								</option>
+							<% } %>
+						<% }); %>
+					</select>
 					<br>
-					<input type="text" id="privateNotes" name="privateNotes" placeholder="Note visibili solo al comando di flotta" maxlength="255" value="<%= playerData.note_private %>">
-					<br>
-				<% } %>
 
-				<button type="submit">Salva</button>
-				<br>
-				<div id="update-player-feedback"></div>
-			</div>
-		</form>
+					<label for="specialization"><b>Specializzazione</b></label>
+					<br>
+					<select id="specialization" name="specialization" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+						<% specializations.forEach((specialization)=> {
+							if (specialization == playerData.specializzazione) {%>
+								<option value="<%= specialization %>" selected>
+									<%= specialization %>
+								</option>
+							<% } else { %>
+								<option value="<%= specialization %>">
+									<%= specialization %>
+								</option>
+							<% } %>
+						<% }); %>
+					</select>
+					<br>
+
+					<label for="crew"><b>Equipaggio</b></label>
+					<br>
+					<select name="crew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+						<% crews.forEach((crew)=> {
+							if (crew == playerData.equipaggio) {%>
+								<option value="<%= crew %>" selected>
+									<%= crew %>
+								</option>
+							<% } else { %>
+								<option value="<%= crew %>">
+									<%= crew %>
+								</option>
+							<% } %>
+						<% }); %>
+					</select>
+					<br>
+
+					<label for="reservecrew"><b>Equipaggio di riserva</b></label>
+					<br>
+					<select name="reservecrew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+						<% crews.forEach((crew)=> {
+							if (crew == playerData.equipaggio_secondario) {%>
+								<option value="<%= crew %>" selected>
+									<%= crew %>
+								</option>
+							<% } else { %>
+								<option value="<%= crew %>">
+									<%= crew %>
+								</option>
+							<% } %>
+						<% }); %>
+					</select>
+					<br>
+
+					<label for="discordId"><b>ID Discord</b></label>
+					<br>
+					<input type="text" id="discordId" name="discordId" placeholder="Inserire ID Discord" value="<%= playerData.discord.id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<br>
+
+					<label for="discordName"><b>Nome Discord</b></label>
+					<br>
+					<input type="text" id="discordName" name="discordName" placeholder="Inserire Nome Discord" value="<%= playerData.discord.name %>">
+					<br>
+
+					<label for="steamId"><b>ID Steam</b></label>
+					<br>
+					<input type="text" id="steamId" name="steamId" placeholder="Inserire ID Steam" value="<%= playerData.steam.id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<br>
+
+					<label for="steamName"><b>Nome Steam</b></label>
+					<br>
+					<input type="text" id="steamName" name="steamName" placeholder="Inserire Nome Steam" value="<%= playerData.steam.name %>">
+					<br>
+
+					<label for="publicNotes"><b>Note Pubbliche</b></label>
+					<br>
+					<input type="text" id="publicNotes" name="publicNotes" placeholder="Parlami di te" maxlength="255" value="<%= playerData.note_pubbliche %>">
+					<br>
+
+					<% if(isAdmin || checkPolicy(['manageruser'])) {%>
+						<label for="privateNotes"><b>Note Private</b></label>
+						<br>
+						<input type="text" id="privateNotes" name="privateNotes" placeholder="Note visibili solo al comando di flotta" maxlength="255" value="<%= playerData.note_private %>">
+						<br>
+					<% } %>
+
+					<button type="submit">Salva</button>
+					<br>
+					<div id="update-player-feedback"></div>
+				</div>
+			</form>
 		<% } %>
 
 		<!--User settings-->
@@ -152,28 +152,34 @@
 				<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Reinserire Password">
 				<i class="bi bi-eye-slash" id="toggleConfirmPassword"></i>
 
-				<% if (isAdmin || checkPolicy(['manageruser'])) { %>
-					<div>
-						<label><b>Policy:</b></label>
-						<br>
-						<% policies.forEach((policy) => { %>
-							<input type="checkbox" class="policy" id="<%= policy.id %>" name="<%= policy.id %>" <% if (userData.policy.includes(policy.id)) { %>
-							 checked
-							<% } %>
-							> <%= policy.text %>
-							<a> | </a>
-							<% if (policy.nl) { %>
-							 <br>
-							<% } %>
-						<% }) %>
-					</div>
-				<% } %>
-
 				<button type="submit">Salva</button>
 				<br>
 				<div id="update-user-feedback"></div>
 			</div>
 		</form>
+		<% if (isAdmin || checkPolicy(['manageruser'])) { %>
+			<form id="policiesForm">
+				<div class="container fields">
+
+					<div>
+						<label><b>Policy:</b></label>
+						<br>
+						<% policies.forEach((policy) => { %>
+							<input type="checkbox" class="policy" id="<%= policy.id %>" name="<%= policy.id %>" <% if (userData.policy.includes(policy.id)) { %> checked <% } %>>
+							<%= policy.text %>
+							<a> | </a>
+							<% if (policy.nl) { %>
+								<br>
+							<% } %>
+						<% }) %>
+					</div>
+
+					<button type="submit">Salva</button>
+					<br>
+					<div id="update-policies-feedback"></div>
+				</div>
+			</form>
+		<% } %>
 	</body>
 	<%- include('../partials/footer.ejs') %>
 

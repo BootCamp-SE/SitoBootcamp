@@ -26,7 +26,7 @@ router.get('/signup', requireAuth, requirePolicy, getPolicies, (req, res) => {
 // User and Player Settings
 router.get('/settings/:id', requireAuth, getRanks, getSpecializations, getPolicies, getCrews, (req, res) => {
 	const id = req.params.id;
-	if (!(res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) && id != res.locals.userID) { // TODO: Check condintion
+	if (!(res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) && id != res.locals.userID) {
 		res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
 	} else {
 		getUserData(id, (user) => {
