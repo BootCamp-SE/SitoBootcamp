@@ -2,3 +2,4 @@ node_modules
 .vsls.json
 /Config/
 bower_components
+launch.json

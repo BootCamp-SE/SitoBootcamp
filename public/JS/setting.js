@@ -15,12 +15,12 @@ if(playerForm != null)
 		const equipaggio = playerForm.crew.value;
 		const equipaggio_secondario = playerForm.reservecrew.value;
 		const specializzazione = playerForm.specialization.value;
-		const discord_id = playerForm.iddiscord.vlaue;
-		const discord_name = playerForm.namediscord.value;
-		const steam_id = playerForm.idsteam.value;
-		const steam_name = playerForm.namesteam.value;
-		const note_private = playerForm.noteprivate ? playerForm.noteprivate.value: '';
-		const note_pubbliche = playerForm.notepublic.value;
+		const discord_id = playerForm.discordID.value;
+		const discord_name = playerForm.discordName.value;
+		const steam_id = playerForm.steamId.value;
+		const steam_name = playerForm.steamName.value;
+		const note_private = playerForm.privateNotes ? playerForm.privateNotes.value : '';
+		const note_pubbliche = playerForm.publicNotes.value;
 	
 		try {
 			const res = await fetch(`/api/auth/settings/player?ID=${ID}`, {

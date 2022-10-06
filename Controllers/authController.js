@@ -115,7 +115,7 @@ const updatePlayerSettings = async (req, res) => {
 	var playerData = {};
 	Object.keys(body).forEach((key) => {
 		if (body[key] != '') 
-			playerData.key = body[key];
+			playerData[key] = body[key];
 	});
 
 	Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
