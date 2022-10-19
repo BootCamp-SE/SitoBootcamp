@@ -108,15 +108,45 @@ const updateUserPolicies = async (req, res) => {
 	}
 };
 
+const RestrictedFields = ['grado', 'equipaggio', 'equipaggio_secondario', 'specializzazione', 'note_private'];
+
+const createPlayerData = (body) => {	// BUG: if no discord || steam id is provided field is deleted
+	var ret = {};
+	Object.keys(body).forEach((key) => {
+		console.log(key);
+		if (!RestrictedFields.includes(key)) {
+			if ((key == 'steam' || key == 'discord') && body[key] != undefined) {
+				ret[key] = {};
+				ret[key]['name'] = body[key]['name'];
+			} else if (body[key] != undefined) 
+				ret[key] = body[key];
+		}		
+	});
+	return ret;
+};
+
+const createPlayerDataWithPerms = (body) => {
+	var ret = {};
+	Object.keys(body).forEach((key) => {
+		if (body[key] != '') 
+			ret[key] = body[key];
+	});
+	return ret;
+};
+
 const updatePlayerSettings = async (req, res) => {
 	const ID = req.query.ID;
 	const body = req.body;
 
 	var playerData = {};
-	Object.keys(body).forEach((key) => {
-		if (body[key] != '') 
-			playerData[key] = body[key];
-	});
+
+	if (res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) {
+		playerData = createPlayerDataWithPerms(body);
+	} else {
+		playerData = createPlayerData(body);
+	}
+
+	console.log(playerData);
 
 	Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
 		playerRes.acknowledged
