@@ -91,22 +91,22 @@
 
 					<label for="discordId"><b>ID Discord</b></label>
 					<br>
-					<input type="text" id="discordID" name="discordID" placeholder="Inserire ID Discord" value="<%= playerData.discord.id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<input type="text" id="discordID" name="discordID" placeholder="Inserire ID Discord" value="<%= playerData.discord_id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
 					<br>
 
 					<label for="discordName"><b>Nome Discord</b></label>
 					<br>
-					<input type="text" id="discordName" name="discordName" placeholder="Inserire Nome Discord" value="<%= playerData.discord.name %>">
+					<input type="text" id="discordName" name="discordName" placeholder="Inserire Nome Discord" value="<%= playerData.discord_name %>">
 					<br>
 
 					<label for="steamId"><b>ID Steam</b></label>
 					<br>
-					<input type="text" id="steamId" name="steamId" placeholder="Inserire ID Steam" value="<%= playerData.steam.id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<input type="text" id="steamId" name="steamId" placeholder="Inserire ID Steam" value="<%= playerData.steam_id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
 					<br>
 
 					<label for="steamName"><b>Nome Steam</b></label>
 					<br>
-					<input type="text" id="steamName" name="steamName" placeholder="Inserire Nome Steam" value="<%= playerData.steam.name %>">
+					<input type="text" id="steamName" name="steamName" placeholder="Inserire Nome Steam" value="<%= playerData.steam_name %>">
 					<br>
 
 					<label for="publicNotes"><b>Note Pubbliche</b></label>

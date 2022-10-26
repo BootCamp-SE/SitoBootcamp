@@ -31,14 +31,10 @@ if(playerForm != null)
 					equipaggio,
 					equipaggio_secondario,
 					specializzazione,
-					discord: {
-						id: discord_id,
-						name: discord_name,
-					},
-					steam: {
-						id: steam_id,
-						name: steam_name,
-					},
+					discord_id,
+					discord_name,
+					steam_id,
+					steam_name,
 					note_private,
 					note_pubbliche
 				}),

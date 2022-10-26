@@ -23,32 +23,27 @@ const playerSchema = new mongoose.Schema(
 			required: true,
 			default: 'Componentistica Navale',
 		},
-		discord: {
-			id: {
-				type: String,
-				required: false,
-				unique: true,
-				default: Date.now(),
-			},
-			name: {
-				type: String,
-				required: false,
-				default: 'disbob',
-			},
+		// Discord
+		discord_id: {
+			type: String,
+			required: false,
+			unique: true,
 		},
-		steam: {
-			id: {
-				type: String,
-				required: false,
-				unique: true,
-				default: Date.now() + 1,
-			},
-			name: {
-				type: String,
-				required: false,
-				default: 'steamcord',
-			},
+		discord_name: {
+			type: String,
+			required: false,
 		},
+		//Steam
+		steam_id: {
+			type: String,
+			required: false,
+			unique: true,
+		},
+		steam_name: {
+			type: String,
+			required: false,
+		},
+		// Notes
 		note_private: {
 			type: String,
 			required: false,

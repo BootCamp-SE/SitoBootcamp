@@ -108,18 +108,16 @@ const updateUserPolicies = async (req, res) => {
 	}
 };
 
-const RestrictedFields = ['grado', 'equipaggio', 'equipaggio_secondario', 'specializzazione', 'note_private'];
+const FieldsWhiteList = ['grado', 'equipaggio', 'equipaggio_secondario', 'specializzazione', 'discord_id', 'discord_name', 'steam_id', 'steam_name', 'note_private', 'note_pubbliche'];
+const FieldsBlackList = ['grado', 'equipaggio', 'equipaggio_secondario', 'specializzazione', 'discord_id', 'steam_id', 'note_private'];
 
-const createPlayerData = (body) => {	// BUG: if no discord || steam id is provided field is deleted
+const createPlayerData = (body) => {
 	var ret = {};
 	Object.keys(body).forEach((key) => {
-		console.log(key);
-		if (!RestrictedFields.includes(key)) {
-			if ((key == 'steam' || key == 'discord') && body[key] != undefined) {
-				ret[key] = {};
-				ret[key]['name'] = body[key]['name'];
-			} else if (body[key] != undefined) 
+		if (body[key] != undefined) {
+			if (FieldsWhiteList.includes(key) && !FieldsBlackList.includes(key)) {
 				ret[key] = body[key];
+			}
 		}		
 	});
 	return ret;
@@ -128,8 +126,10 @@ const createPlayerData = (body) => {	// BUG: if no discord || steam id is provid
 const createPlayerDataWithPerms = (body) => {
 	var ret = {};
 	Object.keys(body).forEach((key) => {
-		if (body[key] != '') 
-			ret[key] = body[key];
+		if (FieldsWhiteList.includes(key)) {
+			if (body[key] != '') 
+				ret[key] = body[key];
+		}
 	});
 	return ret;
 };
