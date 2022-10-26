@@ -39,4 +39,8 @@ router.put('/auth/settings/player', requireAuth, (req, res, next) => {
 // TODO: Move articles logic and routes to correct routes
 router.post('/md-editor', requireAuth, requireAdmin, docsController.createArticle);
 
+router.use('/', (req, res) => {
+	res.status(404).json({err: 'API endpoint not found!'});
+});
+
 module.exports = router;
