@@ -24,7 +24,7 @@ submitButton.addEventListener('click', async (e) => {
 	const body = DOMPurify.sanitize(mdEditor.value);
 
 	try {
-		const res = await fetch('/api/md-editor', {
+		const res = await fetch('/api/news/createArticle', {
 			method: 'POST',
 			body: JSON.stringify({title, subtitle, tags, body}),
 			headers: { 'Content-Type': 'application/json' },

@@ -2,6 +2,7 @@ const JWT = require('jsonwebtoken');
 const User = require('../Models/user');
 
 const pagesPolicy = [
+	{ path: '/news/articleEditor', policy: ['writearticles'] },
 	{ path: '/news/rapporti', policy: ['readreportsecret', 'readreport', 'writereport'] },
 	{ path: '/accademia', policy: ['student', 'teacher'] },
 	{ path: '/accademia/ingegneria', policy: ['student', 'teacher'] },
@@ -14,6 +15,7 @@ const pagesPolicy = [
 	{ path: '/admin/users', policy: ['manageruser'] },
 	{ path: '/api/users', policy: ['manageruser'] },
 	{ path: '/api/players', policy: ['manageruser'] },
+	{ path: '/api/news/createArticle', policy: ['writearticles'] },
 ];
 
 const checkToken = (req, res, next) => {

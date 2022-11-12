@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="it">
 	<%- include('../partials/header.ejs') %>
+	<% const checkPolicy = (policy = []) => {
+    var check = false;
+    policy.forEach(p => {
+      if (userPolicy.includes(p)) check = true;
+    });
+    return check;
+  } %>
 
 	<body>
 		<%- include('../partials/navbar.ejs') %>
 		<h1><%= title %></h1>
 		<div class="container">
-			<% /* if (articles.lenght > 0) { */%>
+			<% if (isAdmin || checkPolicy(['writearticles'])) { %>
+				<a class="btn btn-primary" href="/news/articleEditor">Crea un nuovo annuncio</a>
+			<% } %>
+			<% if (articles.length > 0) { %>
 			<ul class="list-group">
 				<% articles.forEach((article) => { %>
 					<li class="list-group-item">
@@ -19,9 +29,9 @@
 					</li>
 				<% }); %>
 			</ul>
-			<% /*} else { %>
-			<!-- <p>Nessun articolo disponibile!</p> -->
-			<% } */ %>
+			<% } else { %>
+				<p>Nessun articolo disponibile!</p>
+			<% } %>
 		</div>
 	</body>
 	<%- include('../partials/footer.ejs') %>

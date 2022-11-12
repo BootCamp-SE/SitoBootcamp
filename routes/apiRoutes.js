@@ -2,9 +2,9 @@ const { Router } = require('express');
 const router = Router();
 
 const authController = require('../Controllers/authController');
-const { requireAuth, requireAdmin } = require('../Middleware/auth');
+const { requireAuth, requirePolicy } = require('../Middleware/auth');
 
-const docsController = require('../Controllers/docsController');
+const newsController = require('../Controllers/newsController');
 
 // Login && Logout
 router.post('/auth/login', authController.login);
@@ -36,8 +36,7 @@ router.put('/auth/settings/player', requireAuth, (req, res, next) => {
 }, authController.updatePlayerSettings);
 
 // Create New Article
-// TODO: Move articles logic and routes to correct routes
-router.post('/md-editor', requireAuth, requireAdmin, docsController.createArticle);
+router.post('/news/createArticle', requireAuth, requirePolicy, newsController.createArticle);
 
 router.use('/', (req, res) => {
 	res.status(404).json({err: 'API endpoint not found!'});
