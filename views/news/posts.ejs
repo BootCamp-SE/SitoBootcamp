@@ -13,7 +13,7 @@
 		<%- include('../partials/navbar.ejs') %>
 		<h1><%= title %></h1>
 		<div class="container">
-			<% if (isAdmin || checkPolicy(['writearticles'])) { %>
+			<% if (typeof isAdmin !== 'undefined' && (isAdmin || checkPolicy(['writearticles']))) { %>
 				<a class="btn btn-primary" href="/news/articleEditor">Crea un nuovo annuncio</a>
 			<% } %>
 			<% if (articles.length > 0) { %>
