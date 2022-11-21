@@ -15,7 +15,7 @@ form.addEventListener('submit', async (e) => {
 	const user = form.username.value;
 	const password = form.password.value;
 	const createPlayer = form.createPlayer.checked;
-	const policies = new Array();
+	const policies = [];
 
 	// get policy 
 	for (var policy of policyList) {

@@ -4,6 +4,7 @@ require('dotenv').config({ path: './Config/.env' }); // Import and config of env
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 const path = require('path');
 
 // Global Constants
@@ -24,6 +25,7 @@ const NewsRoutes = require('./routes/newsRoutes');
 
 // Middleware
 app.set('view engine', 'ejs');
+app.use(helmet());
 app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -33,12 +35,17 @@ app.use(auth.checkToken);
 
 // Connecting to db and starting web server
 var server;
-mongoose.connect(process.env.DB_URI).then(() => {
-	console.log('Connected with DB!');
-	server = app.listen(Port, () => {
-		console.log(`Server listening on port: ${Port}`);
+mongoose.connect(process.env.DB_URI)
+	.then(() => {
+		console.log('Connected with DB!');
+		server = app.listen(Port, () => {
+			console.log(`Server listening on port: ${Port}`);
+		});
+	})
+	.catch(err => {
+		console.error(err);
+		process.exit(1);
 	});
-});
 
 // Routes handling
 app.get('/', (req, res) => {

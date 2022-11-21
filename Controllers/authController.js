@@ -15,7 +15,7 @@ const login = async (req, res) => {
 		const user = await User.login(username, password);
 		const token = createToken(user._id, remember);
 		const maxAge = remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
-		res.cookie('JWT', token, { httpOnly: true, maxAge: maxAge * 1000 });
+		res.cookie('JWT', token, { httpOnly: true, secure: true, maxAge: maxAge * 1000 });
 		res.status(200).json({ res: 'Accesso confermato!' });
 	} catch (err) {
 		res.status(500).json({ err: 'Credenziali non valide!' });
@@ -148,7 +148,8 @@ const updatePlayerSettings = async (req, res) => {
 
 	console.log(playerData);
 
-	Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
+	// deepcode ignore PromiseNotCaughtNode: <please specify a reason of ignoring this>
+ Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
 		playerRes.acknowledged
 			? res.json({ res: 'Profilo giocatore aggiornato!' })
 			: res.status(500).json({ err: 'Profilo giocatore non aggiornato!' });

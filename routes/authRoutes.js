@@ -14,7 +14,7 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/logout', requireAuth, (req, res) => {
-	res.cookie('JWT', '', {maxAge: 0});
+	res.cookie('JWT', '', {httpOnly: true, secure: true, maxAge: 0});
 	res.status(200).redirect('/');
 });
 

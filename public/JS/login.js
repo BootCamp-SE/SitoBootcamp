@@ -27,7 +27,7 @@ form.addEventListener('submit', async (e) => {
 		if (data.res) {
 			loginFeedback.setAttribute('class', 'text-success');
 			await setTimeout(() => {
-				location.assign(document.referrer);
+				location.assign('/');
 			}, 1000);
 		} else {
 			loginFeedback.setAttribute('class', 'text-danger');
