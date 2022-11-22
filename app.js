@@ -2,6 +2,7 @@ require('dotenv').config({ path: './Config/.env' }); // Import and config of env
 
 // Importing modules
 const express = require('express');
+const http = require('http');
 const https = require('https');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
@@ -10,7 +11,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Global Constants
-const Port = process.env.PORT | 3000;
+const HttpPort = process.env.HTTP_PORT | 80;
+const HttpsPort = process.env.HTTPS_PORT | 443;
 const DEV = process.env.DEV | false;
 if (DEV) console.log('Using developement mode!');
 const PrivateKey = fs.readFileSync('./Config/key.pem');
@@ -55,7 +57,8 @@ app.use((req, res) => {
 });
 
 // Web server init
-var server = https.createServer(
+var HttpServer = http.createServer(app);
+var HttpsServer = https.createServer(
 	{
 		key: PrivateKey,
 		cert: SSLCertificate,
@@ -64,11 +67,15 @@ var server = https.createServer(
 );
 
 // Connecting to db and starting web server
+
 mongoose.connect(process.env.DB_URI)
 	.then(() => {
 		console.log('Connected with DB!');
-		server.listen(Port,() => {
-			console.log(`Web server listening on port: ${Port}`);
+		HttpServer.listen(HttpPort,() => {
+			console.log(`Http server listening on port: ${HttpPort}`);
+		});
+		HttpsServer.listen(HttpsPort,() => {
+			console.log(`Https server listening on port: ${HttpsPort}`);
 		});
 	})
 	.catch(err => {
@@ -79,12 +86,16 @@ mongoose.connect(process.env.DB_URI)
 // Stopping web server gracefully
 async function StopServer(signal) {
 	console.log(`Recived ${signal}\nDisconnecting from database!`);
-	server.closeAllConnections();
+	HttpServer.closeAllConnections();
+	HttpsServer.closeAllConnections();
 	await mongoose.connection.close();
 	console.log('Connection with DB closed!\nStopping web server!');
-	server.close(() => {
-		console.log('Web server stopped!\nExiting process!');
-		process.exit(0);
+	HttpServer.close(() => {
+		console.log('Http server stopped!');
+		HttpsServer.close(() => {
+			console.log('Https server stopped!\nExiting process!');
+			process.exit(0);
+		});
 	});
 }
 
