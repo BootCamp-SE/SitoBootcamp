@@ -44,7 +44,7 @@ form.addEventListener('submit', async (e) => {
 				signupFeedback.setAttribute('class', 'text-danger');
 			}
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 		}
 	}
 });

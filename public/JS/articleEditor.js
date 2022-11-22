@@ -38,7 +38,7 @@ submitButton.addEventListener('click', async (e) => {
 			feedback.setAttribute('class', 'text-danger');
 		}
 	} catch (err) {
-		console.log(err);
+		console.error(err);
 	}
 });
 

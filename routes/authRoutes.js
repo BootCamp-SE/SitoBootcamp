@@ -36,7 +36,6 @@ router.get('/settings/:id', requireAuth, getRanks, getSpecializations, getPolici
 			
 			if(res.locals.userData.hasPlayer) {
 				getPlayerData(id, (player) => {
-					console.log(player);
 					if(player.err) return res.status(500).render('error', {title: '500', error: player.err});
 
 					res.locals.playerData = player;

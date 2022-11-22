@@ -48,7 +48,7 @@ if(playerForm != null)
 				updatePlayerFeedback.setAttribute('class', 'text-danger');
 			}
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 		}
 	});
 }
@@ -91,7 +91,7 @@ userForm.addEventListener('submit', async (e) => {
 				updateUserFeedback.setAttribute('class', 'text-danger');
 			}
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 		}
 	}
 });
@@ -131,7 +131,7 @@ if (policiesForm != null) {
 				updatePoliciesFeedback.setAttribute('class', 'text-danger');
 			}
 		} catch (err) {
-			console.log(err);
+			console.error(err);
 		}
 	});
 }

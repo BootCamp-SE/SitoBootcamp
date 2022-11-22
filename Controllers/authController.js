@@ -146,8 +146,6 @@ const updatePlayerSettings = async (req, res) => {
 		playerData = createPlayerData(body);
 	}
 
-	console.log(playerData);
-
 	// deepcode ignore PromiseNotCaughtNode: <please specify a reason of ignoring this>
  Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
 		playerRes.acknowledged
