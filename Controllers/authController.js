@@ -92,7 +92,7 @@ const updateUserPolicies = async (req, res) => {
 	const ID = req.query.ID;
 
 	var userData = {};
-	if (req.body.policy != ('' || null))
+	if (req.body.policy != ([] || null))
 		userData.policy = req.body.policy;
 
 	try {

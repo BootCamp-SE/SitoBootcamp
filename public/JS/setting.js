@@ -107,7 +107,7 @@ if (policiesForm != null) {
 		updatePoliciesFeedback.textContent = '';
 		updatePoliciesFeedback.setAttribute('class', 'd-none');
 
-		const policies = policyList.length > 0 ? [] : '';
+		const policies = [];
 		
 		for (var policy of policyList) {
 			if (policy.checked) {
