@@ -2,15 +2,19 @@ require('dotenv').config({ path: './Config/.env' }); // Import and config of env
 
 // Importing modules
 const express = require('express');
+const https = require('https');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const fs = require('fs');
 const path = require('path');
 
 // Global Constants
 const Port = process.env.PORT | 3000;
 const DEV = process.env.DEV | false;
 if (DEV) console.log('Using developement mode!');
+const PrivateKey = fs.readFileSync('./Config/key.pem');
+const SSLCertificate = fs.readFileSync('./Config/cert.pem');
 
 // Express Init
 const app = express();
@@ -33,20 +37,6 @@ app.use(cookieParser());
 app.use(DEV ? utils.LogRequestsDev : utils.LogRequests);
 app.use(auth.checkToken);
 
-// Connecting to db and starting web server
-var server;
-mongoose.connect(process.env.DB_URI)
-	.then(() => {
-		console.log('Connected with DB!');
-		server = app.listen(Port, () => {
-			console.log(`Server listening on port: ${Port}`);
-		});
-	})
-	.catch(err => {
-		console.error(err);
-		process.exit(1);
-	});
-
 // Routes handling
 app.get('/', (req, res) => {
 	res.render('index', { title: 'Home' });
@@ -63,6 +53,28 @@ app.use('/news', NewsRoutes);
 app.use((req, res) => {
 	res.status(404).render('error', { title: '404', error: 'Page not found!' });
 });
+
+// Web server init
+var server = https.createServer(
+	{
+		key: PrivateKey,
+		cert: SSLCertificate,
+	},
+	app
+);
+
+// Connecting to db and starting web server
+mongoose.connect(process.env.DB_URI)
+	.then(() => {
+		console.log('Connected with DB!');
+		server.listen(Port,() => {
+			console.log(`Web server listening on port: ${Port}`);
+		});
+	})
+	.catch(err => {
+		console.error(err);
+		process.exit(1);
+	});
 
 // Stopping web server gracefully
 async function StopServer(signal) {
