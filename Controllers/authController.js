@@ -27,7 +27,7 @@ const signup = async (req, res) => {
 	try {
 		User.create({ username, password, policy }, (err, user) => {
 			if (err) {
-				res.status(500).json({ err: 'Utente non creato!' });
+				return res.status(500).json({ err: 'Utente non creato!' });
 			} else {
 				if (createPlayer) {
 					Player.create({ _id: user.id }, (err, _doc) => {
@@ -39,14 +39,14 @@ const signup = async (req, res) => {
 						{ hasPlayer: true },
 						(err, _doc) => {
 							if (err) {
-								res.status(500).json({ err: 'Utente non aggiornato!' });
+								return res.status(500).json({ err: 'Utente non aggiornato!' });
 							} else {
-								res.status(200).json({ res: 'Utente creato' });
+								return res.status(200).json({ res: 'Utente creato' });
 							}
 						}
 					);
 				} else {
-					res.status(200).json({ res: 'Utente creato' });
+					return res.status(200).json({ res: 'Utente creato' });
 				}
 			}
 		});
@@ -58,7 +58,7 @@ const signup = async (req, res) => {
 		errString += err.errors.password
 			? err.errors.password.properties.message
 			: '';
-		res.status(500).json({ err: errString });
+		return res.status(500).json({ err: errString });
 	}
 };
 
@@ -146,8 +146,7 @@ const updatePlayerSettings = async (req, res) => {
 		playerData = createPlayerData(body);
 	}
 
-	// deepcode ignore PromiseNotCaughtNode: <please specify a reason of ignoring this>
- Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
+	Player.updateOne({ _id: ID }, playerData).then((playerRes) => {
 		playerRes.acknowledged
 			? res.json({ res: 'Profilo giocatore aggiornato!' })
 			: res.status(500).json({ err: 'Profilo giocatore non aggiornato!' });
@@ -163,7 +162,7 @@ const getUserData = (ID, cb) => {
 
 const getPlayerData = (ID, cb) => {
 	Player.findById(ID, (err, player) => {
-		if (err || player == {})
+		if (err || player == null)
 			return cb({ err: 'Profilo giocatore non trovato!' });
 		return cb(player);
 	});
