@@ -65,16 +65,26 @@ const signup = async (req, res) => {
 const updateUserSettings = async (req, res) => {
 	const ID = req.query.ID;
 	const oldPassword = req.body.oldPassword;
+	var useAdmin = false;
 
 	var userData = {};
-	if (req.body.username != ('' || null))
+	if (req.body.username != '')
 		userData.username = req.body.username; 
-	if (req.body.newPassword != ('' || null))
+	if (req.body.newPassword != '')
 		userData.password = req.body.newPassword;
+	if (req.body.adminPassword != '') {
+		if (res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) {
+			userData.password = req.body.adminPassword;
+			useAdmin = true;
+		} else {
+			return res.status(403).json({ err: 'Utente non aggiornato! Admin check' });
+		}
+	}
 
 	try {
-		const checkPassword = await User.checkPassword(ID, oldPassword);
-		if (checkPassword) {
+		if (!useAdmin)
+			var checkPassword = await User.checkPassword(ID, oldPassword);
+		if (checkPassword || useAdmin) {
 			User.updateOne({ _id: ID }, userData).then((userRes) => {
 				if (userRes.acknowledged) {
 					res.json({ res: 'Utente aggiornato!' });

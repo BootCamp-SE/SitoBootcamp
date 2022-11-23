@@ -135,23 +135,28 @@
 				<br>
 				<input type="text" placeholder="Inserire Nome Utente" name="username" value="<%= userData.username %>">
 				<br>
+				<% if (!(isAdmin || checkPolicy(['manageruser']))) { %>
+					<label for="oldPassword"><b>Vecchia Password</b></label>
+					<br>
+					<input type="password" id="oldPassword" name="oldPassword" placeholder="Inserire Password Vecchia">
+					<i class="bi bi-eye-slash" id="toggleOldPassword"></i>
+					<br>
 
-				<label for="oldPassword"><b>Vecchia Password</b></label>
-				<br>
-				<input type="password" id="oldPassword" name="oldPassword" placeholder="Inserire Password Vecchia">
-				<i class="bi bi-eye-slash" id="toggleOldPassword"></i>
-				<br>
-
-				<label for="newPassword"><b>Password</b></label>
-				<br>
-				<input type="password" id="newPassword" name="newPassword" placeholder="Inserire Password Nuova">
-				<i class="bi bi-eye-slash" id="toggleNewPassword"></i>
-				<br>
-				<label for="confirmPassword"><b>Conferma Password</b></label>
-				<br>
-				<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Reinserire Password">
-				<i class="bi bi-eye-slash" id="toggleConfirmPassword"></i>
-
+					<label for="newPassword"><b>Password</b></label>
+					<br>
+					<input type="password" id="newPassword" name="newPassword" placeholder="Inserire Password Nuova">
+					<i class="bi bi-eye-slash" id="toggleNewPassword"></i>
+					<br>
+					<label for="confirmPassword"><b>Conferma Password</b></label>
+					<br>
+					<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Reinserire Password">
+					<i class="bi bi-eye-slash" id="toggleConfirmPassword"></i>
+					<% } else { %>
+						<label for="adminPassword">Resetta Password</label>
+						<br>
+						<input type="password" id="adminPassword" name="adminPassword" placeholder="Reinserire Password">
+						<i class="bi bi-eye-slash" id="toggleAdminPassword"></i>
+				<% } %>
 				<button type="submit">Salva</button>
 				<br>
 				<div id="update-user-feedback"></div>

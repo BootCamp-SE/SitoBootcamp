@@ -1,5 +1,6 @@
 const ID = window.location.href.slice(window.location.href.lastIndexOf('/') + 1 );
 
+// Player
 const playerForm = document.querySelector('#playerForm');
 const updatePlayerFeedback = document.querySelector('#update-player-feedback');
 
@@ -53,12 +54,17 @@ if(playerForm != null)
 	});
 }
 
-
+// User
 const userForm = document.querySelector('#userForm');
 const toggleOldPassword = document.querySelector('#toggleOldPassword');
 const toggleNewPassword = document.querySelector('#toggleNewPassword');
 const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+const toggleAdminPassword = document.querySelector('#toggleAdminPassword');
 const updateUserFeedback = document.querySelector('#update-user-feedback');
+let useAdmin = false;
+
+if (((toggleOldPassword || toggleNewPassword || toggleConfirmPassword) == (null || undefined)) && (toggleAdminPassword != (null || undefined)))
+	useAdmin = true;
 
 userForm.addEventListener('submit', async (e) => {
 	e.preventDefault();
@@ -68,34 +74,82 @@ userForm.addEventListener('submit', async (e) => {
 	updateUserFeedback.setAttribute('class', 'd-none');
 	
 	const username = userForm.username.value;
-	const oldPassword = userForm.oldPassword.value;
-	const newPassword = userForm.newPassword.value;
-	
+	const oldPassword = !useAdmin ? userForm.oldPassword.value : '';
+	const newPassword = !useAdmin ? userForm.newPassword.value : '';
+	const adminPassword = useAdmin ? userForm.adminPassword.value : '';
+
 	// Check password
-	updateUserFeedback.textContent = checkPassword();
-	updateUserFeedback.setAttribute('class', 'text-danger');
-	
-	if(updateUserFeedback.textContent == '') {
-		try {
-			const res = await fetch(`/api/auth/settings/user?ID=${ID}`, {
-				method: 'PUT',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({username, oldPassword, newPassword}),
-			});
-			const data = await res.json();
-			
-			updateUserFeedback.textContent = data.res ? data.res : data.err;
-			if (data.res) {
-				updateUserFeedback.setAttribute('class', 'text-success');
-			} else {
-				updateUserFeedback.setAttribute('class', 'text-danger');
-			}
-		} catch (err) {
-			console.error(err);
+	if (!useAdmin) {
+		updateUserFeedback.textContent = checkPassword();
+		updateUserFeedback.setAttribute('class', 'text-danger');
+	}
+
+	if(updateUserFeedback.textContent != '') 
+		return;
+
+	try {
+		const res = await fetch(`/api/auth/settings/user?ID=${ID}`, {
+			method: 'PUT',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({username, oldPassword, newPassword, adminPassword}),
+		});
+		const data = await res.json();
+		
+		updateUserFeedback.textContent = data.res ? data.res : data.err;
+		if (data.res) {
+			updateUserFeedback.setAttribute('class', 'text-success');
+		} else {
+			updateUserFeedback.setAttribute('class', 'text-danger');
 		}
+	} catch (err) {
+		console.error(err);
 	}
 });
 
+if (!useAdmin) {
+	toggleOldPassword.addEventListener('click', () => {
+		const inputType = userForm.oldPassword.getAttribute('type') == 'password' ? 'text' : 'password';
+		userForm.oldPassword.setAttribute('type', inputType);
+		toggleOldPassword.classList.toggle('bi-eye');
+	});
+
+	toggleNewPassword.addEventListener('click', () => {
+		const inputType = userForm.newPassword.getAttribute('type') == 'password' ? 'text' : 'password';
+		userForm.newPassword.setAttribute('type', inputType);
+		toggleNewPassword.classList.toggle('bi-eye');
+	});
+
+	toggleConfirmPassword.addEventListener('click', () => {
+		const inputType = userForm.confirmPassword.getAttribute('type') == 'password' ? 'text' : 'password';
+		userForm.confirmPassword.setAttribute('type', inputType);
+		toggleConfirmPassword.classList.toggle('bi-eye');
+	});
+} else {
+	toggleAdminPassword.addEventListener('click', () => {
+		const inputType = userForm.adminPassword.getAttribute('type') == 'password' ? 'text' : 'password';
+		userForm.adminPassword.setAttribute('type', inputType);
+		toggleAdminPassword.classList.toggle('bi-eye');
+	});
+}
+
+function checkPassword(){
+	var oldPw = userForm.oldPassword.value;
+	var newPw = userForm.newPassword.value;
+	var chkPw = userForm.confirmPassword.value;
+
+	if(newPw.length < 6 || newPw.length > 20)
+		return 'La password deve essere compresa tra 6 e 20 caratteri';
+	if(!newPw.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/))
+		return 'La Password deve contenere:\r\n- Almeno una lettera maiuscola\r\n- Almeno una lettera minuscola\r\n- Almeno un numero';		
+	if(chkPw != newPw)
+		return 'Le password inserite non corrispondono';
+	if(oldPw == newPw)
+		return 'Le password deve essere diversa da quella vecchia';
+	return '';
+}
+
+
+// Policies
 const policiesForm = document.querySelector('#policiesForm');
 const policyList = document.querySelectorAll('.policy');
 const updatePoliciesFeedback = document.querySelector('#update-policies-feedback');
@@ -134,41 +188,4 @@ if (policiesForm != null) {
 			console.error(err);
 		}
 	});
-}
-
-
-toggleOldPassword.addEventListener('click', () => {
-	const inputType = userForm.oldPassword.getAttribute('type') == 'password' ? 'text' : 'password';
-	userForm.oldPassword.setAttribute('type', inputType);
-	toggleOldPassword.classList.toggle('bi-eye');
-});
-
-toggleNewPassword.addEventListener('click', () => {
-	const inputType = userForm.newPassword.getAttribute('type') == 'password' ? 'text' : 'password';
-	userForm.newPassword.setAttribute('type', inputType);
-	toggleNewPassword.classList.toggle('bi-eye');
-});
-
-toggleConfirmPassword.addEventListener('click', () => {
-	const inputType = userForm.confirmPassword.getAttribute('type') == 'password' ? 'text' : 'password';
-	userForm.confirmPassword.setAttribute('type', inputType);
-	toggleConfirmPassword.classList.toggle('bi-eye');
-});
-
-function checkPassword(){
-	var pw = userForm.newPassword.value;
-	var oldPw = userForm.oldPassword.value;
-	var chkPw = userForm.confirmPassword.value;
-
-	if(pw.length < 6)
-		return 'La password deve contenere più di 6 caratteri';
-	if(pw.length > 20)
-		return 'La password deve contenere meno di 20 caratteri';
-	if(!pw.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/))
-		return 'La Password deve contenere:\r\n- Almeno una lettera maiuscola\r\n- Almeno una lettera minuscola\r\n- Almeno un numero';		
-	if(chkPw != pw)
-		return 'Le password inserite non corrispondono';
-	if(oldPw == pw)
-		return 'Le password deve essere diversa da quella vecchia';
-	return '';
 }
