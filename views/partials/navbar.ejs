@@ -1,7 +1,7 @@
 <% const checkPolicy = (policy = []) => {
 	var check = false;
 	policy.forEach(p => {
-		if (userPolicy.includes(p)) check = true;
+		if (userPolicies.includes(p)) check = true;
 	});
 	return check;
 } %>

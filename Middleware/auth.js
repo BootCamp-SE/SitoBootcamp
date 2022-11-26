@@ -1,22 +1,18 @@
 const JWT = require('jsonwebtoken');
 const User = require('../Models/user');
+const RoutePolicy = require('../Models/routePolicy');
 
-const pagesPolicy = [
-	{ path: '/news/articleEditor', policy: ['writearticles'] },
-	{ path: '/news/rapporti', policy: ['readreportsecret', 'readreport', 'writereport'] },
-	{ path: '/accademia', policy: ['student', 'teacher'] },
-	{ path: '/accademia/ingegneria', policy: ['student', 'teacher'] },
-	{ path: '/accademia/militare', policy: ['student', 'teacher'] },
-	{ path: '/accademia/tattica', policy: ['student', 'teacher'] },
-	{ path: '/accademia/scripts', policy: ['student', 'teacher'] },
-	{ path: '/accademia/others', policy: ['student', 'teacher'] },
-	{ path: '/admin', policy: ['manageruser', 'createuser'] },
-	{ path: '/auth/signup', policy: ['createuser'] },
-	{ path: '/admin/users', policy: ['manageruser'] },
-	{ path: '/api/users', policy: ['manageruser'] },
-	{ path: '/api/players', policy: ['manageruser'] },
-	{ path: '/api/news/createArticle', policy: ['writearticles'] },
-];
+var pagesPolicy = [];
+
+const getRoutesPolicies = async () => {
+	RoutePolicy.find({}, {_id: 0})
+		.then(res => {
+			pagesPolicy = res;
+		})
+		.catch(err => {
+			console.error(err);
+		});
+};
 
 const checkToken = (req, res, next) => {
 	const token = req.cookies.JWT;
@@ -35,8 +31,8 @@ const checkToken = (req, res, next) => {
 					res.locals.auth = true;
 					res.locals.username = user.username;
 					res.locals.userID = user._id;
-					res.locals.isAdmin = user.policy.includes('administrator');
-					res.locals.userPolicy = user.policy;
+					res.locals.isAdmin = user.policies.includes('administrator');
+					res.locals.userPolicies = user.policies;
 					next();
 				}
 			});
@@ -58,7 +54,7 @@ const requireAuth = (req, res, next) => {
 };
 
 const requirePolicy = (req, res, next) => {
-	const { userID, isAdmin, userPolicy } = res.locals;
+	const { userID, isAdmin, userPolicies } = res.locals;
 	if (isAdmin) {
 		next();
 	} else {
@@ -66,12 +62,12 @@ const requirePolicy = (req, res, next) => {
 			if (err || !user)
 				res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
 
-			const pagePolicy = pagesPolicy.find((p) => {
-				return req.originalUrl == p.path;
+			const pagePolicies = pagesPolicy.find((p) => {
+				return req.originalUrl == p.route;
 			});
 
-			if (pagePolicy.policy.some((p) => {
-				return userPolicy.includes(p);
+			if (pagePolicies.policies.some((p) => {
+				return userPolicies.includes(p);
 			})) {
 				next();
 			} else {
@@ -91,6 +87,7 @@ const requireAdmin = (req, res, next) => {
 };
 
 module.exports = {
+	getRoutesPolicies,
 	checkToken,
 	requirePolicy,
 	requireAuth,

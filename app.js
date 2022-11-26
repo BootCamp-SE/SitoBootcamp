@@ -69,7 +69,8 @@ var HttpsServer = https.createServer(
 // Connecting to db and starting web server
 
 mongoose.connect(process.env.DB_URI)
-	.then(() => {
+	.then(async () => {
+		await auth.getRoutesPolicies();
 		console.log('Connected with DB!');
 		HttpServer.listen(HttpPort,() => {
 			console.log(`Http server listening on port: ${HttpPort}`);

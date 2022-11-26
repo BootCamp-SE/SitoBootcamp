@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {policySchema} = require('./policy');
 const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
 
@@ -27,8 +28,8 @@ const userSchema = new mongoose.Schema(
 			default: false,
 		},
 
-		policy: {
-			type: Array,
+		policies: {
+			type: [policySchema],
 			required: true,
 			defualt: [],
 		},

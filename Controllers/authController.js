@@ -73,7 +73,7 @@ const updateUserSettings = async (req, res) => {
 	if (req.body.newPassword != '')
 		userData.password = req.body.newPassword;
 	if (req.body.adminPassword != '') {
-		if (res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) {
+		if (res.locals.isAdmin || res.locals.userPolicies.includes('manageruser')) {
 			userData.password = req.body.adminPassword;
 			useAdmin = true;
 		} else {
@@ -150,7 +150,7 @@ const updatePlayerSettings = async (req, res) => {
 
 	var playerData = {};
 
-	if (res.locals.isAdmin || res.locals.userPolicy.includes('manageruser')) {
+	if (res.locals.isAdmin || res.locals.userPolicies.includes('manageruser')) {
 		playerData = createPlayerDataWithPerms(body);
 	} else {
 		playerData = createPlayerData(body);
