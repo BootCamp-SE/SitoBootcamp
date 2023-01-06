@@ -170,7 +170,7 @@
 						<label><b>Policy:</b></label>
 						<br>
 						<% policies.forEach((policy) => { %>
-							<input type="checkbox" class="policy" id="<%= policy.id %>" name="<%= policy.id %>" <% if (userData.policy.includes(policy.id)) { %> checked <% } %>>
+							<input type="checkbox" class="policy" id="<%= policy.id %>" name="<%= policy.id %>" <% if (userData.policies.includes(policy.id)) { %> checked <% } %>>
 							<%= policy.text %>
 							<a> | </a>
 							<% if (policy.nl) { %>
