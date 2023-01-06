@@ -67,7 +67,7 @@ var HttpsServer = https.createServer(
 );
 
 // Connecting to db and starting web server
-
+mongoose.set('strictQuery', true);
 mongoose.connect(process.env.DB_URI)
 	.then(async () => {
 		await auth.getRoutesPolicies();
