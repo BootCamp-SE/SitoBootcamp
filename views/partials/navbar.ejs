@@ -49,12 +49,12 @@
 					<a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">Articoli</a>
 					<ul class="dropdown-menu dropdown-menu-dark">
 						<li><a class="dropdown-item" href="/news">Notizie</a></li>
+						<li><a class="dropdown-item" href="/news/safenet">SafeNet Radio</a></li>
 						<li><a class="dropdown-item" href="/news/eventi">Storico Eventi</a></li>
 						<% if (auth && (isAdmin || checkPolicy(["readreport", "readreportsecret"]))) { %>
-						<li><a class="dropdown-item" href="/news/rapporti">Rapporti</a></li>
+							<li><a class="dropdown-item" href="/news/rapporti">Rapporti</a></li>
+							<li><a class="dropdown-item" href="/news/navi">Forum Navi</a></li>
 						<% } %>
-						<li><a class="dropdown-item" href="/news/safenet">SafeNet Radio</a></li>
-						<li><a class="dropdown-item" href="/news/navi">Forum Navi</a></li>
 					</ul>
 				</li>
 				<!--Accademia-->
