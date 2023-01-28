@@ -15,7 +15,7 @@ const login = async (req, res) => {
 		const user = await User.login(username, password);
 		const token = createToken(user._id, remember);
 		const maxAge = remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
-		res.cookie('JWT', token, { httpOnly: true, secure: true, maxAge: maxAge * 1000 });
+		res.cookie('JWT', token, { httpOnly: true, secure: true, maxAge: maxAge * 1000, sameSite: 'Strict' });
 		res.status(200).json({ res: 'Accesso confermato!' });
 	} catch (err) {
 		res.status(500).json({ err: 'Credenziali non valide!' });
