@@ -1,27 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 	<%- include('../partials/header.ejs') %>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" />
-	<link rel="stylesheet" href="/bower_components/krajee-markdown-editor/css/markdown-editor.min.css" media="all" type="text/css" />
-	<link rel="stylesheet" href="/bower_components/krajee-markdown-editor/plugins/highlight/highlight.min.css" media="all" type="text/css" />
-	<link rel="stylesheet" src="/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" type="text/css" />
-	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-	<script>
-		$.fn.markdownEditorBsVersion = '5.2';
-	</script>
-	<script src="/bower_components/krajee-markdown-editor/plugins/purify/purify.min.js" type="text/javascript"></script>
-	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it.min.js" type="text/javascript"></script>
-	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it-abbr.min.js" type="text/javascript"></script>
-	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it-sup.min.js" type="text/javascript"></script>
-	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it-sub.min.js" type="text/javascript"></script>
-	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it-mark.min.js" type="text/javascript"></script>
-	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it-ins.min.js" type="text/javascript"></script>
-	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it-smartarrows.min.js" type="text/javascript"></script>
-	<script src="/bower_components/krajee-markdown-editor/plugins/markdown-it/markdown-it-checkbox.min.js" type="text/javascript"></script>
-	<script src="/bower_components/krajee-markdown-editor/js/markdown-editor.js" type="text/javascript"></script>
-	<script src="/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js" type="text/javascript" defer></script>
-	<script src="/JQ/articleEditor.jq" type="text/javascript" defer></script>
-	<script src="/JS/articleEditor.js" type="text/javascript" defer></script>
+	<script nonce="<%= nonce %>" src="/JS/articleEditor.js" type="text/javascript" defer></script>
 
 	<body class="">
 		<%- include('../partials/navbar.ejs') %>
@@ -51,7 +31,7 @@
 				</div>
 
 				<label for="md-editor" class="form-label">Inserisci il testo</label>
-				<textarea id="md-editor" style="min-height: 500px"></textarea>
+				<textarea id="md-editor" style="min-height: 500px" required></textarea>
 
 				<button type="submit" class="btn btn-primary" id="submit">Pubblica</button>
 				<div id="feedback"></div>

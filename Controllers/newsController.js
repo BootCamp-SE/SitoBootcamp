@@ -1,5 +1,5 @@
 const Article = require('../Models/article');
-const { parseMD } = require('../utils');
+//const { parseMD } = require('../utils');
 
 const getArticles = (req, res) => {
 	Article.find({}, (err, articles) => {
@@ -20,7 +20,7 @@ const getArticle = (req, res) => {
 };
 
 const createArticle = (req, res) => {
-	const { title, subtitle, tags, body } = req.body;
+	/*const { title, subtitle, tags, body } = req.body;
 	const author = res.locals.username;
 	const author_id = res.locals.userID;
 
@@ -37,7 +37,8 @@ const createArticle = (req, res) => {
 			if (err) return res.status(500).json({ err: err.message });
 			res.status(201).json({ res: 'Articolo creato!' });
 		}
-	);
+	);*/
+	return res.status(500).json({ res: 'WIP'});
 };
 
 module.exports = {
