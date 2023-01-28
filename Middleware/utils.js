@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 // Log requests
 const LogRequestsDev = (req, res, next) => {
 	console.log(req.method, req.url, req.cookies, req.body);
@@ -6,6 +8,15 @@ const LogRequestsDev = (req, res, next) => {
 
 const LogRequests = (req, res, next) => {
 	console.log(req.method, req.url);
+	next();
+};
+
+// Create Nonce and CPS for headers
+const generateNonce = (req, res, next) => {
+	const nonce = crypto.randomBytes(16).toString('base64');
+	const csp = `script-src 'nonce-${nonce}' 'strict-dynamic' https:; object-src 'none'; base-uri 'none';`;
+	res.set('Content-Security-Policy', csp);
+	res.locals.nonce = nonce;
 	next();
 };
 
@@ -73,6 +84,7 @@ const getCrews = (req, res, next) => {
 module.exports = {
 	LogRequestsDev,
 	LogRequests,
+	generateNonce,
 	getRanks,
 	getSpecializations,
 	getPolicies,

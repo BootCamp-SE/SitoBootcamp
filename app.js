@@ -38,6 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(DEV ? utils.LogRequestsDev : utils.LogRequests);
 app.use(auth.checkToken);
+app.use(utils.generateNonce);
 
 // Routes handling
 app.get('/', (req, res) => {
