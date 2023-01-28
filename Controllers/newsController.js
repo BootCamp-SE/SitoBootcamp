@@ -1,5 +1,18 @@
 const Article = require('../Models/article');
-//const { parseMD } = require('../utils');
+const showdown = require('showdown');
+
+const Converter = new showdown.Converter({
+	noHeaderId: true,
+	parseImgDimensions: true,
+	simplifiedAutoLink: true,
+	strikethrough: true,
+	tables: true,
+	tasklists: true,
+	disableForced4SpacesIndentedSublists: true,
+	simpleLineBreaks: true,
+	emoji: true,
+
+});
 
 const getArticles = (req, res) => {
 	Article.find({}, (err, articles) => {
@@ -19,8 +32,12 @@ const getArticle = (req, res) => {
 	});
 };
 
+const parseMD = (text) => {
+	return Converter.makeHtml(text);
+};
+
 const createArticle = (req, res) => {
-	/*const { title, subtitle, tags, body } = req.body;
+	const { title, subtitle, tags, body } = req.body;
 	const author = res.locals.username;
 	const author_id = res.locals.userID;
 
@@ -29,7 +46,7 @@ const createArticle = (req, res) => {
 			title,
 			subtitle,
 			tags,
-			body: parseMD(body),
+			body: parseMD(body),		//TODO: Add input sanitizer
 			author,
 			author_id,
 		},
@@ -37,8 +54,7 @@ const createArticle = (req, res) => {
 			if (err) return res.status(500).json({ err: err.message });
 			res.status(201).json({ res: 'Articolo creato!' });
 		}
-	);*/
-	return res.status(500).json({ res: 'WIP'});
+	);
 };
 
 module.exports = {

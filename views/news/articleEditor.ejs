@@ -2,6 +2,7 @@
 <html lang="it">
 	<%- include('../partials/header.ejs') %>
 	<script nonce="<%= nonce %>" src="/JS/articleEditor.js" type="text/javascript" defer></script>
+	<script nonce="<%= nonce %>" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.3/purify.min.js" integrity="sha512-3dcbndbDLLWfKWevQu8C/1qVRcxx6h+eRDSnn3/pcBZHISRJgsj3u71U/Ad6nQVHrEi05hOSr6Hnb/p0pWc94w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<body class="">
 		<%- include('../partials/navbar.ejs') %>
@@ -18,7 +19,7 @@
 				</div>
 				<div class="mb-2">
 					<label for="tags" class="form-label">Inserisci i tag</label>
-					<input type="text" name="tags" id="tags" class="form-control" list="tagsList" data-role="tagsinput" required>
+					<input type="text" name="tags" id="tags" class="form-control" list="tagsList" required>
 					<datalist id="tagsList">
 						<option value="ANNUNCI">
 						<option value="COMUNICAZIONI">

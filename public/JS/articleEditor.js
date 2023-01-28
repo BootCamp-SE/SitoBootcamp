@@ -3,7 +3,7 @@ const form = document.querySelector('form');
 const mdEditor = document.querySelector('#md-editor');
 const submitButton = document.querySelector('#submit');
 const feedback = document.querySelector('#feedback');
-const inputTag = document.querySelector('#tagsInput');
+const inputTag = document.querySelector('#tags');
 
 form.addEventListener('submit', async (e) => {
 	e.preventDefault();
@@ -16,6 +16,7 @@ submitButton.addEventListener('click', async (e) => {
 
 	const title = form.title.value;
 	const subtitle = form.subtitle.value;
+	//TODO: Add tags support
 	var tags = [];
 	const tagsNode = document.querySelectorAll('.tag');
 	tagsNode.forEach((tag) => {
