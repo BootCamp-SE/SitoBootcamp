@@ -72,12 +72,12 @@
 				</li>
 				<% } %>
 				<!--Admin Panel-->
-				<% if (auth && (isAdmin || checkPolicy(['manageruser', 'createuser']))) { %>
+				<% if (auth && (isAdmin || checkPolicy(['manageusers', 'createuser']))) { %>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">Pannello admin</a>
 					<ul class="dropdown-menu dropdown-menu-dark">
 						<li><a class="dropdown-item" href="/admin">Home admin</a></li>
-						<% if (isAdmin || checkPolicy(['manageruser'])) { %>
+						<% if (isAdmin || checkPolicy(['manageusers'])) { %>
 						<li><a class="dropdown-item" href="/admin/users">Gestione utenti</a></li>
 						<% }
 							if (isAdmin || checkPolicy(['createuser'])) { %>

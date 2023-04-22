@@ -27,21 +27,23 @@ const playerSchema = new mongoose.Schema(
 		discord_id: {
 			type: String,
 			required: false,
-			unique: true,
+			default: '',
 		},
 		discord_name: {
 			type: String,
 			required: false,
+			default: '',
 		},
 		//Steam
 		steam_id: {
 			type: String,
 			required: false,
-			unique: true,
+			default: '',
 		},
 		steam_name: {
 			type: String,
 			required: false,
+			default: '',
 		},
 		// Notes
 		note_private: {

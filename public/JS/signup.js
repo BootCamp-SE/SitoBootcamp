@@ -26,7 +26,7 @@ form.addEventListener('submit', async (e) => {
 
 	// check password
 	signupFeedback.setAttribute('class', 'text-danger');
-	signupFeedback.textContent = checkPassword();
+	signupFeedback.innerHTML = checkPassword();
 
 	if(signupFeedback.textContent == '') {
 		try {
@@ -57,7 +57,7 @@ function checkPassword(){
 	if(pw.length > 20)
 		return 'La password deve contenere meno di 20 caratteri';
 	if(!pw.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/))
-		return 'La Password deve contenere:\r\n- Almeno una lettera maiuscola\r\n- Almeno una lettera minuscola\r\n- Almeno un numero';		
+		return 'La Password deve contenere: <br> - Almeno una lettera maiuscola <br> - Almeno una lettera minuscola <br> - Almeno un numero';		
 	if(chk_pw != pw)
 		return 'Le password inserite non corrispondono';
 	return '';

@@ -23,7 +23,7 @@
 				<div class="container fields">
 					<label for="rank"><b>Rango</b></label>
 					<br>
-					<select type="text" id="rank" name="rank" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<select type="text" id="rank" name="rank" <% if(!(isAdmin || checkPolicy(['manageusers']))) { %> disabled <% } %>>
 						<% ranks.forEach((rank)=> {
 							if (rank.tag == playerData.grado) { %>
 								<option value="<%= rank.tag %>" selected>
@@ -40,7 +40,7 @@
 
 					<label for="specialization"><b>Specializzazione</b></label>
 					<br>
-					<select id="specialization" name="specialization" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<select id="specialization" name="specialization" <% if(!(isAdmin || checkPolicy(['manageusers']))) { %> disabled <% } %>>
 						<% specializations.forEach((specialization)=> {
 							if (specialization == playerData.specializzazione) {%>
 								<option value="<%= specialization %>" selected>
@@ -57,7 +57,7 @@
 
 					<label for="crew"><b>Equipaggio</b></label>
 					<br>
-					<select name="crew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<select name="crew" <% if(!(isAdmin || checkPolicy(['manageusers']))) { %> disabled <% } %>>
 						<% crews.forEach((crew)=> {
 							if (crew == playerData.equipaggio) {%>
 								<option value="<%= crew %>" selected>
@@ -74,7 +74,7 @@
 
 					<label for="reservecrew"><b>Equipaggio di riserva</b></label>
 					<br>
-					<select name="reservecrew" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<select name="reservecrew" <% if(!(isAdmin || checkPolicy(['manageusers']))) { %> disabled <% } %>>
 						<% crews.forEach((crew)=> {
 							if (crew == playerData.equipaggio_secondario) {%>
 								<option value="<%= crew %>" selected>
@@ -91,7 +91,7 @@
 
 					<label for="discordId"><b>ID Discord</b></label>
 					<br>
-					<input type="text" id="discordID" name="discordID" placeholder="Inserire ID Discord" value="<%= playerData.discord_id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<input type="text" id="discordID" name="discordID" placeholder="Inserire ID Discord" value="<%= playerData.discord_id %>" <% if(!(isAdmin || checkPolicy(['manageusers']))) { %> disabled <% } %>>
 					<br>
 
 					<label for="discordName"><b>Nome Discord</b></label>
@@ -101,7 +101,7 @@
 
 					<label for="steamId"><b>ID Steam</b></label>
 					<br>
-					<input type="text" id="steamId" name="steamId" placeholder="Inserire ID Steam" value="<%= playerData.steam_id %>" <% if(!(isAdmin || checkPolicy(['manageruser']))) { %> disabled <% } %>>
+					<input type="text" id="steamId" name="steamId" placeholder="Inserire ID Steam" value="<%= playerData.steam_id %>" <% if(!(isAdmin || checkPolicy(['manageusers']))) { %> disabled <% } %>>
 					<br>
 
 					<label for="steamName"><b>Nome Steam</b></label>
@@ -114,7 +114,7 @@
 					<input type="text" id="publicNotes" name="publicNotes" placeholder="Parlami di te" maxlength="255" value="<%= playerData.note_pubbliche %>">
 					<br>
 
-					<% if(isAdmin || checkPolicy(['manageruser'])) {%>
+					<% if(isAdmin || checkPolicy(['manageusers'])) {%>
 						<label for="privateNotes"><b>Note Private</b></label>
 						<br>
 						<input type="text" id="privateNotes" name="privateNotes" placeholder="Note visibili solo al comando di flotta" maxlength="255" value="<%= playerData.note_private %>">
@@ -135,7 +135,7 @@
 				<br>
 				<input type="text" placeholder="Inserire Nome Utente" name="username" value="<%= userData.username %>">
 				<br>
-				<% if (!(isAdmin || checkPolicy(['manageruser']))) { %>
+				<% if (!(isAdmin || checkPolicy(['manageusers']))) { %>
 					<label for="oldPassword"><b>Vecchia Password</b></label>
 					<br>
 					<input type="password" id="oldPassword" name="oldPassword" placeholder="Inserire Password Vecchia">
@@ -162,7 +162,7 @@
 				<div id="update-user-feedback"></div>
 			</div>
 		</form>
-		<% if (isAdmin || checkPolicy(['manageruser'])) { %>
+		<% if (isAdmin || checkPolicy(['manageusers'])) { %>
 			<form id="policiesForm">
 				<div class="container fields">
 

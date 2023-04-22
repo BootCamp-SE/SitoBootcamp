@@ -57,7 +57,7 @@ const getPolicies = (req, res, next) => {
 	res.locals.policies = [
 		{id: 'administrator', text: 'Amministratore', nl: false},
 		{id: 'createuser', text: 'Creazione Utenti', nl: false},
-		{id: 'manageruser', text: 'Gestione Utenti', nl: true},
+		{id: 'manageusers', text: 'Gestione Utenti', nl: true},
 		{id: 'readreportsecret', text: 'Lettura Rapporti Secretati', nl: false},
 		{id: 'readreport', text: 'Lettura Rapporti', nl: false},
 		{id: 'writereport', text: 'Scrittura Rapporti', nl: false},
@@ -80,6 +80,8 @@ const getCrews = (req, res, next) => {
 	];
 	next();
 };
+
+// TODO: Function for checking permissions or admin
 
 module.exports = {
 	LogRequestsDev,
