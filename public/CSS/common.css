@@ -15,3 +15,8 @@
 ::-webkit-scrollbar-thumb:hover {
 	background: var(--bs-light);
 }
+
+body {
+	--bs-body-bg: var(--bs-gray-dark);
+	--bs-body-color: var(--bs-light);
+}
