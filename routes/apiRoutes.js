@@ -23,7 +23,7 @@ router.put('/auth/settings/user', requireAuth, (req, res, next) => {
 }, authController.updateUserSettings);
 
 router.put('/auth/settings/policies', requireAuth, (req, res, next) => {
-	if ((res.locals.isAdmin || res.locals.userPolicies.includes('manageusers')) || (res.locals.userID == req.query.ID)) {
+	if (res.locals.isAdmin || res.locals.userPolicies.includes('manageusers')) {
 		next();
 	} else {
 		res.status(403).json({ err: 'Forbidden access!'});
