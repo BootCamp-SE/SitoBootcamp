@@ -25,44 +25,31 @@ const login = async (req, res) => {
 
 // TODO: When singup page UI is remade add fields for discord and steam ids
 const signup = async (req, res) => {
-	const { username, password, policy, createPlayer } = req.body;
+	const { username, password, policies, createPlayer } = req.body;
+	
+	var userData = {};
+	userData.username = username;
+	userData.password = password;
+	userData.hasPlayer = createPlayer;
+	userData.policies = policies;
+
 	try {
-		User.create({ username, password, policy }, (err, user) => {
-			if (!isNullOrUndefined(err) || isNullOrUndefined(user)) {
-				return res.status(500).json({ err: 'Utente non creato!' });
-			} else {
-				if (createPlayer) {
-					Player.create({ _id: user.id }, (err, _) => {
-						if (err) {
-							console.log(err);
-							return res.status(500).json({ err: 'Profilo giocatore non creato!' });
-						}
-					});
-					User.updateOne(
-						{ _id: user._id },
-						{ hasPlayer: true },
-						(err, _) => {
-							if (!isNullOrUndefined(err)) {
-								return res.status(500).json({ err: 'Utente non aggiornato!' });
-							} else {
-								return res.status(200).json({ res: 'Utente e player creati' });
-							}
-						}
-					);
-				} else {
-					return res.status(200).json({ res: 'Utente creato' });
+		User.create(userData, (err, user) => {
+			if (!isNullOrUndefined(err) || isNullOrUndefined(user)) 
+				return res.status(500).json({ err: err.errors });
+
+			if (!createPlayer)
+				return res.status(200).json({ res: 'Utente creato!' });
+
+			Player.create({ _id: user.id }, (err, _) => {
+				if (!isNullOrUndefined(err)) {
+					return res.status(500).json({ err: 'Profilo giocatore non creato!' });
 				}
-			}
+				return res.status(200).json({ res: 'Utente e player creati!' });
+			});
 		});
 	} catch (err) {
-		var errString = '';
-		errString = err.errors.username
-			? err.errors.username.properties.message
-			: '';
-		errString += err.errors.password
-			? err.errors.password.properties.message
-			: '';
-		return res.status(500).json({ err: errString });
+		return res.status(500).json({ err });
 	}
 };
 

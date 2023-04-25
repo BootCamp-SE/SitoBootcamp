@@ -27,6 +27,7 @@ const playerSchema = new mongoose.Schema(
 		discord_id: {
 			type: String,
 			required: false,
+			unique: false,	// TODO: Change this with UI overhaul
 			default: '',
 		},
 		discord_name: {
@@ -38,6 +39,7 @@ const playerSchema = new mongoose.Schema(
 		steam_id: {
 			type: String,
 			required: false,
+			unique: false,	// TODO: Change this with UI overhaul
 			default: '',
 		},
 		steam_name: {
