@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const {policySchema} = require('./policy');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const routePolicySchema = new mongoose.Schema(
@@ -11,7 +10,7 @@ const routePolicySchema = new mongoose.Schema(
 		},
 
 		policies: {
-			type: [policySchema],
+			type: [String],
 			required: true,
 			default: [],
 		}
