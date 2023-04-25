@@ -32,17 +32,25 @@ form.addEventListener('submit', async (e) => {
 		try {
 			const res = await fetch('/api/auth/signup', {
 				method: 'POST',
-				body: JSON.stringify({ username: user, password , policy: policies, createPlayer}),
+				body: JSON.stringify({ username: user, password , policies, createPlayer}),
 				headers: { 'Content-Type': 'application/json' },
 			});
 			const data = await res.json();
-
-			signupFeedback.textContent = data.res ? data.res : data.err;
+			
+			var feedback = '';
 			if (data.res) {
 				signupFeedback.setAttribute('class', 'text-success');
+				feedback = data.res;
 			} else {
 				signupFeedback.setAttribute('class', 'text-danger');
+				feedback = '';
+				Object.keys(data.err).forEach(key => {
+					var message = data.err[key].message;
+					feedback += message.charAt(0).toUpperCase() + message.slice(1);
+					feedback += '<br>';
+				});
 			}
+			signupFeedback.innerHTML = feedback;
 		} catch (err) {
 			console.error(err);
 		}

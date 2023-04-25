@@ -8,7 +8,7 @@
 		<h1><%= title %></h1>
 		<form>
 			<div class="container fields">
-				<label for="username"><b>Utente</b></label>
+				<label for="username"><b>Username</b></label>
 				<br>
 				<input type="text" id="username" name="username" placeholder="Inserire Nome Utente" required>
 				<br>
@@ -23,8 +23,9 @@
 				<i class="bi bi-eye-slash" id="toggleConfirmPassword"></i>
 				<br>
 
-				<dim>
-					<label><b>Policy:<br></b></label>
+				<div>
+					<label><b>Policies:</b></label>
+					<br>
 					<% policies.forEach((policy) => { %>
 						<input type="checkbox" class="policy" id="<%= policy.id %>" name="<%= policy.id %>"> <%= policy.text %>
 						<a> | </a>
@@ -32,7 +33,7 @@
 						 <br>
 						<% } %>
 					<% }) %>
-				</dim>
+				</div>
 				<br>
 
 				<label>
