@@ -32,7 +32,7 @@ const NewsRoutes = require('./routes/newsRoutes');
 // Middleware
 app.set('view engine', 'ejs');
 app.use(helmet());
-app.use(helmet.crossOriginEmbedderPolicy({ policy: "credentialless" }));
+app.use(helmet.crossOriginEmbedderPolicy({ policy: 'credentialless' }));
 app.use(express.static(path.join(__dirname + '/public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
