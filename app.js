@@ -11,8 +11,9 @@ const fs = require('fs');
 const path = require('path');
 
 // Global Constants
-const HttpPort = process.env.HTTP_PORT | 80;
-const HttpsPort = process.env.HTTPS_PORT | 443;
+const EnableHttpServer = process.env.HTTP | false;
+const HttpPort = process.env.HTTP_PORT;
+const HttpsPort = process.env.HTTPS_PORT;
 const DEV = process.env.DEV | false;
 if (DEV) console.log('Using developement mode!');
 const PrivateKey = fs.readFileSync('./Config/key.pem');
@@ -69,19 +70,23 @@ var HttpsServer = https.createServer(
 );
 
 // Connecting to db and starting web server
+console.log('Connecting to DB!');
 mongoose.set('strictQuery', true);
-mongoose.connect(process.env.DB_URI)
+mongoose
+	.connect(process.env.DB_URI)
 	.then(async () => {
 		await auth.getRoutesPolicies();
-		console.log('Connected with DB!');
-		HttpServer.listen(HttpPort,() => {
-			console.log(`Http server listening on port: ${HttpPort}`);
-		});
-		HttpsServer.listen(HttpsPort,() => {
+		console.log('Connected with DB!\nStarting Web Server!');
+		if (EnableHttpServer) {
+			HttpServer.listen(HttpPort, () => {
+				console.log(`Http server listening on port: ${HttpPort}`);
+			});
+		}
+		HttpsServer.listen(HttpsPort, () => {
 			console.log(`Https server listening on port: ${HttpsPort}`);
 		});
 	})
-	.catch(err => {
+	.catch((err) => {
 		console.error(err);
 		process.exit(1);
 	});
