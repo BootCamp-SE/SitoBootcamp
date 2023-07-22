@@ -3,190 +3,206 @@
 	<%- include('../partials/header.ejs') %>
 	<link rel="stylesheet" href="/CSS/regolamento.css">
 
-	<body>
+	<body data-bs-theme="dark">
 		<%- include('../partials/navbar.ejs') %>
-		<div class="container-xl d-flex flex-column align-items-center mt-4">
-			<div class="row g-0">
-				<div class="col d-flex flex-column justify-content-center">
-					<div class="bg-dark border rounded border-dark mb-4 p-3">
-						<div class="row g-0">
-							<div class="col d-flex justify-content-center align-items-center">
-								<img width="60" height="60" src="/IMAGE/LogoBootcamp.png">
-								<h1>&nbsp;Regolamento Ufficiale</h1>
-							</div>
-						</div>
-						<div class="row g-0 d-flex justify-content-center mt-3">
-							<div class="col">
-								<br>
-								<h5 class="text-center fw-bold text-decoration-underline" style="color: rgb(255, 0, 0)">L’adesione al regolamento è obbligatoria e si intende accettato con la partecipazione al progetto.</h5>
-								<h6 class="text-center" style="color: var(--bs-white);font-weight: bold;font-size: 14px;background: rgba(255,255,255,0);border-color: var(--bs-border-color-translucent);">La violazione di una o più regole a seguire comporterà sanzioni disciplinari, che possono andare da brevi sospensioni all’allontanamento forzato e definitivo.</h6>
-							</div>
-						</div>
-						<div class="row g d-flex justify-content-center align-items-center">
-							<div class="col">
-								<p class="paragraph-title">Regole di Comportamento e Buona condotta</p>
-								<ol class="text-start">
-									<li>Rispetto verso ogni partecipante al progetto.</li>
-									<li>Qualsiasi atto di violenza, in ogni sua forma, verso terzi, verrà immediatamente punito con l’espulsione del progetto senza possibilità di reintegro.</li>
-									<li>E’ istituita la gerarchia militare con i rispettivi gradi.</li>
-									<li>Rispondere tempestivamente alle convocazioni ufficiali di eventi e sessioni.<ol type="a">
-											<li>Le sessioni ufficiali sono annunciate con almeno 24 ore di preavviso.</li>
-											<li>Sono richieste diligenza e serietà nel rispettare l’impegno preso.</li>
-											<li>La mancata risposta alle convocazioni ed assenza ingiustificata sono punite con l’allontanamento dal progetto.</li>
-										</ol>
-									</li>
-									<li>Durante le sessioni e nei canali dedicati vige il comportamento in ruolo RP.<ol type="a">
-											<li>Durante le sessioni ci saranno momenti di riposo e svago.</li>
-											<li>E’ sempre possibile ritirarsi nelle apposite aree per una pausa o congedo temporaneo.</li>
-										</ol>
-									</li>
-									<li>Le comunicazioni non sono libere e vige la regola del Permesso di Parlare (PTS).<ol type="a">
-											<li>“PTS” seguito dal proprio nome, es. “PTS Gold” e si attende il permesso dell’ufficiale in comando.</li>
-											<li>Se dopo qualche minuto non avete ancora avuto il permesso, chiedetelo di nuovo come sopra.</li>
-										</ol>
-									</li>
-									<li>Qualsiasi reclamo inerente fatti eventi e comportamenti, verificatisi durante una sessione di gioco, va presentato in maniera adeguata al vostro superiore e/o al CdF, pur mantenendo il ruolo e negli appositi canali.</li>
-								</ol>
-								<p class="paragraph-title">Rigenerazione e Respawn</p>
-								<ol>
-									<li>Obbligo di portare con sé la propria matrice genetica (gen.ID).</li>
-									<li>Se non in ibernazione, è obbligatorio fare il respawn presso la propria nave o la stazione indicata dal CdF.</li>
-									<li>E’ possibile fare il respawn, a seguito di morte durante la sessione, solo in questi casi:<ol type="a">
-											<li>Non UFFICIALI: La matrice genetica viene recuperata e portata presso un infermeria o survival kit entro cinque minuti dal decesso. Se ciò non avviene il giocatore è automaticamente congedato e deve lasciare sia la sessione che le comunicazioni<ul>
-													<li>Durante una MCU non si applica quanto descritto al punto A, il respawn di tutti verrà consentito con dopo un’attesa di 10 minuti.</li>
-												</ul>
-											</li>
-											<li>UFFICIALI: Gli ufficiali senza matrice genetica possono venire risequenziati dopo un’attesa di 20 minuti.</li>
-										</ol>
-									</li>
-									<li>Può venir chiesto di identificarsi tramite la propria matrice genetica (gen.ID) in qualsiasi momento.<ol type="a"></ol>
-									</li>
-								</ol>
-								<p class="paragraph-title">I Reparti</p>
-								<ol>
-									<li>Sono istituiti i seguenti reparti: Reparto Ingegneria – Reparto Militare – Reparto Tattico.<ul>
-											<li><em class="ingegneria">Reparto Ingegneria</em>: Sistemi e Costruzioni (salvo eccezioni)</li>
-											<li><em class="militare">Reparto Militare</em>: Armamenti e Fanteria (salvo eccezioni)</li>
-											<li><em class="tattico">Reparto Tattico</em>: Analisi, Navigazione e Burocrazia (salvo eccezioni)</li>
-										</ul>
-									</li>
-									<li>Raggiunto il grado di Mapc. ogni partecipante può scegliere il reparto presso il quale prestare servizio e prenderne l’uniforme secondo il colore di appartenenza.<ol type="a">
-											<li>E’ possibile far esperienza in uno o più reparti già dal grado di marinaio (Ma.).</li>
-										</ol>
-									</li>
-									<li>Ogni partecipante al progetto dovrà scegliere un reparto di appartenenza o gli verrà assegnato dal CdF.</li>
-									<li>Gli equipaggi, le missioni ed ogni altro compito vengono assegnati e gestite secondo i reparti di competenza.</li>
-								</ol>
-								<p class="paragraph-title">Colore Tute</p>
-								<div class="table-responsive text-center d-inline">
-									<table class="table table-striped table-dark table-bordered">
-										<thead>
-											<tr class="bg-red">
-												<th>Grado</th>
-												<th>Tuta</th>
-												<th>HUE</th>
-												<th>Saturazione</th>
-												<th>Luminosita</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Reclute e Marinai</td>
-												<td>Standard</td>
-												<td>####</td>
-												<td>0%</td>
-												<td>100%</td>
-											</tr>
-											<tr class="ingegneria">
-												<td>Reparto Ingegneria</td>
-												<td>Standard</td>
-												<td>4°</td>
-												<td>100%</td>
-												<td>50%</td>
-											</tr>
-											<tr class="militare">
-												<td>Reparto Militare</td>
-												<td>Standard</td>
-												<td>####</td>
-												<td>100%</td>
-												<td>0%</td>
-											</tr>
-											<tr class="tattico">
-												<td>Reparto Tattico</td>
-												<td>Standard</td>
-												<td>230°</td>
-												<td>100%</td>
-												<td>0%</td>
-											</tr>
-											<tr>
-												<td>Ufficiali</td>
-												<td>Veteran mk.2</td>
-												<td>####</td>
-												<td>####</td>
-												<td>####</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<p class="paragraph-title">Accademia e Carriera da ufficiali</p>
-								<ol>
-									<li>Dal grado di Sottufficiale di Prima Classe (Supc.) si può far richiesta per essere inseriti nell’Accademia Navale (A.N.) come ospiti.</li>
-									<li>L’iscrizione al corso dell’A.N. è condizionato da un esame preliminare di accesso all’accademia.<ol type="a">
-											<li>E’ possibile sostenere l’esame in qualsiasi momento a discrezione del candidato.<ul></ul>
-											</li>
-											<li>In caso di esito negativo, l’esame può essere ripetuto non prima di 30gg.</li>
-											<li>Troverete maggiori info su corsi ed esami all’interno dell’accademia stessa.</li>
-										</ol>
-									</li>
-									<li>Superare l’esame di fine corso dell’Accademia Navale conferisce il grado di Guardiamarina e avvia la carriera da Ufficiale del candidato.<ol type="a"></ol>
-									</li>
-								</ol>
-								<p class="paragraph-title">Protocolli Operativi</p>
-								<ol>
-									<li>Nuovi protocolli operativi (P.O.) possono essere pubblicati ed integrati nel progetto.</li>
-									<li>Le pubblicazioni vengono fatte sul sito ufficiale e ripetute su Discord.<ol type="a"></ol>
-									</li>
-									<li>Le pubblicazioni devono essere note a tutti i membri.<ol type="a"></ol>
-									</li>
-									<li>Un P.O. entra in vigore 48 ore dopo la sua pubblicazione.<ol type="a"></ol>
-									</li>
-									<li>La sottoscrizione dei P.O. è obbligatoria e viene considerata accettata presentandosi alla sessione successiva la sua pubblicazione.<ol type="a"></ol>
-									</li>
-								</ol>
-								<p class="paragraph-title">Gestione delle presenze</p>
-								<ol>
-									<li>Le presenze in sessione ufficiali verranno prese 30 minuti dopo l’inizio dell’adunata ed aggiornate in caso di ritardatari per un massimo di altri 10 minuti “eccetto chi ha preventivamente giustificato nel modulo il ritardo” in questo caso basta partecipare un’ora alla sessione.</li>
-									<li>Le presenze in MCU non verranno incluse direttamente nella media delle presenze, ma daranno diritto ad un bonus di 2,5 punti alla media delle presenza.<ol type="a"></ol>
-									</li>
-									<li>Le assenze in sessione ufficiali sono riconosciute solo a chi si giustifica attraverso il modulo ed inficiano negativamente sulla media delle presenze.<ol type="a"></ol>
-									</li>
-									<li>Le assenze non giustificate “mancata compilazione del modulo o giustificazione palesemente falsa”. Andranno a valere negativamente sulla media delle presenze oltre a rimuovere 10 punti dalla media delle presenze per ogni assenza non giustificata.<ol type="a"></ol>
-									</li>
-									<li>Non presentarsi ad una sessione dopo aver dato la propria presenza nel modulo verrà visto allo stesso modo di una assenza non giustificata “in caso di impegno improvviso basta giustificarsi taggando un membro del comando su discord”.<ol type="a"></ol>
-									</li>
-									<li>Le assenze in MCU non penalizzano in alcun modo la media di presenze e non esiste alcuna differenza tra assenze giustificate e non giustificate.<ol type="a"></ol>
-									</li>
-									<li>Dare la propria presenza alla MCU e poi non presentarsi senza dare una giustificazione valida ha lo stesso valore di un’assenza non giustificata.<ol type="a"></ol>
-									</li>
-									<li>Essere in licenza permette di non avere l’obbligo di compilare il modulo e di non venire conteggiate le assenze “La licenza non può durare più di un mese tranne in rare eccezioni”.<ol type="a"></ol>
-									</li>
-									<li>La media presenze viene usata “non è l’unico indicatore” per valutare eventuali promozioni in caso di media superiore al 65% con un numero di presenze maggiore di 6. (più è alto il valore e maggiore sarà l’influenza sulla promozione).<ol type="a"></ol>
-									</li>
-									<li>In caso di media presenze inferiore al 50% si potrebbe prendere in considerazione la possibilità di degrado del membro interessato.<ol type="a"></ol>
-									</li>
-									<li>Se la media scende sotto il 30% per diverse sessioni il membro viene spostato automaticamente nel settore civile in caso delle reclute invece viene degradato in caso di membro graduato.<ol type="a"></ol>
-									</li>
-								</ol>
-								<p class="paragraph-title text-start">Funzionamento:</p>
-								<p>Per la conta delle assenze verrà usato un sistema automatizzato per la gestione delle presenze è la media di presenza verrà calcolata in base a la formula qui sotto che segue le regole spiegate sopra.</p>
-								<p class="fst-italic bg-danger fw-bold text-center">((Presenze Ufficiali/(Presenze Ufficiali + Assenze Totali)) * 100) - (10 * Assenze Non giustificate) + (2,5 * Presenze MCU)</p>
-							</div>
-						</div>
+		<div class="container flex-colum bg-dark border border-dark rounded mt-4 mb-2 p-3">
+			<div class="row row-cols-auto align-items-center justify-content-center m-2 p-2">
+				<div class="col">
+					<img src="/IMAGE/LogoBootcamp.png" alt="Logo Bootcamp" width="60" height="60">
+				</div>
+				<div class="col">
+					<h1>Regolamento Ufficiale</h1>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2 bg-danger-subtle border border-danger-subtle border-2">
+				<div class="col">
+					<h5 class="text-center fw-bold text-decoration-underline text-danger">L’adesione al regolamento è obbligatoria e si intende accettato con la partecipazione al progetto</h5>
+					<h6 class="text-center fw-bold fs-6">La violazione di una o più regole a seguire comporterà sanzioni disciplinari, che possono andare da brevi sospensioni all’allontanamento forzato e definitivo</h6>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">Regole di Comportamento e Buona condotta</h5>
+					<ol class="text-start">
+						<li>Rispetto verso ogni partecipante al progetto.</li>
+						<li>Qualsiasi atto di violenza, in ogni sua forma, verso terzi, verrà immediatamente punito con l’espulsione del progetto senza possibilità di reintegro.</li>
+						<li>E’ istituita la gerarchia militare con i rispettivi gradi.</li>
+						<li>
+							Rispondere tempestivamente alle convocazioni ufficiali di eventi e sessioni.
+							<ol type="A">
+								<li>Le sessioni ufficiali sono annunciate con almeno 24 ore di preavviso.</li>
+								<li>Sono richieste diligenza e serietà nel rispettare l’impegno preso.</li>
+								<li>La mancata risposta alle convocazioni ed assenza ingiustificata sono punite con l’allontanamento dal progetto.</li>
+							</ol>
+						</li>
+						<li>
+							Durante le sessioni e nei canali dedicati vige il comportamento in ruolo RP.
+							<ol type="A">
+								<li>Durante le sessioni ci saranno momenti di riposo e svago.</li>
+								<li>E’ sempre possibile ritirarsi nelle apposite aree per una pausa o congedo temporaneo.</li>
+							</ol>
+						</li>
+						<li>
+							Le comunicazioni non sono libere e vige la regola del Permesso di Parlare (PTS).
+							<ol type="A">
+								<li>“PTS” seguito dal proprio nome, es. “PTS Gold” e si attende il permesso dell’ufficiale in comando.</li>
+								<li>Se dopo qualche minuto non avete ancora avuto il permesso, chiedetelo di nuovo come sopra.</li>
+							</ol>
+						</li>
+						<li>Qualsiasi reclamo inerente fatti eventi e comportamenti, verificatisi durante una sessione di gioco, va presentato in maniera adeguata al vostro superiore e/o al CdF, pur mantenendo il ruolo e negli appositi canali.</li>
+					</ol>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">Rigenerazione e Respawn</h5>					
+					<ol class="text-start">
+						<li>Obbligo di portare con sé la propria matrice genetica (gen.ID).</li>
+						<li>Se non in ibernazione, è obbligatorio fare il respawn presso la propria nave o la stazione indicata dal CdF.</li>
+						<li>
+							E’ possibile fare il respawn, a seguito di morte durante la sessione, solo in questi casi:
+							<ol type="A">
+								<li><b>Non UFFICIALI:</b> La matrice genetica viene recuperata e portata presso un infermeria o survival kit <b>entro cinque minuti dal decesso.</b> Se ciò non avviene il giocatore è automaticamente congedato e deve lasciare sia la sessione che le comunicazioni.</li>
+								<li><b>UFFICIALI:</b> Gli ufficiali senza matrice genetica possono venire risequenziati <b>dopo un’attesa di 20 minuti.</b></li>
+								<li><b>MCU:</b> Tutti possono venire risequenziati <b>dopo 10 minuti.</b></li>
+							</ol>
+						</li>
+						<li>Può venir chiesto di identificarsi tramite la propria matrice genetica (gen.ID) in qualsiasi momento.</li>
+					</ol>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">I Reparti</h5>
+					<ol class="text-start">
+						<li>
+							Sono istituiti i seguenti reparti:
+							<ul>
+								<li><em class="ingegneria">Reparto Ingengeria</em>: Sistemi e Costruzioni</li>
+								<li><em class="militare">Reparto Militare</em>: Armamenti e Fanteria</li>
+								<li><em class="tattico">Reparto Tattico</em>: Analisi, Organizzazione e Navigazione</li>
+							</ul>
+							<i class="fs-6">I compiti di ogni reparto possono variare in basse alla situazione</i>
+						</li>
+						<li>Raggiunto il grado di Marinaio di Prima Classe (Mapc) ogni partecipante può scegliere il reparto presso il quale prestare servizio e prenderne l'uniforme secondo il colore di appartenenza.</li>
+						<li>Ogni partecipante al progetto dovrà scegliere un reparto di appartenenza o gli verrà assegnato dal CdF</li>
+						<li>Gli equipaggi, le missioni ed ogni altro compito vengono assegnati e gestite secondo i reparti di competenza.</li>
+					</ol>
+				</div>
+			</div>
+			<div class="row aling-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">Colore Tute</h5>
+					<div class="overflow-x-auto">
+						<table class="table table-dark table-striped table-bordered text-center">
+							<thead>
+								<tr class="table-head-dark">
+									<th>Grado</th>
+									<th>Tuta</th>
+									<th>HUE</th>
+									<th>Saturazione</th>
+									<th>Luminosità</th>
+								</tr>
+							</thead>
+							<tbody class="table-group-divider">
+								<tr>
+									<td>Reclute e Marinai</td>
+									<td>Standard</td>
+									<td>####</td>
+									<td>0%</td>
+									<td>100%</td>
+								</tr>
+								<tr class="ingegneria">
+									<td>Reparto Ingegneria</td>
+									<td>Standard</td>
+									<td>4°</td>
+									<td>100%</td>
+									<td>50%</td>
+								</tr>
+								<tr class="militare">
+									<td>Reparto Militare</td>
+									<td>Standard</td>
+									<td>####</td>
+									<td>100%</td>
+									<td>0%</td>
+								</tr>
+								<tr class="tattico">
+									<td>Reparto Tattico</td>
+									<td>Standard</td>
+									<td>230°</td>
+									<td>100%</td>
+									<td>0%</td>
+								</tr>
+								<tr>
+									<td>Ufficiali</td>
+									<td>Veteran mk.2</td>
+									<td>####</td>
+									<td>####</td>
+									<td>####</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">Accademia e Carriera da ufficiali</h5>
+					<ol class="text-start">
+						<li>Dal grado di Sottufficiale di Prima Classe (Supc.) si può far richiesta per essere inseriti nell’Accademia Navale (A.N.) come ospiti.</li>
+						<li>
+							L’iscrizione al corso dell’A.N. è condizionato da un esame preliminare di accesso all’accademia.
+							<ol type="A">
+								<li>È possibile sostenere l’esame in qualsiasi momento a discrezione del candidato.</li>
+								<li>In caso di esito negativo, l’esame può essere ripetuto non prima di 30gg.</li>
+								<li>Troverete maggiori info su corsi ed esami all’interno dell’accademia stessa.</li>
+							</ol>
+						</li>
+						<li>Superare l’esame di fine corso dell’Accademia Navale conferisce il grado di Guardiamarina e avvia la carriera da Ufficiale del candidato.</li>
+					</ol>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">Protocolli Operativi</h5>
+					<ol class="text-start">
+						<li>Nuovi protocolli operativi (P.O.) possono essere pubblicati ed integrati nel progetto.</li>
+						<li>Le pubblicazioni vengono fatte sul sito ufficiale e ripetute su Discord.</li>
+						<li>Le pubblicazioni devono essere note a tutti i membri.</li>
+						<li>Un P.O. entra in vigore 48 ore dopo la sua pubblicazione.</li>
+						<li>La sottoscrizione dei P.O. è obbligatoria e viene considerata accettata presentandosi alla sessione successiva la sua pubblicazione.</li>
+					</ol>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">Gestione delle presenze</h5>
+					<ol class="text-start">
+						<li>Le presenze in sessione ufficiali verranno prese 30 minuti dopo l’inizio dell’adunata ed aggiornate in caso di ritardatari per un massimo di altri 10 minuti “eccetto chi ha preventivamente giustificato nel modulo il ritardo” in questo caso basta partecipare un’ora alla sessione.</li>
+						<li>Le presenze in MCU non verranno incluse direttamente nella media delle presenze, ma daranno diritto ad un bonus di 2,5 punti alla media delle presenza.</li>
+						<li>Le assenze in sessione ufficiali sono riconosciute solo a chi si giustifica attraverso il modulo ed inficiano negativamente sulla media delle presenze.</li>
+						<li>Le assenze non giustificate “mancata compilazione del modulo o giustificazione palesemente falsa”. Andranno a valere negativamente sulla media delle presenze oltre a rimuovere 10 punti dalla media delle presenze per ogni assenza non giustificata.</li>
+						<li>Non presentarsi ad una sessione dopo aver dato la propria presenza nel modulo verrà visto allo stesso modo di una assenza non giustificata “in caso di impegno improvviso basta giustificarsi taggando un membro del comando su discord”.</li>
+						<li>Le assenze in MCU non penalizzano in alcun modo la media di presenze e non esiste alcuna differenza tra assenze giustificate e non giustificate.</li>
+						<li>Dare la propria presenza alla MCU e poi non presentarsi senza dare una giustificazione valida ha lo stesso valore di un’assenza non giustificata.</li>
+						<li>Essere in licenza permette di non avere l’obbligo di compilare il modulo e di non venire conteggiate le assenze “La licenza non può durare più di un mese tranne in rare eccezioni”.</li>
+						<li>La media presenze viene usata “non è l’unico indicatore” per valutare eventuali promozioni in caso di media superiore al 65% con un numero di presenze maggiore di 6. (più è alto il valore e maggiore sarà l’influenza sulla promozione).</li>
+						<li>In caso di media presenze inferiore al 50% si potrebbe prendere in considerazione la possibilità di degrado del membro interessato.</li>
+						<li>Se la media scende sotto il 30% per diverse sessioni il membro viene spostato automaticamente nel settore civile in caso delle reclute invece viene degradato in caso di membro graduato.</li>
+					</ol>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-start fw-bold">Funzionamento:</h5>
+					<p>Per la conta delle assenze verrà usato un sistema automatizzato per la gestione delle presenze è la media di presenza verrà calcolata in base a la formula qui sotto che segue le regole spiegate sopra.</p>
+					<div class="bg-primary-subtle border border-primary-subtle border-2 align-text-bottom">
+						<p class="fst-italic fw-bold text-center mb-0">((Presenze Ufficiali/(Presenze Ufficiali + Assenze Totali)) *
+							100) - (10 * Assenze Non giustificate) + (2,5 * Presenze MCU)</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</body>
 	<%- include('../partials/footer.ejs') %>
-
 </html>

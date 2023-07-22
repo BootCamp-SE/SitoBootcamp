@@ -1,20 +1,17 @@
-.paragraph-title {
-	text-align: center;
-	font-weight: bold;
-	padding-top: 3rem;
-}
-
 .ingegneria {
 	color: var(--bc-ingegneria);
 	--bs-table-striped-color: var(--bc-ingegneria);
+	--bs-table-color: var(--bc-ingegneria);
 }
 
 .militare {
 	color: var(--bc-militare);
 	--bs-table-striped-color: var(--bc-militare);
+	--bs-table-color: var(--bc-militare);
 }
 
 .tattico {
-	color: var(--bc-tattico);
+	color: var(--bc-tattico) !important;
 	--bs-table-striped-color: var(--bc-tattico);
+	--bs-table-color: var(--bc-tattico);
 }
