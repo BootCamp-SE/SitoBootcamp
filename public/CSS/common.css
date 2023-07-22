@@ -18,15 +18,10 @@
 
 body {
 	width: 100%;
-	--bs-body-bg: var(--bs-gray-dark);
-	--bs-body-color: var(--bs-light);
+	--bs-body-bg: var(--bs-gray-dark) !important;
+	--bs-body-color: var(--bs-light) !important;
 
 	--bc-ingegneria: hsl(4, 100%, 50%);
 	--bc-militare: hsl(230, 100%, 50%);
 	--bc-tattico: hsl(56, 100%, 50%);
-}
-
-.bg-red {
-	--bs-table-bg: red;
-	background-color: red;
 }
