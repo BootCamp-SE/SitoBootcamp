@@ -1,55 +1,201 @@
 <!DOCTYPE html>
-<html lang="it">
-<%- include('../partials/header.ejs') %>
+<html lang="it" data-bs-theme="dark">
+	<%- include('../partials/header.ejs') %>
 
-<body>
-  <%- include('../partials/navbar.ejs') %>
-  <h1><%= title %></h1>
+	<body>
+		<%- include('../partials/navbar.ejs') %>
+		<div class="container flex-colum bg-dark border border-dark rounded mt-4 mb-2 p-3">
+			<%- include('../partials/title') %>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col text-center">
+					<p>
+						Il BootCamp nasce nel 2018 da un’idea della Omicron66, una vecchia fazione capitanata da ExGold e Rikboom.
+						<br>
+						In seguito, seguendo il filo naturale dell’evoluzione, il progetto ha mirato ad addestrare nuovi giocatori alla cooperazione in gioco, nel contesto di un equipaggio militare.
+					</p>
+					<p>
+						L’Obiettivo con il tempo si è evoluto, andando a creare una vera e propria realtà all’interno di un gioco Sandbox. Acquisendo sempre più popolarità, il BootCamp è diventato un progetto di riferimento per le community Italiane di Space Engineers, che molto spesso si basano sulle impostazioni delle nostre sessioni per elaborare realtà alternative.
+					</p>
+					<p>All’interno del progetto ogni membro vi tratterà con professionalità, cercando di mettervi a vostro agio, per tirar fuori il meglio di voi.</p>
+					<p class="fw-bold bg-warning-subtle border border-warning-subtle border-2">Non è una Survival con gli amici, e ogni azione ha delle conseguenze sull’intero progetto.</p>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">Comando di Flotta Attuale</h5>
+					<div class="text-center pt-2">
+						<div>
+							<h6>Hyurex</h6>
+							<p>Ammiraglio di Flotta</p>
+						</div>
+						<div>
+							<h6>MaXeN</h6>
+							<p>Vice Ammiraglio</p>
+						</div>
+						<div>
+							<h6>Nekhar</h6>
+							<p>Commodoro</p>
+						</div>
+						<div>
+							<h6>Fabrizio</h6>
+							<p>Capitano</p>
+						</div>
+						<div>
+							<h6>ExGold</h6>
+							<p>Tenente Comandate</p>
+						</div>
+						<div>
+							<h6>ViperMKV</h6>
+							<p>Tenente</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">Gradi</h5>
+					<p class="text-start">Durante la vostra carriera nel BootCamp avrete la possibilità di darvi da fare per guadagnare delle promozioni. Per alcuni gradi sono necessari esami e abilitazioni, come spiegato nel <a href="/arruolati/regolamento">Regolamento</a> e nell’Accademia.</p>
+					<p class="text-start">Ogni grado guadagnato comporta privilegi ma soprattutto obblighi nei confronti del Comando e delle persone che eventualmente saranno assegnate a voi. Sarà quindi nostra cura prendere seriamente le promozioni che verranno comunicate, in quanto ci aspettiamo il più alto standard possibile dai nostri graduati.</p>
+					<p class="text-start">Potrete guadagnare nuovi gradi <b>partecipando alle sessioni</b>, guadagnando <b>encomi</b> <i>(assegnati dal tuo ufficiale comandante o dal Comando)</i>, <b>anzianità di servizio</b> o <b>superamento di esami</b>.</p>
+					<p class="text-start">Nelle tabelle sottostanti troverete le informazioni relative ai passaggi di grado. Ricordiamo inoltre che, qualora dovessero presentarsi particolari condizioni (comportamento, negligenza, insubordinazione, per citarne alcuni), l’ufficiale Comandante <b>può negare</b> il passaggio di grado.</p>
+				</div>
+			</div>
+			<div class="row align-items-start justify-content-center m-2 mt-3 p-2">
+				<div class="col">
+					<h5 class="text-center fw-bold">Sottoufficiali</h5>
+					<div class="overflow-x-scroll">
+						<table class="table table-dark table-striped table-bordered text-center">
+							<thead>
+								<tr class="table-head-dark">
+									<th>Mostrina</th>
+									<th>Grado</th>
+									<th>Abbreviazione</th>
+									<th>Requisiti</th>
+								</tr>
+							</thead>
+							<tbody class="table-group-divider">
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Sottoufficiali/Recluta.png" alt="Recluta"></td>
+									<td>Recluta</td>
+									<td>Rec.</td>
+									<td>Arruolamento nel progetto</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Sottoufficiali/Marinaio.png" alt="Marinaio"></td>
+									<td>Marinaio</td>
+									<td>Ma.</td>
+									<td>5 Sessioni + 1 Encomio</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Sottoufficiali/MarinaioPrimaClasse.png" alt="MarinaioPrimaClasse"></td>
+									<td>Marinaio di Prima Classe</td>
+									<td>Mapc.</td>
+									<td>1 Mese Permanenza con Grado Marinaio (Servizio Attivo) 5 Sessioni + 1 Encomio</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Sottoufficiali/MarinaioScelto.png" alt="MarinaioScelto"></td>
+									<td>Marinaio Scelto</td>
+									<td>Mas.</td>
+									<td>1 Mese Permanenza con Grado Mapc (Servizio Attivo) 5 Sessioni + 1 Encomio</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Sottoufficiali/CapoTerzaClasse.png" alt="CapoTerzaClasse"></td>
+									<td>Capo di Terza Classe</td>
+									<td>Ctc.</td>
+									<td>2 Mesi Permanenza con Grado Mas (Servizio Attivo) 5 Sessioni + 1 Encomio</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Sottoufficiali/CapoSecondaClasse.png" alt="CapoSecondaClasse"></td>
+									<td>Capo di Seconda Classe</td>
+									<td>Csc.</td>
+									<td>2 Mesi Permanenza con Grado Ctc (Servizio Attivo) 5 Sessioni + 1 Encomio</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Sottoufficiali/CapoPrimaClasse.png" alt="CapoPrimaClasse"></td>
+									<td>Capo di Prima Classe</td>
+									<td>Cpc.</td>
+									<td>2 Mesi Permanenza con Grado Csc (Servizio Attivo) + Colloquio Orale e Prova Pratica (Verifica delle Competenze)</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col">
+					<h5 class="text-center fw-bold">Ufficiali</h5>
+					<div class="overflow-x-scroll">
+						<table class="table table-dark table-striped table-bordered text-center">
+							<thead>
+								<tr class="table-head-dark">
+									<th>Mostrina</th>
+									<th>Grado</th>
+									<th>Abbreviazione</th>
+									<th>Requisiti</th>
+								</tr>
+							</thead>
+							<tbody class="table-group-divider">
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Ufficiali/AspiranteGuardiamarina.png" alt="AspiranteGuardiamarina"></td>
+									<td>Aspirante Guardiamarina</td>
+									<td>AGm.</td>
+									<td>Superamento Esame di Ingresso in Accademia</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Ufficiali/Guardiamarina.png" alt="Guardiamarina"></td>
+									<td>Guardiamarina</td>
+									<td>Gm.</td>
+									<td>Superamento Esame Accademia</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Ufficiali/Tenente.png" alt="Tenente"></td>
+									<td>Tenente</td>
+									<td>Ten.</td>
+									<td>3 Mesi di anzianità di servizio con il grado di Guardiamarina + Superamento esame Accademia</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Ufficiali/TenenteComandante.png" alt="TenenteComandante"></td>
+									<td>Tenente Comandante</td>
+									<td>Ten Co.</td>
+									<td>Superamento Esame Finale + 2 mesi di Esperienza sul Campo con il grado di Tenente</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Ufficiali/Comandante.png" alt="Comandante"></td>
+									<td>Comandante</td>
+									<td>Com.</td>
+									<td>Assegnato dal Comando per meriti e anzianità</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Ufficiali/Capitano.png" alt="Capitano"></td>
+									<td>Capitano</td>
+									<td>Cpt.</td>
+									<td>Assegnato dal Comando per meriti e anzianità</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Ufficiali/Commodoro.png" alt="Commodoro"></td>
+									<td>Commodoro</td>
+									<td>Comm.</td>
+									<td>Assegnato dal Comando per meriti e anzianità</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Ufficiali/ViceAmmiraglio.png" alt="ViceAmmiraglio"></td>
+									<td>Vice Ammiraglio</td>
+									<td>vAmm.</td>
+									<td>Nominato dall'Ammiraglio di Flotta</td>
+								</tr>
+								<tr>
+									<td><img src="/IMAGE/Mostrine/Ufficiali/Ammiraglio.png" alt="Ammiraglio"></td>
+									<td>Ammiraglio</td>
+									<td>Amm.</td>
+									<td>Eletto dai membri della flotta in seguito alla candidatura</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 
-  <p>Il BootCamp nasce nel 2018 da un'idea della Omicron66, una vecchia fazione capitanata da ExGold e Rikboom. <br />In seguito, seguendo il filo naturale dell'evoluzione, il progetto ha mirato ad addestrare nuovi giocatori alla cooperazione in gioco, nel contesto di un equipaggio militare.</p>
-  <p>L'Obiettivo con il tempo si è evoluto, andando a creare una vera e propria realtà all'interno di un gioco Sandbox. Acquisendo sempre più popolarità, il BootCamp è diventato un progetto di riferimento per le community Italiane di Space Engineers, che molto spesso si basano sulle impostazioni delle nostre sessioni per elaborare realtà alternative.</p>
-  <p>All'interno del progetto ogni membro vi tratterà con professionalità, cercando di mettervi a vostro agio, per tirar fuori il meglio di voi.</p>
-  <p>Non è una Survival con gli amici, e ogni azione ha delle conseguenze sull'intero progetto.</p>
-  
-  <h2 style="text-align: center;">
-    <strong>Comando di Flotta Attuale</strong>
-  </h2>
-  <p style="text-align: center;">
-    <strong><br style="font-weight: bold;">Hyurex</strong>
-    <br>Ammiraglio di Flotta
-    <br>Assegnato alla S.J.C. Radetzky 
-  </p>
+		</div>
 
-  
-  <p>
-    Durante la vostra carriera nel BootCamp avrete la possibilità di darvi da fare per guadagnare delle promozioni. Per alcuni gradi sono necessari esami e abilitazioni, come spiegato nel
-    <a href="/arruolati/regolamento">Regolamento</a>
-    e nell'
-    <a href="/accademia">Accademia</a>
-    .
-  </p>
-  <p>Ogni grado guadagnato comporta privilegi ma soprattutto obblighi nei confronti del Comando e delle persone che eventualmente saranno assegnate a voi. Sarà quindi nostra cura prendere seriamente le promozioni che verranno comunicate, in quanto ci aspettiamo il più alto standard possibile dai nostri graduati.</p>
-  <p>
-    Potrete guadagnare nuovi gradi
-    <strong>
-      partecipando alle sessioni
-    </strong>
-    , guadagnando
-    <strong>
-      encomi
-    </strong>
-    <em>
-      (assegnati dal tuo ufficiale comandante o dal Comando)
-    </em>
-    , 
-    <strong>anzianità di servizio</strong> o <strong>superamento di esami</strong>.<br/><br/>
-      Nelle tabelle sottostanti troverete le informazioni relative ai passaggi di grado. Ricordiamo inoltre che, qualora dovessero presentarsi particolari condizioni (comportamento, negligenza, insubordinazione, per citarne alcuni), l'ufficiale Comandante
-    <strong>
-      può negare
-    </strong>
-    il passaggio di grado.
-  </p>
-</body>
-<%- include('../partials/footer.ejs') %>
+	</body>
+	<%- include('../partials/footer.ejs') %>
 
 </html>
