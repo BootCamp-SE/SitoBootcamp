@@ -6,14 +6,7 @@
 	<body data-bs-theme="dark">
 		<%- include('../partials/navbar.ejs') %>
 		<div class="container flex-colum bg-dark border border-dark rounded mt-4 mb-2 p-3">
-			<div class="row row-cols-auto align-items-center justify-content-center m-2 p-2">
-				<div class="col">
-					<img src="/IMAGE/LogoBootcamp.png" alt="Logo Bootcamp" width="60" height="60">
-				</div>
-				<div class="col">
-					<h1>Regolamento Ufficiale</h1>
-				</div>
-			</div>
+			<%- include('../partials/title.ejs') %>
 			<div class="row align-items-center justify-content-center m-2 mt-3 p-2 bg-danger-subtle border border-danger-subtle border-2">
 				<div class="col">
 					<h5 class="text-center fw-bold text-decoration-underline text-danger">L’adesione al regolamento è obbligatoria e si intende accettato con la partecipazione al progetto</h5>
@@ -196,7 +189,7 @@
 				<div class="col">
 					<h5 class="text-start fw-bold">Funzionamento:</h5>
 					<p>Per la conta delle assenze verrà usato un sistema automatizzato per la gestione delle presenze è la media di presenza verrà calcolata in base a la formula qui sotto che segue le regole spiegate sopra.</p>
-					<div class="bg-primary-subtle border border-primary-subtle border-2 align-text-bottom">
+					<div class="bg-info-subtle border border-info-subtle border-2">
 						<p class="fst-italic fw-bold text-center mb-0">((Presenze Ufficiali/(Presenze Ufficiali + Assenze Totali)) *
 							100) - (10 * Assenze Non giustificate) + (2,5 * Presenze MCU)</p>
 					</div>

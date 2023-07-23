@@ -10,7 +10,7 @@ router.get('/faq', (req, res) => {
 });
 
 router.get('/regolamento', (req, res) => {
-	res.render('newEntries/regolamento.ejs', {title: 'Regolamento'});
+	res.render('newEntries/regolamento.ejs', {title: 'Regolamento Ufficiale'});
 });
 
 router.get('/progetto', (req, res) => {
