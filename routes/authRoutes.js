@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { requirePolicy, requireAuth } = require('../Middleware/auth');
+const { requireAuth, requirePolicy } = require('../Middleware/auth');
 const { getRanks, getSpecializations, getCrews, getPolicies } = require('../Middleware/utils');
 const { getUserData, getPlayerData } = require('../Controllers/authController');
 
@@ -19,33 +19,34 @@ router.get('/logout', requireAuth, (req, res) => {
 });
 
 // Signup
-router.get('/signup', requireAuth, requirePolicy, getPolicies, (req, res) => {
+router.get('/signup', requirePolicy, getPolicies, (req, res) => {
 	res.render('auth/signup', {title: 'Creazione utenti'});
 });
 
 // User and Player Settings
-router.get('/settings/:id', requireAuth, getRanks, getSpecializations, getPolicies, getCrews, (req, res) => {
-	const id = req.params.id;
-	if (!(res.locals.isAdmin || res.locals.userPolicies.includes('manageusers')) && id != res.locals.userID) {
+router.get('/settings/:id', requireAuth, (req, res, next) => {
+	if ((res.locals.isAdmin || res.locals.userPolicies.includes('manageusers')) && req.params.id != res.locals.userID) {
 		res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
-	} else {
-		getUserData(id, (user) => {
-			if (user.err) return res.status(500).render('error', {title: '500', error: user.err});
-			
-			res.locals.userData = user;
-			
-			if(res.locals.userData.hasPlayer) {
-				getPlayerData(id, (player) => {
-					if(player.err) return res.status(500).render('error', {title: '500', error: player.err});
-
-					res.locals.playerData = player;
-					res.render('auth/settings', {title: 'Impostazioni'});
-				});
-			} else {
-				res.render('auth/settings', {title: 'Impostazioni'});
-			}
-		});
 	}
+	next();
+}, getRanks, getSpecializations, getPolicies, getCrews, (req, res) => {
+	const id = req.params.id;
+	getUserData(id, (user) => {
+		if (user.err) return res.status(500).render('error', {title: '500', error: user.err});
+			
+		res.locals.userData = user;
+			
+		if(res.locals.userData.hasPlayer) {
+			getPlayerData(id, (player) => {
+				if(player.err) return res.status(500).render('error', {title: '500', error: player.err});
+
+				res.locals.playerData = player;
+				res.render('auth/settings', {title: 'Impostazioni'});
+			});
+		} else {
+			res.render('auth/settings', {title: 'Impostazioni'});
+		}
+	});
 });
 
 module.exports = router;

@@ -23,19 +23,19 @@ const checkToken = (req, res, next) => {
 				next();
 			}
 
-			User.findById(decodeToken.id, (err, user) => {
-				if (err || !user) {
-					res.locals.auth = false;
-					next();
-				} else {
+			User.findById(decodeToken.id)
+				.then(user => {
 					res.locals.auth = true;
 					res.locals.username = user.username;
 					res.locals.userID = user._id;
 					res.locals.isAdmin = user.policies.includes('administrator');
 					res.locals.userPolicies = user.policies;
 					next();
-				}
-			});
+				})
+				.catch(_err => {
+					res.locals.auth = false;
+					next();
+				});
 		});
 	} else {
 		res.locals.auth = false;
@@ -54,26 +54,32 @@ const requireAuth = (req, res, next) => {
 };
 
 const requirePolicy = (req, res, next) => {
-	const { userID, isAdmin, userPolicies } = res.locals;
+	const { auth, isAdmin, userPolicies } = res.locals;
+
 	if (isAdmin) {
 		next();
 	} else {
-		User.findById(userID, (err, user) => {
-			if (err || !user)
-				res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
-
-			const pagePolicies = pagesPolicy.find((p) => {
-				return req.originalUrl == p.route;
-			});
-
-			if (pagePolicies.policies.some((p) => {
-				return userPolicies.includes(p);
-			})) {
-				next();
-			} else {
-				res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
-			}
+		const pagePolicies = pagesPolicy.find(p => {
+			return req.originalUrl == p.route;
 		});
+
+		if (pagePolicies === undefined) {
+			next();
+			return;
+		}
+
+		if (!auth) {
+			res.status(401).render('error', { title: '401', error: 'Unauthorized access!' });
+			return;
+		}
+
+		if (pagePolicies.policies.some(p => {
+			return userPolicies.includes(p);
+		})) {
+			next();
+		} else {
+			res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
+		}
 	}
 };
 

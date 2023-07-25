@@ -15,21 +15,26 @@ const Converter = new showdown.Converter({
 });
 
 const getArticles = (req, res) => {
-	Article.find({}, (err, articles) => {
-		if (err) return res.status(500).render('error', {title: 'Impossibile ottenere gli articoli', error: err});
-		res.locals.articles = articles.reverse();
-		res.render('news/posts', { title: 'Articoli' });
-	});
+	Article.find({})
+		.then(articles => {
+			res.locals.articles = articles.reverse();
+			res.render('news/posts', { title: 'Articoli' });
+		})
+		.catch(err => {
+			return res.status(500).render('error', {title: 'Impossibile ottenere gli articoli', error: err});
+		});
 };
 
 const getArticle = (req, res) => {
 	const articleID = req.params.ID;
-	Article.findById(articleID, (err, article) => {
-		if (err || !article)
+	Article.findById(articleID)
+		.then(article => {
+			res.locals.article = article;
+			res.render('news/post', {title: article.title});
+		})
+		.catch(_err => {
 			return res.status(500).render('error', {title: '500', error: 'Impossibile accedere all\'articolo richiesto!'});
-		res.locals.article = article;
-		res.render('news/post', {title: article.title});
-	});
+		});
 };
 
 const parseMD = (text) => {
@@ -49,12 +54,13 @@ const createArticle = (req, res) => {
 			body: parseMD(body),		//TODO: Add input sanitizer
 			author,
 			author_id,
-		},
-		(err, _article) => {
-			if (err) return res.status(500).json({ err: err.message });
-			res.status(201).json({ res: 'Articolo creato!' });
-		}
-	);
+		})
+		.then(_article => {
+			return res.status(201).json({ res: 'Articolo creato!' });
+		})
+		.catch(err => {
+			return res.status(500).json({ err: err.message });
+		});
 };
 
 module.exports = {

@@ -47,9 +47,9 @@ app.get('/', (req, res) => {
 	res.render('index', { title: 'Home' });
 });
 
-app.use('/accademia', auth.requireAuth, auth.requirePolicy, AccademyRoutes);
-app.use('/admin', auth.requireAuth, AdminRoutes);
-app.use('/api', ApiRoutes);
+app.use('/accademia', auth.requirePolicy, AccademyRoutes);
+app.use('/admin', auth.requirePolicy, AdminRoutes);
+app.use('/api', auth.requirePolicy, ApiRoutes);
 app.use('/arruolati', NewEntriesRoutes);
 app.use('/auth', AuthRoutes);
 app.use('/news', NewsRoutes);

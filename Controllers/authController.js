@@ -17,9 +17,9 @@ const login = async (req, res) => {
 		const token = createToken(user._id, remember);
 		const maxAge = remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
 		res.cookie('JWT', token, { httpOnly: true, secure: true, maxAge: maxAge * 1000, sameSite: 'Strict' });
-		res.status(200).json({ res: 'Accesso confermato!' });
+		return res.status(200).json({ res: 'Accesso confermato!' });
 	} catch (err) {
-		res.status(500).json({ err: 'Credenziali non valide!' });
+		return res.status(500).json({ err: 'Credenziali non valide!' });
 	}
 };
 
@@ -34,20 +34,22 @@ const signup = async (req, res) => {
 	userData.policies = policies;
 
 	try {
-		User.create(userData, (err, user) => {
-			if (!isNullOrUndefined(err) || isNullOrUndefined(user)) 
+		User.create(userData)
+			.then(user => {
+				if (!createPlayer)
+					return res.status(200).json({ res: 'Utente creato!' });
+
+				Player.create({ _id: user.id }) 
+					.then(_player => {
+						return res.status(200).json({ res: 'Utente e player creati!' });
+					})
+					.catch(_err => {
+						return res.status(500).json({ err: 'Profilo giocatore non creato!' });
+					});
+			})
+			.catch(err => {
 				return res.status(500).json({ err: err.errors });
-
-			if (!createPlayer)
-				return res.status(200).json({ res: 'Utente creato!' });
-
-			Player.create({ _id: user.id }, (err, _) => {
-				if (!isNullOrUndefined(err)) {
-					return res.status(500).json({ err: 'Profilo giocatore non creato!' });
-				}
-				return res.status(200).json({ res: 'Utente e player creati!' });
 			});
-		});
 	} catch (err) {
 		return res.status(500).json({ err });
 	}
@@ -56,24 +58,25 @@ const signup = async (req, res) => {
 const deleteUser = async (req, res) => {
 	const userId = req.query.ID;
 	try {
-		User.findById(userId, (err, data) => {
-			if (!isNullOrUndefined(err) || isNullOrUndefined(data))
+		User.findById(userId)
+			.then(user => {
+				if (user.hasPlayer) {
+					Player.deleteOne({_id: userId})
+						.catch(err => {
+							return res.status(500).json({err});
+						});
+				}
+			})
+			.catch(_err => {
 				return res.status(500).json({err: 'Utente non trovato'});
-
-			if (data.hasPlayer) {
-				Player.deleteOne({_id: userId}, (err, _) => {
-					if (!isNullOrUndefined(err))
-						return res.status(500).json({err});
-				});
-			}
+			});
 			
-			User.deleteOne({_id: userId}, (err, _) => {
-				if (!isNullOrUndefined(err))
-					return res.status(500).json({err});
+		User.deleteOne({_id: userId})
+			.then(err => {
+				return res.status(500).json({err});
 			});
 
-			return res.status(200).json({res: 'Utente eliminato'});
-		});
+		return res.status(200).json({res: 'Utente eliminato'});
 	} catch (err) {
 		return res.status(500).json({err});
 	}
@@ -181,21 +184,23 @@ const updatePlayerSettings = async (req, res) => {
 };
 
 const getUserData = (ID, cb) => {
-	User.findById(ID, {password: 0}, function (err, user) {
-		if (!isNullOrUndefined(err) || isNullOrUndefined(user))
+	User.findById(ID, {password: 0})
+		.then(user => {
+			return cb(user);
+		})
+		.catch(_err => {
 			return cb({ err: 'Utente non trovato!' });
-
-		return cb(user);
-	});
+		});
 };
 
 const getPlayerData = (ID, cb) => {
-	Player.findById(ID, (err, player) => {
-		if (!isNullOrUndefined(err) || isNullOrUndefined(player))
+	Player.findById(ID) 
+		.then(player => {
+			return cb(player);
+		})
+		.catch(_err => {
 			return cb({ err: 'Profilo giocatore non trovato!' });
-
-		return cb(player);
-	});
+		});
 };
 
 module.exports = {

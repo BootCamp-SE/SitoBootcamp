@@ -6,7 +6,7 @@
 	return check;
 } %>
 
-<nav class="navbar navbar-expand-md bg-dark sticky-top" style="border-bottom: 5px solid var(--bs-gray-dark);">
+<nav class="navbar navbar-expand-md bg-dark sticky-top" style="border-bottom: 5px solid var(--bs-body-bg);">
 	<div class="container-fluid">
 		<!-- Icon -->
 		<a class="navbar-brand" href="/" style="margin-left: 10px;">
@@ -16,24 +16,26 @@
 		<!-- Profile small screen -->
 		<div class="d-block d-md-none ms-auto pe-1">
 			<% if (auth) { %>
-				<button class="btn btn-outline-dark active" data-bs-toggle="dropdown">
-					<i class="bi bi-person-circle"></i>
-				</button>
+			<button class="btn btn-outline-dark active" data-bs-toggle="dropdown">
+				<i class="bi bi-person-circle"></i>
+			</button>
 
-				<ul class="dropdown-menu dropdown-menu-end">
-					<li><h6 class="dropdown-header"><%= username %></h6></li>
-					<li><a class="dropdown-item" href="/auth/settings/<%= userID %>"><i class="bi bi-gear"></i> Impostazioni</a></li>
-					<li><a class="dropdown-item" href="/auth/logout">Esci</a></li>
-				</ul>
-			<% } else { %>	
-				<a class="btn btn-outline-dark active" href="/auth/login" role="button">
-					<i class="bi bi-door-open"></i>
-				</a>
+			<ul class="dropdown-menu dropdown-menu-end">
+				<li>
+					<h6 class="dropdown-header"><%= username %></h6>
+				</li>
+				<li><a class="dropdown-item" href="/auth/settings/<%= userID %>"><i class="bi bi-gear"></i> Impostazioni</a></li>
+				<li><a class="dropdown-item" href="/auth/logout">Esci</a></li>
+			</ul>
+			<% } else { %>
+			<a class="btn btn-outline-dark active" href="/auth/login" role="button">
+				<i class="bi bi-door-open"></i>
+			</a>
 			<% } %>
 		</div>
 
 		<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav">
-			<span class="navbar-toggler-icon"/>
+			<span class="navbar-toggler-icon" />
 		</button>
 
 		<div class="collapse navbar-collapse" id="nav">
@@ -56,55 +58,55 @@
 						<li><a class="dropdown-item" href="/news/safenet">SafeNet Radio</a></li>
 						<li><a class="dropdown-item" href="/news/eventi">Storico Eventi</a></li>
 						<% if (auth && (isAdmin || checkPolicy(["readreport", "readreportsecret"]))) { %>
-							<li><a class="dropdown-item" href="/news/rapporti">Rapporti</a></li>
-							<li><a class="dropdown-item" href="/news/navi">Forum Navi</a></li>
+						<li><a class="dropdown-item" href="/news/rapporti">Rapporti</a></li>
+						<li><a class="dropdown-item" href="/news/navi">Forum Navi</a></li>
 						<% } %>
 					</ul>
 				</li>
 				<!-- Accademia -->
-				<% if (auth && (isAdmin || checkPolicy(["teacher", "student"]))) { %>
-					<li class="nav-item dropdown" style="margin-right: 5px;margin-left: 5px;">
-						<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown">Accademia</button>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/accademia">Home accademia</a></li>
-							<li><a class="dropdown-item" href="/accademia/ingegneria">Ingegneria</a></li>
-							<li><a class="dropdown-item" href="/accademia/militare">Militare</a></li>
-							<li><a class="dropdown-item" href="/accademia/tattica">Tattica</a></li>
-							<li><a class="dropdown-item" href="/accademia/scripts">Programmazione</a></li>
-							<li><a class="dropdown-item" href="/accademia/varie">Varie</a></li>
-						</ul>
-					</li>
-				<% } %>
+				<li class="nav-item dropdown" style="margin-right: 5px;margin-left: 5px;">
+					<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown">Accademia</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="/accademia">Home accademia</a></li>
+						<% if (auth && (isAdmin || checkPolicy(["teacher", "student"]))) { %>
+						<li><a class="dropdown-item" href="/accademia/ingegneria">Ingegneria</a></li>
+						<li><a class="dropdown-item" href="/accademia/militare">Militare</a></li>
+						<li><a class="dropdown-item" href="/accademia/tattica">Tattica</a></li>
+						<li><a class="dropdown-item" href="/accademia/scripts">Programmazione</a></li>
+						<li><a class="dropdown-item" href="/accademia/varie">Varie</a></li>
+						<% } %>
+					</ul>
+				</li>
 				<!-- Admin Panel -->
 				<% if (auth && (isAdmin || checkPolicy(['manageusers', 'createuser']))) { %>
-					<li class="nav-item dropdown" style="margin-right: 5px;margin-left: 5px;">
-						<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown">Pannello Admin</button>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/admin">Home admin</a></li>
-							<% if (isAdmin || checkPolicy(['manageusers'])) { %>
-								<li><a class="dropdown-item" href="/admin/users">Gestione utenti</a></li>
-							<% }
+				<li class="nav-item dropdown" style="margin-right: 5px;margin-left: 5px;">
+					<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown">Pannello Admin</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="/admin">Home admin</a></li>
+						<% if (isAdmin || checkPolicy(['manageusers'])) { %>
+						<li><a class="dropdown-item" href="/admin/users">Gestione utenti</a></li>
+						<% }
 							if (isAdmin || checkPolicy(['createuser'])) { %>
-								<li><a class="dropdown-item" href="/auth/signup">Creazione utenti</a></li>
-							<% } %>
-						</ul>
-					</li>
+						<li><a class="dropdown-item" href="/auth/signup">Creazione utenti</a></li>
+						<% } %>
+					</ul>
+				</li>
 				<% } %>
 			</ul>
 			<!-- Login or User -->
 			<ul class="navbar-nav d-none d-md-block ms-auto">
 				<% if (auth) { %>
-					<li class="nav-item dropdown">
-						<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i> <%= username %></button>
-							<ul class="dropdown-menu dropdown-menu-end">
-								<li><a class="dropdown-item" href="/auth/settings/<%= userID %>"><i class="bi bi-gear"></i> Impostazioni</a></li>
-								<li><a class="dropdown-item" href="/auth/logout">Esci</a></li>
-							</ul>
-					</li>
+				<li class="nav-item dropdown">
+					<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i> <%= username %></button>
+					<ul class="dropdown-menu dropdown-menu-end">
+						<li><a class="dropdown-item" href="/auth/settings/<%= userID %>"><i class="bi bi-gear"></i> Impostazioni</a></li>
+						<li><a class="dropdown-item" href="/auth/logout">Esci</a></li>
+					</ul>
+				</li>
 				<% } else { %>
-					<li class="nav-item">
-						<a class="nav-link" href="/auth/login"><i class="bi bi-door-open"></i> Login</a>
-					</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/auth/login"><i class="bi bi-door-open"></i> Login</a>
+				</li>
 				<% } %>
 			</ul>
 		</div>
