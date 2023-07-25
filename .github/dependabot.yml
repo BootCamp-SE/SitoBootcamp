@@ -10,11 +10,11 @@ updates:
     schedule:
       interval: "weekly"
     allow:
-      dependency-type: "production"
+      - dependency-type: "production"
     assignees:
-      metiu19
+      - metiu19
     commit-message:
       prefix: "[UPGRADE] "
       include: "scope"
     labels:
-      "Dependencies"
+      - "Dependencies"
