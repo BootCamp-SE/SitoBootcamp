@@ -5,28 +5,35 @@
 
 	<body>
 		<%- include('../partials/navbar.ejs') %>
-		<h1><%= title %></h1>
-		<form action="/userapi">
-			<div class="container fields">
-				<label for="username"><b>Utente</b></label>
-				<br>
-				<input type="text" id="username" name="username" placeholder="Inserire Nome Utente" required>
-				<br>
-				<label for="password"><b>Password</b></label>
-				<br>
-				<input type="password" id="password" name="password" placeholder="Inserire Password" required>
-				<i class="bi bi-eye-slash" id="togglePassword"></i>
-				<br>
-
-				<button type="submit" style="width: 40%;">Accedi</button>
-
-				<label class="d-flex">
-					<input type="checkbox" id="rememberMe" name="rememberMe" checked="checked"> Ricordami
-				</label>
-
-				<div id="login-feedback"></div>
-			</div>
-		</form>
+		<div class="container flex-colum bg-dark border border-dark rounded mt-4 mb-2 p-3">
+			<%- include('../partials/title.ejs') %>
+			<form>
+				<div class="row align-items-center justify-content-center m-2 mt-3 p-2 flex-colum">
+					<div class="col-md-5 mb-3">
+						<label for="username"><b>Utente</b></label>
+						<input type="text" name="username" id="username" class="form-control" required>
+					</div>
+					<div class="w-100"></div> <!-- New Line -->
+					<div class="col-md-5 mb-3">
+						<label for="password"><b>Password</b></label>
+						<div class="input-group">
+							<input type="password" name="password" id="password" class="form-control" required>
+							<i class="bi bi-eye-slash btn btn-outline-secondary" id="togglePassword"></i>
+						</div>
+					</div>
+					<div class="w-100"></div> <!-- New Line -->
+					<div class="col-md-5 mb-3 d-flex align-items-center justify-content-evenly">
+						<div>
+							<input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" checked>
+							<label for="rememberMe">Ricordami</label>
+						</div>
+						<button class="btn btn-primary" type="submit">Accedi</button>
+					</div>
+					<div class="w-100"></div> <!-- New Line -->
+					<div class="col-md-5 mb-3 d-flex align-items-center justify-content-evenly" id="login-feedback"></div>
+				</div>
+			</form>
+		</div>
 	</body>
 	<%- include('../partials/footer.ejs') %>
 
