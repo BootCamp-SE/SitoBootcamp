@@ -17,10 +17,11 @@ const getRoutesPolicies = async () => {
 const checkToken = (req, res, next) => {
 	const token = req.cookies.JWT;
 	if (token) {
-		JWT.verify(token, process.env.JWT_SECRET, async (err, decodeToken) => {
+		JWT.verify(token, process.env.JWT_SECRET, (err, decodeToken) => {
 			if (err) {
 				res.locals.auth = false;
 				next();
+				return;
 			}
 
 			User.findById(decodeToken.id)
@@ -48,6 +49,7 @@ const requireAuth = (req, res, next) => {
 	const { auth } = res.locals;
 	if (auth) {
 		next();
+		return;
 	} else {
 		res.status(401).render('error', { title: '401', error: 'Unauthorized access!' });
 	}
@@ -58,6 +60,7 @@ const requirePolicy = (req, res, next) => {
 
 	if (isAdmin) {
 		next();
+		return;
 	} else {
 		const pagePolicies = pagesPolicy.find(p => {
 			return req.originalUrl == p.route;
@@ -77,6 +80,7 @@ const requirePolicy = (req, res, next) => {
 			return userPolicies.includes(p);
 		})) {
 			next();
+			return;
 		} else {
 			res.status(403).render('error', { title: '403', error: 'Forbidden access!' });
 		}

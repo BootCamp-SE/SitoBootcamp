@@ -55,11 +55,11 @@ const signup = async (req, res) => {
 	}
 };
 
-const deleteUser = async (req, res) => {
+const deleteUser = (req, res) => {
 	const userId = req.query.ID;
 	try {
-		User.findById(userId)
-			.then(user => {
+		User.findById(userId, {password: 0})
+			.then( user => {
 				if (user.hasPlayer) {
 					Player.deleteOne({_id: userId})
 						.catch(err => {
@@ -72,11 +72,17 @@ const deleteUser = async (req, res) => {
 			});
 			
 		User.deleteOne({_id: userId})
-			.then(err => {
+			.then(response => {
+				if (response.acknowledged) {
+					return res.status(200).json({res: 'Utente eliminato'});
+				} else {
+					return res.status(500).json({err: res});
+				}
+			})
+			.catch(err => {
+				console.error(err);
 				return res.status(500).json({err});
 			});
-
-		return res.status(200).json({res: 'Utente eliminato'});
 	} catch (err) {
 		return res.status(500).json({err});
 	}
