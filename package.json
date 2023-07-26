@@ -9,12 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/MaXeN9818/Sito-Bootcamp.git"
+    "url": "github.com/BootCamp-SE/SitoBootcamp.git"
   },
   "contributors": [
     "MaXeN9818",
     "Metiu19",
-    "Keyc"
+    "Keyc",
+		"VIPERMKV"
   ],
   "license": "MIT",
   "dependencies": {
