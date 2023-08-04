@@ -52,14 +52,16 @@
 				</li>
 				<!-- News -->
 				<li class="nav-item dropdown" style="margin-right: 5px;margin-left: 5px;">
-					<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown">Articoli</button>
+					<button class="btn btn-outline-dark active dropdown-toggle" data-bs-toggle="dropdown">Annunci</button>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="/news">Notizie</a></li>
-						<li><a class="dropdown-item" href="/news/safenet">SafeNet Radio</a></li>
-						<li><a class="dropdown-item" href="/news/eventi">Storico Eventi</a></li>
 						<% if (auth && (isAdmin || checkPolicy(["readreport", "readreportsecret"]))) { %>
-						<li><a class="dropdown-item" href="/news/rapporti">Rapporti</a></li>
-						<li><a class="dropdown-item" href="/news/navi">Forum Navi</a></li>
+							<li><a class="dropdown-item" href="/news/rapporti">Rapporti</a></li>
+						<% } %>
+						<% if (auth && isAdmin) { %>
+							<li><a class="dropdown-item" href="/news/eventi">Storico Eventi</a></li>
+							<li><a class="dropdown-item" href="/news/safenet">SafeNet Radio</a></li>
+							<li><a class="dropdown-item" href="/news/navi">Forum Navi</a></li>
 						<% } %>
 					</ul>
 				</li>
