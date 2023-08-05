@@ -9,7 +9,8 @@ router.get('/articleEditor', requirePolicy, (req, res) => {
 	res.render('news/articleEditor', { title: 'Article Editor' });
 });
 
-router.get('/eventi', (req, res) => {
+// NOTE: Require admin because still in dev
+router.get('/eventi', requireAdmin, (req, res) => {
 	res.render('news/events', { title: 'Storico Eventi' });
 });
 
@@ -17,7 +18,8 @@ router.get('/rapporti', requirePolicy, (req, res) => {
 	res.render('news/reports', { title: 'Rapporti' });
 });
 
-router.get('/safenet', (req, res) => {
+// NOTE: Require admin because still in dev
+router.get('/safenet', requireAdmin, (req, res) => {
 	res.render('news/safeNet', { title: 'SafeNet Radio' });
 });
 
