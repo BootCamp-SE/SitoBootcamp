@@ -45,9 +45,11 @@ const createArticle = (req, res) => {
 	const { title, subtitle, tags, body } = req.body;
 	const author = res.locals.username;
 	const author_id = res.locals.userID;
+	const image = `/MediaCache/${req.file.filename}`;
 
 	Article.create(
 		{
+			image,
 			title,
 			subtitle,
 			tags,

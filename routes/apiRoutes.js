@@ -1,5 +1,8 @@
 const { Router } = require('express');
 const router = Router();
+const multer = require('multer');
+
+const upload = multer({dest: './public/MediaCache/'});
 
 const authController = require('../Controllers/authController');
 const newsController = require('../Controllers/newsController');
@@ -19,7 +22,7 @@ router.put('/auth/settings/policies', authController.updateUserPolicies);
 router.put('/auth/settings/player', authController.updatePlayerSettings);
 
 // Create New Article
-router.post('/news/createArticle', newsController.createArticle);
+router.post('/news/createArticle', upload.single('image'), newsController.createArticle);
 
 router.use('/', (req, res) => {
 	res.status(404).json({err: 'API endpoint not found!'});
