@@ -4,4 +4,4 @@ node_modules
 bower_components
 launch.json
 .dccache
-./public/MediaCache
+/public/MediaCache/*
