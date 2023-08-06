@@ -8,7 +8,7 @@ form.addEventListener('submit', async (e) => {
 	Object.keys(form.tags.options).forEach( async key => {
 		const option = form.tags.options[key];
 		if (option.selected) {
-			tags.push(option.value);
+			tags.push(option.value.toString());
 		}
 	});
 	console.log(tags);

@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const router = Router();
+
 const { requirePolicy, requireAdmin } = require('../Middleware/auth');
 const { getArticles, getArticle } = require('../Controllers/newsController');
 
