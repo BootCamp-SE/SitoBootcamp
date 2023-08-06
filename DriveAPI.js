@@ -18,7 +18,9 @@ async function authorize() {
 		pkey.client_email,
 		null,
 		pkey.private_key,
-		SCOPES
+		SCOPES,
+		null,
+		pkey.private_key_id,
 	);
 	await jwtClient.authorize();
 	return jwtClient;
