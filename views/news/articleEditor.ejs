@@ -1,45 +1,53 @@
 <!DOCTYPE html>
 <html lang="it" data-bs-theme="dark">
 	<%- include('../partials/header.ejs') %>
-	<script nonce="<%= nonce %>" src="/JS/articleEditor.js" type="text/javascript" defer></script>
-	<script nonce="<%= nonce %>" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.3/purify.min.js" integrity="sha512-3dcbndbDLLWfKWevQu8C/1qVRcxx6h+eRDSnn3/pcBZHISRJgsj3u71U/Ad6nQVHrEi05hOSr6Hnb/p0pWc94w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="/JS/articleEditor.js" nonce="<%= nonce %>" defer></script>
 
-	<body class="">
+	<body>
 		<%- include('../partials/navbar.ejs') %>
-		<h1><%= title %></h1>
-		<div class="container">
-			<form>
-				<div class="form-floating mb-2">
-					<input type="text" placeholder="Inserire un titolo" name="title" class="form-control" required>
-					<label for="title" class="form-lable">Inserisci un titolo</label>
+		<div class="container flex-colum bg-dark border border-dark rounded mt-4 mb-2 p-3">
+			<%- include('../partials/title') %>
+			<form action="/API/news/createArticle" enctype="multipart/form-data" method="post">
+				<div class="row align-items-center justify-content-center m-2 mt-3 p-2">
+					<div class="col-md-5 mb-3">
+						<label for="image" class="form-label"><b>Copertina</b></label>
+						<input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+					</div>
+					<div class="col-md-5 mb-3">
+						<label for="tags" class="form-label"><b>Tags</b></label>
+						<select name="tags" id="tags" class="form-select" multiple>
+							<option selected disabled>Seleziona un TAG</option>
+							<option value="Annunci">Annunci</option>
+							<option value="Comunicazioni">Comunicazioni</option>
+							<option value="Regolamento">Regolamento</option>
+							<option value="Missione">Missione</option>
+							<option value="Evento">Evento</option>
+							<option value="Importante">Importante</option>
+							<option value="Avviso">Avviso</option>
+						</select>
+					</div>
+					<div class="w-100"></div> <!-- New Line -->
+					<div class="col-md-5 mb-3">
+						<label for="title" class="form-label"><b>Titolo</b></label>
+						<input type="text" class="form-control" id="title" required>
+					</div>
+					<div class="col-md-5 mb-3">
+						<label for="subtitle" class="form-label"><b>Sottotitolo</b></label>
+						<input type="text" class="form-control" id="subtitle" name="subtitle" required>
+					</div>
+					<div class="w-100"></div> <!-- New Line -->
+					<div class="col-md-10 mb-3">
+						<label for="body" class="form-label"><b>Contenuto</b></label>
+						<textarea class="form-control" id="body" name="body" style="height: 350px;" required></textarea>
+					</div>
+					<div class="w-100"></div> <!-- New Line -->
+					<div class="col-md-5 mb-3 d-flex align-items-center justify-content-center">
+						<button type="submit" class="btn btn-primary btn-lg">Pubblica</button>
+					</div>
 				</div>
-				<div class="form-floating mb-2">
-					<input type="text" placeholder="Inserire un sottotitolo" name="subtitle" class="form-control" required>
-					<label for="subtitle" class="form-lable">Inserisci un sottotitolo</label>
-				</div>
-				<div class="mb-2">
-					<label for="tags" class="form-label">Inserisci i tag</label>
-					<input type="text" name="tags" id="tags" class="form-control" list="tagsList" required>
-					<datalist id="tagsList">
-						<option value="ANNUNCI">
-						<option value="COMUNICAZIONI">
-						<option value="IMPORTANTE">
-						<option value="REGOLAMENTO">
-						<option value="MISSIONE">
-						<option value="EVENTO">
-						<option value="AVVISO">
-					</datalist>
-				</div>
-
-				<label for="md-editor" class="form-label">Inserisci il testo</label>
-				<textarea id="md-editor" style="min-height: 500px" required></textarea>
-
-				<button type="submit" class="btn btn-primary" id="submit">Pubblica</button>
-				<div id="feedback"></div>
 			</form>
 		</div>
 	</body>
-
 	<%- include('../partials/footer.ejs') %>
 
 </html>

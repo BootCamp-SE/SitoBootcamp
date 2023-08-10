@@ -20,6 +20,7 @@
 			<ul class="list-group">
 				<% articles.forEach((article) => { %>
 					<li class="list-group-item">
+						<img src="<%= article.image %>" width="60px" height="60px">
 						<a href="/news/<%= article._id %>" class="link-dark"><h4><%= article.title %></h4></a>
 						<h6 class="text-secondary"><%= article.subtitle %></h6>
 						<% article.tags.forEach(tag => { %>

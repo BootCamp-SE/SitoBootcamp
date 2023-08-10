@@ -1,5 +1,8 @@
 const Article = require('../Models/article');
 const showdown = require('showdown');
+const gDrive = require('../Middleware/googleDriveAPIs');
+const path = require('path');
+const fs = require('fs');
 
 const Converter = new showdown.Converter({
 	noHeaderId: true,
@@ -43,23 +46,37 @@ const parseMD = (text) => {
 
 const createArticle = (req, res) => {
 	const { title, subtitle, tags, body } = req.body;
+	const tagsArray = tags.split(',');
 	const author = res.locals.username;
 	const author_id = res.locals.userID;
+	const image = `/MediaCache/${req.file.filename}`;
+	const filePath = path.join(__dirname, '../public', image);
 
 	Article.create(
 		{
+			image,
 			title,
 			subtitle,
-			tags,
+			tags: tagsArray,
 			body: parseMD(body),		//TODO: Add input sanitizer
 			author,
 			author_id,
 		})
-		.then(_article => {
-			return res.status(201).json({ res: 'Articolo creato!' });
+		.then(async article => {
+			res.status(201).json({ res: 'Articolo creato!' });
+			const fileURL = await gDrive.uploadFile(filePath);
+			article.image = fileURL;
+			await article.save();
+			fs.unlinkSync(filePath);
+			return;
 		})
 		.catch(err => {
-			return res.status(500).json({ err: err.message });
+			console.error(err);
+			if (fs.existsSync(filePath)){
+				fs.unlinkSync(filePath);
+			}
+			res.status(500).json({ err: err.message });
+			return;
 		});
 };
 

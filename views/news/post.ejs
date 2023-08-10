@@ -6,6 +6,7 @@
 		<%- include('../partials/navbar.ejs') %>
 
 		<div class="container mt-5 border border-secondary rounded" style="--bs-border-opacity: .5">
+			<img src="<%= article.image %>" width="100px" height="100px">
 			<h4><%= article.title %></h4>
 			<h6 class="text-secondary"><%= article.subtitle %></h6>
 			<% article.tags.forEach(tag => { %>
