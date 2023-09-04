@@ -26,7 +26,7 @@
     "express": "^4.18.2",
     "googleapis": "^126.0.1",
     "helmet": "^7.0.0",
-    "jsonwebtoken": "^9.0.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
     "mongoose-gridfs": "^1.3.0",
     "mongoose-unique-validator": "^4.0.0",
