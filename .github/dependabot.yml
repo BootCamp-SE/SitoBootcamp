@@ -18,3 +18,8 @@ updates:
       include: "scope"
     labels:
       - "Dependencies"
+    groups:
+      production-dependencies:
+      dependency-type: "production"
+    reviewers:
+      - metiu19
