@@ -20,6 +20,6 @@ updates:
       - "Dependencies"
     groups:
       production-dependencies:
-      dependency-type: "production"
+        dependency-type: "production"
     reviewers:
       - metiu19
